@@ -40,6 +40,8 @@ public:
 
     bool SoundEffectsEnabled();
     void SoundEffectsEnabled(bool enable);
+    bool GlassEffectsEnabled();
+    void GlassEffectsEnabled(bool enable);
 
     /* Skin */
     std::wstring CurrentSkin();
@@ -224,6 +226,7 @@ private:
     static constexpr const char *XML_SHOWONSTART = "showOnStartup";
     static constexpr const char *XML_SKIN = "skin";
     static constexpr const char *XML_SOUNDS = "soundEffects";
+    static constexpr const char *XML_GLASS = "glassEffects";
     static constexpr const char *XML_SUBSCRIBE_EJECT = "subscribeEjectEvents";
     static constexpr const char *XML_SUBSCRIBE_VOL = "subscribeVolumeEvents";
     static constexpr const char *XML_UPDATEAUTO = "automaticUpdates";

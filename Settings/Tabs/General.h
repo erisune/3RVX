@@ -36,6 +36,7 @@ private:
     Checkbox *_startup;
     Checkbox *_showStartup;
     Checkbox *_sounds;
+    Checkbox *_glass;
     Checkbox *_autoUpdate;
     Button *_checkNow;
 

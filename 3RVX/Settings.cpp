@@ -548,6 +548,14 @@ void Settings::SoundEffectsEnabled(bool enable) {
     SetEnabled(XML_SOUNDS, enable);
 }
 
+bool Settings::GlassEffectsEnabled() {
+    return GetEnabled(XML_GLASS, DefaultSettings::GlassEnabled);
+}
+
+void Settings::GlassEffectsEnabled(bool enable) {
+    SetEnabled(XML_GLASS, enable);
+}
+
 bool Settings::EjectIconEnabled() {
     return GetEnabled(XML_EJECTICON, DefaultSettings::EjectIcon);
 }

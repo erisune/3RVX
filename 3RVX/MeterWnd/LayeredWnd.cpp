@@ -18,7 +18,8 @@ Window(className, title, hInstance,
     CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, NULL,
     WS_POPUP, WS_EX_LAYERED | exStyles),
 _transparency(255),
-_visible(false) {
+_visible(false),
+_settings(Settings::Instance()) {
 
     Bitmap(bitmap);
 }
@@ -94,13 +95,7 @@ bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
         return false;
     }
 
-    /* Disable for Windows 8+ */
-    if (IsWindows8OrGreater()) {
-        return false;
-    }
-
-    /* Disable for Windows XP */
-    if (IsWindowsXPOrGreater() == true && IsWindowsVistaOrGreater() == false) {
+    if (!_settings->GlassEffectsEnabled()) {
         return false;
     }
 

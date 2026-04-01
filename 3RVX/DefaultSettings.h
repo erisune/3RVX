@@ -42,6 +42,7 @@ public:
     static constexpr const float VolumeLimit = 1.0f;
     static const bool ShowOnStartup = true;
     static const bool SoundsEnabled = true;
+    static const bool GlassEnabled = true;
     static const int OSDOffset = 140;
     static const Settings::OSDPos OSDPosition = Settings::OSDPos::Bottom;
     static const bool AutoUpdate = false;

@@ -8,6 +8,7 @@
 #pragma comment(lib, "gdiplus.lib")
 
 #include "../Window.h"
+#include "../Settings.h"
 
 class D3DDevice;
 
@@ -85,6 +86,7 @@ protected:
     POINT _location;
     SIZE _size;
     byte _transparency;
+    Settings *_settings;
 
     Gdiplus::Bitmap *_bitmap;
     Gdiplus::Bitmap *_glassMask;

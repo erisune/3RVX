@@ -25,6 +25,7 @@ void General::Initialize() {
     _startup = new Checkbox(CHK_STARTUP, *this);
     _showStartup = new Checkbox(CHK_SHOWSTARTUP, *this);
     _sounds = new Checkbox(CHK_SOUNDS, *this);
+    _glass = new Checkbox(CHK_GLASS, *this);
     _autoUpdate = new Checkbox(CHK_AUTOUPDATE, *this);
     _checkNow = new Button(BTN_CHECK, *this);
     _checkNow->OnClick = std::bind(&General::CheckForUpdates, this);
@@ -55,6 +56,7 @@ void General::LoadSettings() {
     _startup->Checked(RunOnStartup());
     _showStartup->Checked(settings->ShowOnStartup());
     _sounds->Checked(settings->SoundEffectsEnabled());
+    _glass->Checked(settings->GlassEffectsEnabled());
     _autoUpdate->Checked(settings->AutomaticUpdates());
 
     /* Determine which skins are available */
@@ -93,6 +95,7 @@ void General::SaveSettings() {
     RunOnStartup(_startup->Checked());
     settings->ShowOnStartup(_showStartup->Checked());
     settings->SoundEffectsEnabled(_sounds->Checked());
+    settings->GlassEffectsEnabled(_glass->Checked());
     settings->AutomaticUpdates(_autoUpdate->Checked());
 
     settings->CurrentSkin(_skin->Selection());
