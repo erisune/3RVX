@@ -18,8 +18,13 @@ OSD(L"3RVX-EjectDispatcher"),
 _mWnd(L"3RVX-EjectOSD", L"3RVX-EjectOSD") {
 
     SkinManager *skin = SkinManager::Instance();
-    _mWnd.BackgroundImage(skin->EjectOSD()->background);
-    _mWnd.EnableGlass(skin->EjectOSD()->mask);
+    OSDComponent *ejectOSD = skin->EjectOSD();
+    _mWnd.BackgroundImage(ejectOSD->background);
+    _mWnd.EnableGlass(ejectOSD->mask);
+    for (Meter *m : ejectOSD->meters) {
+        _mWnd.AddMeter(m);
+    }
+
     _mWnd.Update();
 
     OSD::InitMeterWnd(_mWnd);
