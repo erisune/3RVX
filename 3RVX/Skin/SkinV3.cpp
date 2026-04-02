@@ -288,6 +288,10 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
         meterXMLElement->QueryIntAttribute("transparency", &itrans);
         byte transparency = (byte) itrans;
 
+        int iglow = 0;
+        meterXMLElement->QueryIntAttribute("glow", &iglow);
+        byte glow = (byte) iglow;
+
         const char* stringFormat = meterXMLElement->Attribute("format");
         std::wstring format(L"[[PERC]]%");
         if (stringFormat != NULL) {
@@ -295,7 +299,7 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
         }
 
         m = new Text(x, y, width, height, font, align, color,
-            transparency, format);
+            transparency, format, glow);
 
         delete font;
 

@@ -11,7 +11,7 @@ public:
     Text(int x, int y, int width, int height,
         Gdiplus::Font *font, Gdiplus::StringAlignment align,
         std::wstring color, byte transparency,
-        std::wstring formatString);
+        std::wstring formatString, byte glow);
     ~Text();
 
     virtual void Draw(Gdiplus::Bitmap *buffer, Gdiplus::Graphics *graphics);
@@ -22,4 +22,5 @@ protected:
     Gdiplus::StringFormat _strFormat;
     std::wstring _formatString;
     size_t _replaceIndex; // index of [[PERC]] string
+    byte _glow;
 };

@@ -167,6 +167,7 @@ Text *SkinV2::CreateText(Gdiplus::Bitmap *baseBitmap) {
 
     std::wstring hexColor = L"000000";
     int transparency = 255;
+    int glow = 0;
     tinyxml2::XMLElement *colorTag = fontTag->FirstChildElement("fontColor");
     if (colorTag) {
         const char *color = colorTag->GetText();
@@ -225,7 +226,7 @@ Text *SkinV2::CreateText(Gdiplus::Bitmap *baseBitmap) {
 
     Gdiplus::Font font(StringUtils::Widen(fontName).c_str(), size, styleFlags);
     Text *text = new Text(x, y, width, height,
-        &font, align, hexColor, transparency, L"[[PERC]]%");
+        &font, align, hexColor, transparency, L"[[PERC]]%", glow);
     return text;
 }
 

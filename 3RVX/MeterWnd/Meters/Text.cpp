@@ -7,7 +7,7 @@
 Text::Text(int x, int y, int width, int height,
         Gdiplus::Font *font, Gdiplus::StringAlignment align,
         std::wstring color, byte transparency,
-        std::wstring formatString) :
+        std::wstring formatString, byte glow) :
 Meter(x, y, 100),
 _font(font->Clone()),
 _formatString(formatString) {
@@ -21,6 +21,7 @@ _formatString(formatString) {
     _fontColor = new Gdiplus::SolidBrush(c | a);
 
     _replaceIndex = _formatString.find(L"[[PERC]]");
+    _glow = glow;
 }
 
 Text::~Text()
@@ -29,21 +30,40 @@ Text::~Text()
     delete _fontColor;
 }
 
-void Text::Draw(Gdiplus::Bitmap *buffer, Gdiplus::Graphics *graphics)
+void Text::Draw(Gdiplus::Bitmap* buffer, Gdiplus::Graphics* graphics)
 {
     int units = CalcUnits();
 
-    Gdiplus::RectF layoutRect((float) _rect.X, (float) _rect.Y, 
-        (float) _rect.Width, (float) _rect.Height);
+    Gdiplus::RectF layoutRect((float)_rect.X, (float)_rect.Y,
+        (float)_rect.Width, (float)_rect.Height);
 
     graphics->SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAlias);
 
-    wchar_t perc[4];
-    _itow_s(units * (100 / _units), perc, 10);
     std::wstring tempstr(_formatString);
-    const wchar_t *str = tempstr.replace(_replaceIndex, 8, perc).c_str();
+    if (_replaceIndex != std::wstring::npos)
+    {
+        wchar_t perc[4];
+        _itow_s(units * (100 / _units), perc, 10);
+        tempstr.replace(_replaceIndex, 8, perc);
+    }
+    const wchar_t *str = tempstr.c_str();
 
-    graphics->DrawString(str, -1, _font, layoutRect, 
+    if (_glow > 0)
+    {
+        graphics->SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+        Gdiplus::FontFamily glowFontFamily;
+        _font->GetFamily(&glowFontFamily);
+        Gdiplus::GraphicsPath path;
+        path.AddString(str, -1, &glowFontFamily, _font->GetStyle(),
+            float(_font->GetSize() * 1.25), layoutRect, &_strFormat);
+        for (int i = 0; i < _glow; i++)
+        {
+            Gdiplus::Pen pen(Gdiplus::Color(12, 255, 255, 255), (float)i);
+            pen.SetLineJoin(Gdiplus::LineJoinRound);
+            graphics->DrawPath(&pen, &path);
+        }
+    }
+    graphics->DrawString(str, -1, _font, layoutRect,
         &_strFormat, _fontColor);
 
     UpdateDrawnValues();
