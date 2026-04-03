@@ -589,6 +589,7 @@ bool Hotkeys::OnArgEditTextChange() {
     case HotkeyInfo::IncreaseVolume:
     case HotkeyInfo::DecreaseVolume:
     case HotkeyInfo::SetVolume:
+    case HotkeyInfo::VirtualKey:
     case HotkeyInfo::Run:
         current->AllocateArg(0);
         current->args[0] = _argEdit->Text();
