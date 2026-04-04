@@ -228,7 +228,7 @@
     <ClInclude Include="Controllers\Brightness\WMIBrightnessController.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="HideWin10VolumeOSD.h">
+    <ClInclude Include="HideWindowsOSD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -398,7 +398,7 @@
     <ClCompile Include="Controllers\Brightness\WMIBrightnessController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HideWin10VolumeOSD.cpp">
+    <ClCompile Include="HideWindowsOSD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

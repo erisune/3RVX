@@ -2,7 +2,6 @@
 // Distributed under the BSD 2-Clause License (see LICENSE.txt for details)
 
 #include "3RVX.h"
-#include "HideWin10VolumeOSD.h"
 
 #pragma comment(lib, "gdiplus.lib")
 #pragma comment(lib, "Wtsapi32.lib")
@@ -23,6 +22,7 @@
 #include "Settings.h"
 #include "Skin/AccentColor.h"
 #include "Skin/SkinManager.h"
+#include "HideWindowsOSD.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR lpCmdLine, _In_ int nShowCmd) {
@@ -247,7 +247,7 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
     case WM_CLOSE: {
         CLOG(L"Shutting down");
-        HideWin10VolumeOSD::ShowOSD();
+        HideWindowsOSD::ShowOSD();
         HotkeyManager::Instance()->Shutdown();
         _vOSD->HideIcon();
         _eOSD->HideIcon();
@@ -290,7 +290,7 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
         switch (wParam) {
         case _3RVX::MSG_LOAD:
             Initialize();
-            HideWin10VolumeOSD::Init();
+            HideWindowsOSD::Init();
             break;
 
         case _3RVX::MSG_SETTINGS:

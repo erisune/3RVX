@@ -21,7 +21,7 @@
 #include "../Skin/SkinManager.h"
 #include "../Slider/VolumeSlider.h"
 #include "../SoundPlayer.h"
-#include "../HideWin10VolumeOSD.h"
+#include "../HideWindowsOSD.h"
 
 VolumeOSD::VolumeOSD() :
 OSD(L"3RVX-VolumeDispatcher"),
@@ -470,7 +470,7 @@ void VolumeOSD::OnVolumeChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 
     _volumeSlider->MeterLevels(v);
     UpdateIcon();
-    HideWin10VolumeOSD::Init();
+    HideWindowsOSD::Init();
 
     if (_subscribeVolEvents == false && lParam == 0) {
         return;
