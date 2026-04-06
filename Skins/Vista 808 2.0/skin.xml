@@ -8,13 +8,25 @@
   <osds>
     <volume background="OSD\back.png" mask="OSD\glass.png" defaultUnits="15">
       <meter type="bitstrip" image="OSD\meter.png" units="15" x="14" y="16"/>
-      <meter type="text" width="100" height="100" x="33" y="16" color="000000" font="Segoe UI" size="10.5" align="center" transparency="255" format="[[PERC]]" glow="12"/>
+      <meter type="text" width="100" height="100" x="33" y="16"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="[[PERC]]" glow="12"/>
       <iconset location="Icons\Volume"/>
     </volume>
     <mute background="OSD\mute.png" mask="OSD\glass.png"/>
     <eject background="OSD\eject.png" mask="OSD\glass.png">
-      <meter type="text" width="100" height="100" x="33" y="105" color="000000" font="Segoe UI" size="8.75" align="center" transparency="255" format="DRIVE EJECT" glow="12"/>
+      <meter type="text" width="100" height="100" x="33" y="105"
+             color="000000" font="Segoe UI" size="8.75" align="center"
+             transparency="255" format="DRIVE EJECT" glow="12"/>
     </eject>
+    <mic background="OSD\micback.png" mask="OSD\glass.png" defaultUnits="15">
+      <meter type="bitstrip" image="OSD\micmeter.png" units="15" x="14" y="16"/>
+      <meter type="text" width="100" height="100" x="33" y="16"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="[[PERC]]" glow="12"/>
+      <iconset location="Icons\Microphone"/>
+    </mic>
+    <micmute background="OSD\micmute.png" mask="OSD\glass.png"/>
   </osds>
 
   <sliders>
