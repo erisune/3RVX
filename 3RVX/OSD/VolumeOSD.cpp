@@ -426,6 +426,7 @@ void VolumeOSD::OnMenuEvent(WPARAM wParam) {
             CLOG(L"Changing to volume device: %s",
                 selectedDev.name.c_str());
             _volumeCtrl->SelectDevice(selectedDev.id);
+            _selectedDesc = _volumeCtrl->DeviceDesc();
             UpdateDeviceMenu();
             UpdateVolumeState();
         }
