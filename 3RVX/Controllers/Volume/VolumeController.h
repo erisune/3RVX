@@ -38,5 +38,7 @@ public:
 public:
     static const int MSG_VOL_CHNG = WM_APP + 1080;
     static const int MSG_VOL_DEVCHNG = WM_APP + 1081;
+    static const int MSG_CAP_CHNG = WM_APP + 1082;
+    static const int MSG_CAP_DEVCHNG = WM_APP + 1083;
 
 };

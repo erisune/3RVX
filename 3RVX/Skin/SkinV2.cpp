@@ -118,6 +118,16 @@ OSDComponent *SkinV2::BrightnessOSD() {
     return nullptr;
 }
 
+OSDComponent *SkinV2::MicrophoneOSD() {
+    /* Microphone OSDs were not supported by the v2 skin format. */
+    return nullptr;
+}
+
+OSDComponent *SkinV2::MicrophoneMuteOSD() {
+    /* Microphone OSDs were not supported by the v2 skin format. */
+    return nullptr;
+}
+
 HICON SkinV2::EjectIcon() {
     /* v2 skins didn't have eject icons */
     return nullptr;
@@ -126,6 +136,11 @@ HICON SkinV2::EjectIcon() {
 std::vector<HICON> SkinV2::VolumeIconset() {
     std::wstring iconDir = _skinDir + L"\\Notification Icons\\";
     return Skin::ReadIconDirectory(iconDir);
+}
+
+std::vector<HICON> SkinV2::MicrophoneIconset() {
+    /* Microphone OSDs were not supported by the v2 skin format. */
+    return std::vector<HICON>();
 }
 
 SliderComponent *SkinV2::VolumeSlider() {

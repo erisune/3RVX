@@ -25,6 +25,16 @@ OSDComponent *ErrorSkin::BrightnessOSD() {
     return nullptr;
 }
 
+OSDComponent *ErrorSkin::MicrophoneOSD() {
+    Error::ErrorMessageDie(Error::SKINERR_NO_RESOURCE, L"Microphone OSD");
+    return nullptr;
+}
+
+OSDComponent *ErrorSkin::MicrophoneMuteOSD() {
+    Error::ErrorMessageDie(Error::SKINERR_NO_RESOURCE, L"Microphone Mute OSD");
+    return nullptr;
+}
+
 HICON ErrorSkin::EjectIcon() {
     Error::ErrorMessageDie(Error::SKINERR_NO_RESOURCE, L"Eject Icon");
     return nullptr;
@@ -32,6 +42,11 @@ HICON ErrorSkin::EjectIcon() {
 
 std::vector<HICON> ErrorSkin::VolumeIconset() {
     Error::ErrorMessageDie(Error::SKINERR_NO_RESOURCE, L"Volume Iconset");
+    return std::vector<HICON>();
+}
+
+std::vector<HICON> ErrorSkin::MicrophoneIconset() {
+    Error::ErrorMessageDie(Error::SKINERR_NO_RESOURCE, L"Microphone Iconset");
     return std::vector<HICON>();
 }
 

@@ -18,7 +18,9 @@ public:
         _refCount(1) { }
 
     HRESULT Init();
+    HRESULT Init(EDataFlow flow);
     HRESULT Init(std::wstring deviceId);
+    HRESULT Init(std::wstring deviceId, EDataFlow flow);
     void Dispose();
 
     float Volume();
@@ -61,6 +63,7 @@ private:
     IMMDevice *_device;
     IMMDeviceEnumerator *_devEnumerator;
     IAudioEndpointVolume *_volumeControl;
+    EDataFlow _flow;
 
     ~CoreAudio() {};
 

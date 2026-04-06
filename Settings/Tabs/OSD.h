@@ -21,6 +21,7 @@ protected:
 
 private:
     std::vector<VolumeController::DeviceInfo> _audioDevices;
+    std::vector<VolumeController::DeviceInfo> _captureDevices;
     std::unordered_map<int, std::wstring> _taperLevels;
     void ShowGroup(int group);
 
@@ -46,6 +47,13 @@ private:
     Checkbox *_forceLimit;
     Checkbox *_muteLock;
 
+    GroupBox *_microphoneGroup;
+    Checkbox *_microphoneIcon;
+    Checkbox *_subscribeMicEvents;
+    Label *_captureDeviceLabel;
+    ComboBox *_captureDevice;
+    Checkbox *_micMuteLock;
+
     GroupBox *_ejectGroup;
     Checkbox *_ejectIcon;
     Checkbox *_subscribeEjectEvents;
@@ -66,6 +74,7 @@ private:
     /* Strings: */
     std::wstring _osdStr = L"OSD";
     std::wstring _volumeStr = L"Volume";
+    std::wstring _microphoneStr = L"Microphone";
     std::wstring _brightnessStr = L"Brightness";
     std::wstring _ejectStr = L"Eject";
     std::wstring _keyboardStr = L"Keyboard";

@@ -171,11 +171,14 @@ void Hotkeys::LoadAction(int index, HotkeyInfo &selection) {
     switch ((HotkeyInfo::HotkeyActions) action) {
     case HotkeyInfo::IncreaseVolume:
     case HotkeyInfo::DecreaseVolume:
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
         VolumeArgControlStates(selection);
         showCheck = true; showCombo = true; showEdit = true;
         break;
 
     case HotkeyInfo::SetVolume:
+    case HotkeyInfo::SetMicVolume:
         VolumeArgControlStates(selection);
         showLabel = true; showCombo = true; showEdit = true;
         break;
@@ -276,6 +279,9 @@ std::wstring Hotkeys::ActionString(HotkeyInfo &selection) {
     case HotkeyInfo::IncreaseVolume:
     case HotkeyInfo::DecreaseVolume:
     case HotkeyInfo::SetVolume:
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
+    case HotkeyInfo::SetMicVolume:
         actionStr = _translator->TranslateAndReplace(
             VolumeActionString(selection),
             selection.args[0]);
@@ -328,6 +334,33 @@ std::wstring Hotkeys::VolumeActionString(HotkeyInfo &selection) {
             actionStr = L"Set Volume: {1}%";
         } else {
             actionStr = L"Set Volume: {1} units";
+        }
+        break;
+
+    case HotkeyInfo::IncreaseMicVolume:
+        if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
+            actionStr = L"Increase Mic Volume {1}%";
+        }
+        else {
+            actionStr = L"Increase Mic Volume {1} units";
+        }
+        break;
+
+    case HotkeyInfo::DecreaseMicVolume:
+        if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
+            actionStr = L"Decrease Mic Volume {1}%";
+        }
+        else {
+            actionStr = L"Decrease Mic Volume {1} units";
+        }
+        break;
+
+    case HotkeyInfo::SetMicVolume:
+        if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
+            actionStr = L"Set Mic Volume: {1}%";
+        }
+        else {
+            actionStr = L"Set Mic Volume: {1} units";
         }
         break;
     }
@@ -525,6 +558,9 @@ bool Hotkeys::OnArgComboChange() {
     case HotkeyInfo::IncreaseVolume:
     case HotkeyInfo::DecreaseVolume:
     case HotkeyInfo::SetVolume:
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
+    case HotkeyInfo::SetMicVolume:
         current->AllocateArg(1);
         current->args[1] = std::to_wstring(_argCombo->SelectionIndex());
         break;
@@ -589,6 +625,9 @@ bool Hotkeys::OnArgEditTextChange() {
     case HotkeyInfo::IncreaseVolume:
     case HotkeyInfo::DecreaseVolume:
     case HotkeyInfo::SetVolume:
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
+    case HotkeyInfo::SetMicVolume:
     case HotkeyInfo::VirtualKey:
     case HotkeyInfo::Run:
         current->AllocateArg(0);

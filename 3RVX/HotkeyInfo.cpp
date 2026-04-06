@@ -15,6 +15,10 @@ std::vector<std::wstring> HotkeyInfo::ActionNames = {
     L"Set Volume",
     L"Mute",
     L"Show Volume Slider",
+    L"Increase Mic Volume",
+    L"Decrease Mic Volume",
+    L"Set Mic Volume",
+    L"Mute Microphone",
     L"Eject Drive",
     L"Eject Last Disk",
     L"Increase Brightness",
@@ -164,6 +168,9 @@ bool HotkeyInfo::Valid() {
     case HotkeyInfo::IncreaseVolume:
     case HotkeyInfo::DecreaseVolume:
     case HotkeyInfo::SetVolume:
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
+    case HotkeyInfo::SetMicVolume:
     case HotkeyInfo::IncreaseBrightness:
     case HotkeyInfo::DecreaseBrightness:
     case HotkeyInfo::SetBrightness: {

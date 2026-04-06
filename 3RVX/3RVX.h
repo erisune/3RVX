@@ -15,6 +15,7 @@ class BrightnessOSD;
 class EjectOSD;
 class KeyboardOSD;
 class VolumeOSD;
+class MicrophoneOSD;
 
 class HotkeyManager;
 
@@ -28,6 +29,7 @@ private:
     EjectOSD *_eOSD;
     KeyboardOSD *_kOSD;
     VolumeOSD *_vOSD;
+    MicrophoneOSD *_mOSD;
 
     HotkeyManager *_hkManager;
     KeyboardHotkeyProcessor _kbHotkeyProcessor;

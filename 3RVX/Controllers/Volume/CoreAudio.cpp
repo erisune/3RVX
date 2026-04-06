@@ -34,8 +34,20 @@ HRESULT CoreAudio::Init() {
     return hr;
 }
 
+HRESULT CoreAudio::Init(EDataFlow flow) {
+    _flow = flow;
+    return Init();
+}
+
 HRESULT CoreAudio::Init(std::wstring deviceId) {
     _devId = deviceId;
+    _flow = eRender;
+    return Init();
+}
+
+HRESULT CoreAudio::Init(std::wstring deviceId, EDataFlow flow) {
+    _devId = deviceId;
+    _flow = flow;
     return Init();
 }
 
@@ -49,7 +61,7 @@ HRESULT CoreAudio::AttachDevice() {
 
     if (_devId.empty()) {
         /* Use default device */
-        hr = _devEnumerator->GetDefaultAudioEndpoint(eRender,
+        hr = _devEnumerator->GetDefaultAudioEndpoint(_flow,
             eMultimedia, &_device);
         if (SUCCEEDED(hr)) {
             LPWSTR id = nullptr;
@@ -99,10 +111,21 @@ void CoreAudio::DetachDevice() {
 }
 
 HRESULT CoreAudio::OnNotify(PAUDIO_VOLUME_NOTIFICATION_DATA pNotify) {
-    if (pNotify->guidEventContext == G3RVXCoreAudioEvent) {
-        PostMessage(_notifyHwnd, MSG_VOL_CHNG, (WPARAM) 1, 0);
-    } else {
-        PostMessage(_notifyHwnd, MSG_VOL_CHNG, 0, 0);
+    if (_flow == eRender) {
+        if (pNotify->guidEventContext == G3RVXCoreAudioEvent) {
+            PostMessage(_notifyHwnd, MSG_VOL_CHNG, (WPARAM)1, 0);
+        }
+        else {
+            PostMessage(_notifyHwnd, MSG_VOL_CHNG, 0, 0);
+        }
+    }
+    else if (_flow == eCapture) {
+        if (pNotify->guidEventContext == G3RVXCoreAudioEvent) {
+            PostMessage(_notifyHwnd, MSG_CAP_CHNG, (WPARAM)1, 0);
+        }
+        else {
+            PostMessage(_notifyHwnd, MSG_CAP_CHNG, 0, 0);
+        }
     }
 
     return S_OK;
@@ -112,6 +135,9 @@ HRESULT CoreAudio::OnDefaultDeviceChanged(
     EDataFlow flow, ERole role, LPCWSTR pwstrDefaultDeviceId) {
     if (flow == eRender) {
         PostMessage(_notifyHwnd, MSG_VOL_DEVCHNG, 0, 0);
+    }
+    else if (flow == eCapture) {
+        PostMessage(_notifyHwnd, MSG_CAP_DEVCHNG, 0, 0);
     }
 
     return S_OK;
@@ -138,7 +164,7 @@ std::vector<VolumeController::DeviceInfo> CoreAudio::ListDevices() {
     IMMDeviceCollection *devices = nullptr;
 
     HRESULT hr = _devEnumerator->EnumAudioEndpoints(
-        eRender,
+        _flow,
         DEVICE_STATE_ACTIVE | DEVICE_STATE_UNPLUGGED,
         &devices);
 

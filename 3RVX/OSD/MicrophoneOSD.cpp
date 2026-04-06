@@ -1,0 +1,506 @@
+// Copyright (c) 2015, Matthew Malensek.
+// Distributed under the BSD 2-Clause License (see LICENSE.txt for details)
+
+#include "MicrophoneOSD.h"
+
+#pragma comment(lib, "Wtsapi32.lib")
+
+#include <string>
+#include <Wtsapi32.h>
+
+#include "../3RVX.h"
+#include "../HotkeyInfo.h"
+#include "../LanguageTranslator.h"
+#include "../MeterWnd/LayeredWnd.h"
+#include "../MeterWnd/Meters/CallbackMeter.h"
+#include "../Monitor.h"
+#include "../Skin/OSDComponent.h"
+#include "../Skin/Skin.h"
+#include "../Skin/SkinManager.h"
+#include "../SoundPlayer.h"
+
+MicrophoneOSD::MicrophoneOSD() :
+    OSD(L"3RVX-MicDispatcher"),
+    _mWnd(L"3RVX-MicrophoneOSD", L"3RVX-MicrophoneOSD"),
+    _muteWnd(L"3RVX-MicMuteOSD", L"3RVX-MicMuteOSD") {
+    \
+    LoadSkin();
+
+    /* Start the volume controller */
+    _volumeCtrl = new CoreAudio(Window::Handle());
+    std::wstring device = _settings->CaptureDeviceID();
+    _volumeCtrl->Init(device, eCapture);
+    _selectedDesc = _volumeCtrl->DeviceDesc();
+    _subscribeVolEvents = _settings->SubscribeMicrophoneEvents();
+
+    /* Set up volume state variables */
+    _lastVolume = _volumeCtrl->Volume();
+    _muted = _volumeCtrl->Muted();
+
+    /* Set up context menu */
+    if (_settings->MicrophoneIconEnabled()) {
+        LanguageTranslator* translator = _settings->Translator();
+        _menuSetStr = translator->Translate(_menuSetStr);
+        _menuRecStr = translator->Translate(_menuRecStr);
+        _menuDevStr = translator->Translate(_menuDevStr);
+        _menuExitStr = translator->Translate(_menuExitStr);
+        _iconMuteStr = translator->Translate(_iconMuteStr);
+
+        _menu = CreatePopupMenu();
+        _deviceMenu = CreatePopupMenu();
+        
+        InsertMenu(_menu, -1, MF_ENABLED, MENU_SETTINGS, _menuSetStr.c_str());
+        InsertMenu(_menu, -1, MF_POPUP, UINT(_deviceMenu), _menuDevStr.c_str());
+        InsertMenu(_menu, -1, MF_ENABLED, MENU_MMSYS, _menuRecStr.c_str());
+        InsertMenu(_menu, -1, MF_ENABLED, MENU_EXIT, _menuExitStr.c_str());
+
+        /* Menu accepts both left and right clicks on its items: */
+        _menuFlags = TPM_RIGHTBUTTON;
+        if (GetSystemMetrics(SM_MENUDROPALIGNMENT) != 0) {
+            _menuFlags |= TPM_RIGHTALIGN;
+        }
+        else {
+            _menuFlags |= TPM_LEFTALIGN;
+        }
+
+        UpdateDeviceMenu();
+    }
+
+    UpdateIcon();
+    float v = _volumeCtrl->Volume();
+    MeterLevels(v);
+
+    if (_settings->MicMuteOnLock()) {
+        /* If muting volume on lock is enabled, register for notifications. */
+        _monitorSession = true;
+        WTSRegisterSessionNotification(
+            Window::Handle(), NOTIFY_FOR_THIS_SESSION);
+    }
+}
+
+MicrophoneOSD::~MicrophoneOSD() {
+    WTSUnRegisterSessionNotification(Window::Handle());
+    DestroyMenu(_deviceMenu);
+    DestroyMenu(_menu);
+    delete _icon;
+    delete _callbackMeter;
+    _volumeCtrl->Dispose();
+}
+
+void MicrophoneOSD::UpdateDeviceMenu() {
+    if (_menu == NULL || _deviceMenu == NULL) {
+        return;
+    }
+
+    /* Remove any devices currently in the menu first */
+    for (unsigned int i = 0; i < _deviceList.size(); ++i) {
+        RemoveMenu(_deviceMenu, 0, MF_BYPOSITION);
+    }
+    _deviceList.clear();
+
+    std::vector<VolumeController::DeviceInfo> devices
+        = _volumeCtrl->ListDevices();
+    std::wstring currentDeviceId = _volumeCtrl->DeviceId();
+
+    /* Disable/enable the menu depending on whether devices are available */
+    EnableMenuItem(_menu, UINT(_deviceMenu),
+        devices.size() == 0 ? MF_GRAYED : MF_ENABLED);
+
+    int menuItem = MENU_DEVICE;
+    for (VolumeController::DeviceInfo device : devices) {
+        unsigned int flags = MF_ENABLED;
+        if (currentDeviceId == device.id) {
+            flags |= MF_CHECKED;
+        }
+
+        InsertMenu(_deviceMenu, -1, flags, menuItem++, device.name.c_str());
+        _deviceList.push_back(device);
+    }
+}
+
+void MicrophoneOSD::LoadSkin() {
+    SkinManager* skin = SkinManager::Instance();
+
+    /* Microphone OSD */
+    OSDComponent* microphoneOSD = skin->MicrophoneOSD();
+    _mWnd.BackgroundImage(microphoneOSD->background);
+    _mWnd.EnableGlass(microphoneOSD->mask);
+    for (Meter* m : microphoneOSD->meters) {
+        _mWnd.AddMeter(m);
+    }
+
+    /* Add a callback meter with the default volume increment for sounds */
+    _callbackMeter = new CallbackMeter(microphoneOSD->defaultUnits, *this);
+    _mWnd.AddMeter(_callbackMeter);
+
+    /* Default volume increment */
+    _defaultIncrement = (float)(10000 / microphoneOSD->defaultUnits) / 10000.0f;
+    CLOG(L"Default volume increment: %f", _defaultIncrement);
+
+    _mWnd.Update();
+
+    /* Mute OSD */
+    _muteWnd.BackgroundImage(skin->MicrophoneMuteOSD()->background);
+    _muteWnd.EnableGlass(skin->MuteOSD()->mask);
+    for (Meter* m : skin->MuteOSD()->meters) {
+        _muteWnd.AddMeter(m);
+    }
+    _muteWnd.MeterLevels(0);
+    _muteWnd.Update();
+
+    /* Now that everything is set up, initialize the meter windows. */
+    OSD::InitMeterWnd(_mWnd);
+    OSD::InitMeterWnd(_muteWnd);
+
+    /* Set up notification icon */
+    if (_settings->MicrophoneIconEnabled()) {
+        _iconImages = skin->MicrophoneIconset();
+        if (_iconImages.size() > 0) {
+            _icon = new NotifyIcon(Window::Handle(), L"Microphone", _iconImages[0]);
+        }
+    }
+
+    /* Enable sound effects, if any */
+    if (_settings->SoundEffectsEnabled()) {
+        _soundPlayer = microphoneOSD->sound;
+    }
+}
+
+void MicrophoneOSD::MeterLevels(float level) {
+    _mWnd.MeterLevels(level);
+    _mWnd.Update();
+}
+
+void MicrophoneOSD::MeterChangeCallback(int units) {
+    /* This method is called each time the callback meter changes by at least
+     * 1 volume unit (as defined by the skin's default unit amount). The
+     * callback meter is also used for incrementing/decrementing the volume by
+     * skin units. */
+}
+
+void MicrophoneOSD::Hide() {
+    _mWnd.Hide(false);
+    _muteWnd.Hide(false);
+}
+
+void MicrophoneOSD::Show(bool mute) {
+    if (!OSD::Enabled()) {
+        return;
+    }
+
+    if (mute) {
+        _muteWnd.Show();
+        _mWnd.Hide(false);
+    }
+    else {
+        _mWnd.Show();
+        _muteWnd.Hide(false);
+    }
+}
+
+void MicrophoneOSD::HideIcon() {
+    delete _icon;
+}
+
+void MicrophoneOSD::UpdateIcon() {
+    UpdateIconImage();
+    UpdateIconTip();
+}
+
+void MicrophoneOSD::UpdateIconImage() {
+    if (_icon == NULL) {
+        return;
+    }
+
+    MicrophoneIcon icon = MutedIcon;
+    if (!_volumeCtrl->DeviceEnabled()) {
+        icon = DisabledIcon;
+    }
+    else {
+        if (!_volumeCtrl->Muted()) {
+            icon = EnabledIcon;
+        }
+    }
+
+    if (icon != _lastIcon) {
+        _icon->UpdateIcon(_iconImages[icon]);
+        _lastIcon = icon;
+    }
+}
+
+void MicrophoneOSD::UpdateIconTip() {
+    if (_icon == NULL) {
+        return;
+    }
+
+    if (_volumeCtrl->Muted()) {
+        if (_volumeCtrl->DeviceEnabled()) {
+            _icon->UpdateToolTip(_selectedDesc + L": " + _iconMuteStr);
+        }
+        else {
+            _icon->UpdateToolTip(L"No capture device detected");
+        }
+    }
+    else {
+        float v = _volumeCtrl->Volume();
+        std::wstring perc = std::to_wstring((int)(v * 100.0f));
+        std::wstring level = _selectedDesc + L": " + perc + L"%";
+        _icon->UpdateToolTip(level);
+    }
+}
+
+void MicrophoneOSD::UnMute() {
+    if (_volumeCtrl->Muted()) {
+        _volumeCtrl->Muted(false);
+    }
+}
+
+void MicrophoneOSD::ProcessHotkeys(HotkeyInfo& hki) {
+    switch (hki.action) {
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
+        UnMute();
+        ProcessVolumeHotkeys(hki);
+        break;
+
+    case HotkeyInfo::SetMicVolume: {
+        HotkeyInfo::VolumeKeyArgTypes type = HotkeyInfo::VolumeArgType(hki);
+        if (type == HotkeyInfo::VolumeKeyArgTypes::NoArgs) {
+            return;
+        }
+        else if (type == HotkeyInfo::VolumeKeyArgTypes::Units) {
+            int numUnits = hki.ArgToInt(0);
+            _volumeCtrl->Volume(numUnits * _defaultIncrement);
+        }
+        else if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
+            double perc = hki.ArgToDouble(0);
+            _volumeCtrl->Volume((float)perc);
+        }
+    }
+
+        SendMessage(Window::Handle(), VolumeController::MSG_CAP_CHNG,
+            NULL, (LPARAM)1);
+        break;
+
+    case HotkeyInfo::MuteMic:
+        _volumeCtrl->ToggleMute();
+        SendMessage(Window::Handle(), VolumeController::MSG_CAP_CHNG,
+            NULL, (LPARAM)1);
+        break;
+    }
+}
+
+void MicrophoneOSD::ProcessVolumeHotkeys(HotkeyInfo& hki) {
+    float currentVol = _volumeCtrl->Volume();
+    HotkeyInfo::VolumeKeyArgTypes type = HotkeyInfo::VolumeArgType(hki);
+
+    if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
+        /* Deal with percentage-based amounts */
+        float amount = ((float)hki.ArgToDouble(0) / 100.0f);
+        if (hki.action == HotkeyInfo::HotkeyActions::DecreaseMicVolume) {
+            amount = -amount;
+        }
+        _volumeCtrl->Volume(currentVol + amount);
+    }
+    else {
+        /* Unit-based amounts */
+        double unitIncrement = 1.0;
+        int currentUnit = _callbackMeter->CalcUnits();
+        if (currentVol <= 0.000001f) {
+            currentUnit = 0;
+        }
+
+        if (hki.action == HotkeyInfo::DecreaseMicVolume) {
+            unitIncrement = -1.0;
+        }
+
+        /* We assume that if no arg type is set, then a unit-based change of 1
+         * is applied. Here, we check for other cases: */
+        if (type == HotkeyInfo::VolumeKeyArgTypes::Units) {
+            unitIncrement *= hki.ArgToDouble(0);
+        }
+
+        if (unitIncrement - (int)unitIncrement < 0.0001) {
+            /* The specified unit increment is an integer, so we "snap" the
+             * volume to the nearest unit */
+            _volumeCtrl->Volume(
+                (float)(currentUnit + unitIncrement) * _defaultIncrement);
+        }
+        else {
+            /* The user specified a partial unit value (e.g., 1.3) so we don't
+             * "snap" the volume to the nearest unit. */
+            _volumeCtrl->Volume(_volumeCtrl->Volume()
+                + ((float)(unitIncrement * _defaultIncrement)));
+        }
+    }
+
+    /* Tell 3RVX that we changed the capture device volume */
+    SendMessage(Window::Handle(), VolumeController::MSG_CAP_CHNG,
+        NULL, (LPARAM)1);
+}
+
+void MicrophoneOSD::UpdateVolumeState() {
+    float v = _volumeCtrl->Volume();
+    MeterLevels(v);
+    UpdateIcon();
+}
+
+void MicrophoneOSD::OnDeviceChange() {
+    CLOG(L"Capture device change detected.");
+    if (_selectedDevice == L"") {
+        _volumeCtrl->SelectDefaultDevice();
+    }
+    else {
+        HRESULT hr = _volumeCtrl->SelectDevice(_selectedDevice);
+        if (FAILED(hr)) {
+            _volumeCtrl->SelectDefaultDevice();
+        }
+    }
+    _selectedDesc = _volumeCtrl->DeviceDesc();
+    UpdateDeviceMenu();
+    UpdateVolumeState();
+}
+
+void MicrophoneOSD::OnDisplayChange() {
+    InitMeterWnd(_mWnd);
+    InitMeterWnd(_muteWnd);
+}
+
+void MicrophoneOSD::OnMenuEvent(WPARAM wParam) {
+    int menuItem = LOWORD(wParam);
+    switch (menuItem) {
+    case MENU_SETTINGS:
+        Settings::LaunchSettingsApp();
+        break;
+
+    case MENU_MMSYS: {
+        CLOG(L"Menu: Recording devices");
+        HINSTANCE code = ShellExecute(NULL, L"open", L"control",
+            L"mmsys.cpl ,1", NULL, SW_SHOWNORMAL);
+        break;
+    }
+
+    case MENU_EXIT:
+        CLOG(L"Menu: Exit: %d", (int)_masterWnd);
+        SendMessage(_masterWnd, WM_CLOSE, NULL, NULL);
+        break;
+    }
+
+    /* Device menu items */
+    if ((menuItem & MENU_DEVICE) > 0) {
+        int device = menuItem & 0x0FFF;
+        VolumeController::DeviceInfo selectedDev = _deviceList[device];
+        if (selectedDev.id != _volumeCtrl->DeviceId()) {
+            /* A different device has been selected */
+            CLOG(L"Changing to capture device: %s",
+                selectedDev.name.c_str());
+            _volumeCtrl->SelectDevice(selectedDev.id);
+            _selectedDesc = _volumeCtrl->DeviceDesc();
+            UpdateDeviceMenu();
+            UpdateVolumeState();
+        }
+    }
+}
+
+void MicrophoneOSD::OnNotifyIconEvent(HWND hWnd, LPARAM lParam) {
+    if (lParam == WM_LBUTTONUP) {
+        _volumeCtrl->ToggleMute();
+        SendMessage(Window::Handle(), VolumeController::MSG_CAP_CHNG,
+            NULL, (LPARAM)1);
+    }
+    else if (lParam == WM_RBUTTONUP) {
+        POINT p;
+        GetCursorPos(&p);
+        SetForegroundWindow(hWnd);
+        TrackPopupMenuEx(_menu, _menuFlags, p.x, p.y,
+            Window::Handle(), NULL);
+        PostMessage(hWnd, WM_NULL, 0, 0);
+    }
+}
+
+void MicrophoneOSD::OnSessionChange(WPARAM wParam) {
+    if (_monitorSession == false) {
+        return;
+    }
+
+    if (wParam == WTS_SESSION_LOCK) {
+        CLOG(L"Muting on session lock");
+        _unlockUnmute = true;
+        _volumeCtrl->Muted(true);
+    }
+    else if (wParam == WTS_SESSION_UNLOCK && _unlockUnmute) {
+        CLOG(L"Unmuting after session lock");
+        _unlockUnmute = false;
+        _volumeCtrl->Muted(false);
+    }
+}
+
+void MicrophoneOSD::OnVolumeChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+    float v = _volumeCtrl->Volume();
+    bool muteState = _volumeCtrl->Muted();
+
+    UpdateIcon();
+
+    if (_subscribeVolEvents == false && lParam == 0) {
+        return;
+    }
+
+    if (wParam > 0) {
+        /* We manually post a MSG_CAP_CHNG when modifying the volume with
+         * hotkeys, so this CoreAudio-generated event can be ignored
+         * by the OSD. */
+        CLOG(L"Ignoring capture device volume change notification generated by 3RVX");
+        return;
+    }
+
+    CLOG(L"Capture device volume change notification:\nNew level: %f\nPrevious: %f",
+        v, _lastVolume);
+    if (lParam == 0 && (muteState == _muted)) {
+        if (abs(v - _lastVolume) < 0.0001f) {
+            CLOG(L"No change in capture device volume detected; ignoring event.");
+            return;
+        }
+    }
+    _lastVolume = v;
+    _muted = muteState;
+
+    if (_volumeCtrl->Muted() || v == 0.0f) {
+        Show(true);
+    }
+    else {
+        MeterLevels(v);
+        Show();
+
+        if (_soundPlayer) {
+            _soundPlayer->Play();
+        }
+    }
+    HideOthers(Mic);
+}
+
+LRESULT
+MicrophoneOSD::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    switch (message) {
+    case VolumeController::MSG_CAP_CHNG:
+        OnVolumeChange(hWnd, wParam, lParam);
+        break;
+
+    case VolumeController::MSG_CAP_DEVCHNG:
+        OnDeviceChange();
+        break;
+
+    case MSG_NOTIFYICON:
+        OnNotifyIconEvent(hWnd, lParam);
+        break;
+
+    case WM_COMMAND:
+        OnMenuEvent(wParam);
+        break;
+
+    case WM_WTSSESSION_CHANGE:
+        OnSessionChange(wParam);
+        break;
+    }
+
+    return DefWindowProc(hWnd, message, wParam, lParam);
+}

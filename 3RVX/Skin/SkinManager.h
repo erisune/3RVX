@@ -28,6 +28,11 @@ public:
 
     OSDComponent *BrightnessOSD();
 
+    OSDComponent *MicrophoneOSD();
+    std::vector<HICON>& MicrophoneIconset();
+
+    OSDComponent* MicrophoneMuteOSD();
+
 private:
     OSDComponent *_volumeOSD;
     std::vector<HICON> _volumeIconset;
@@ -38,6 +43,10 @@ private:
     HICON _ejectIcon;
 
     OSDComponent *_brightnessOSD;
+
+    OSDComponent *_microphoneOSD;
+    std::vector<HICON> _microphoneIconset;
+    OSDComponent *_microphoneMuteOSD;
 
     ~SkinManager();
     void DisposeComponents();

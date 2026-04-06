@@ -234,6 +234,7 @@
     <ClInclude Include="OSD\BrightnessOSD.h" />
     <ClInclude Include="OSD\KeyboardOSD.h" />
     <ClInclude Include="DefaultSettings.h" />
+    <ClInclude Include="OSD\MicrophoneOSD.h" />
     <ClInclude Include="Skin\ErrorSkin.h" />
     <ClInclude Include="Skin\MultiSkin.h" />
     <ClInclude Include="Skin\OSDComponent.h" />
@@ -302,6 +303,7 @@
     <ClCompile Include="MeterWnd\Meters\VerticalSliderKnob.cpp" />
     <ClCompile Include="OSD\BrightnessOSD.cpp" />
     <ClCompile Include="OSD\KeyboardOSD.cpp" />
+    <ClCompile Include="OSD\MicrophoneOSD.cpp" />
     <ClCompile Include="Skin\ErrorSkin.cpp" />
     <ClCompile Include="Skin\MultiSkin.cpp" />
     <ClCompile Include="Skin\Skin.cpp" />

@@ -51,6 +51,19 @@ void OSD::Initialize() {
         _muteLock,
     });
 
+    _microphoneIcon = new Checkbox(CHK_MICICON, *this);
+    _subscribeMicEvents = new Checkbox(CHK_SUBSCRIBEMIC, *this);
+    _captureDeviceLabel = new Label(LBL_CAPTUREDEV, *this);
+    _captureDevice = new ComboBox(CMB_CAPTUREDEV, *this);
+    _micMuteLock = new Checkbox(CHK_MICMUTELOCK, *this);
+    _microphoneGroup = new GroupBox(GRP_MICROPHONE, *this);
+    _microphoneGroup->AddChildren({
+        _microphoneIcon,
+        _subscribeMicEvents,
+        _captureDeviceLabel, _captureDevice,
+        _micMuteLock,
+        });
+
     _ejectIcon = new Checkbox(CHK_EJECTICON, *this);
     _subscribeEjectEvents = new Checkbox(CHK_SUBSCRIBEEJECT, *this);
     _ejectGroup = new GroupBox(GRP_EJECT, *this);
@@ -80,6 +93,7 @@ void OSD::Initialize() {
     /* Define groupbox order */
     GroupBox *groups[] = {
         _volumeGroup,
+        _microphoneGroup,
         _brightnessGroup,
         _ejectGroup,
         _keyboardGroup
@@ -103,6 +117,7 @@ void OSD::LoadSettings() {
     /* Translations */
     _osdStr = translator->Translate(_osdStr);
     _volumeStr = translator->Translate(_volumeStr);
+    _microphoneStr = translator->Translate(_microphoneStr);
     _brightnessStr = translator->Translate(_brightnessStr);
     _ejectStr = translator->Translate(_ejectStr);
     _keyboardStr = translator->Translate(_keyboardStr);
@@ -117,6 +132,19 @@ void OSD::LoadSettings() {
         _audioDevice->AddItem(dev.name);
         if (dev.id == selectedId) {
             _audioDevice->Select(dev.name);
+        }
+    }
+    volumeCtrl->Dispose();
+
+    _captureDevice->AddItem(translator->Translate(L"Default"));
+    _captureDevice->Select(0);
+    std::wstring captureId = settings->CaptureDeviceID();
+    volumeCtrl->Init(eCapture);
+    _captureDevices = volumeCtrl->ListDevices();
+    for (VolumeController::DeviceInfo dev : _captureDevices) {
+        _captureDevice->AddItem(dev.name);
+        if (dev.id == captureId) {
+            _captureDevice->Select(dev.name);
         }
     }
     volumeCtrl->Dispose();
@@ -143,20 +171,26 @@ void OSD::LoadSettings() {
     _osdList->AddListExStyle(LVS_EX_CHECKBOXES | LVS_EX_FULLROWSELECT);
     _osdList->AddColumn(_osdStr, (int) (_osdList->Width() * .97f));
     _osdList->AddItem(_volumeStr);
+    _osdList->AddItem(_microphoneStr);
     _osdList->AddItem(_brightnessStr);
     _osdList->AddItem(_ejectStr);
     _osdList->AddItem(_keyboardStr);
     _osdList->Selection(0);
 
     _osdList->Checked(0, settings->VolumeOSDEnabled());
-    _osdList->Checked(1, settings->BrightnessOSDEnabled());
-    _osdList->Checked(2, settings->EjectOSDEnabled());
-    _osdList->Checked(3, settings->KeyboardOSDEnabled());
+    _osdList->Checked(1, settings->MicrophoneOSDEnabled());
+    _osdList->Checked(2, settings->BrightnessOSDEnabled());
+    _osdList->Checked(3, settings->EjectOSDEnabled());
+    _osdList->Checked(4, settings->KeyboardOSDEnabled());
 
     _volumeIcon->Checked(settings->VolumeIconEnabled());
     _subscribeVolEvents->Checked(settings->SubscribeVolumeEvents());
     _limitSlider->Position((int) (settings->VolumeLimiter() * 100.0f));
     _muteLock->Checked(settings->MuteOnLock());
+
+    _microphoneIcon->Checked(settings->MicrophoneIconEnabled());
+    _subscribeMicEvents->Checked(settings->SubscribeMicrophoneEvents());
+    _micMuteLock->Checked(settings->MicMuteOnLock());
 
     _ejectIcon->Checked(settings->EjectIconEnabled());
     _subscribeEjectEvents->Checked(settings->SubscribeEjectEvents());
@@ -167,9 +201,10 @@ void OSD::SaveSettings() {
     Settings *settings = Settings::Instance();
     
     settings->VolumeOSDEnabled(_osdList->Checked(0));
-    settings->BrightnessOSDEnabled(_osdList->Checked(1));
-    settings->EjectOSDEnabled(_osdList->Checked(2));
-    settings->KeyboardOSDEnabled(_osdList->Checked(3));
+    settings->MicrophoneOSDEnabled(_osdList->Checked(1));
+    settings->BrightnessOSDEnabled(_osdList->Checked(2));
+    settings->EjectOSDEnabled(_osdList->Checked(3));
+    settings->KeyboardOSDEnabled(_osdList->Checked(4));
 
     settings->VolumeIconEnabled(_volumeIcon->Checked());
     settings->SubscribeVolumeEvents(_subscribeVolEvents->Checked());
@@ -189,6 +224,17 @@ void OSD::SaveSettings() {
     }
     settings->VolumeLimiter(((float) _limitSlider->Position()) / 100.0f);
     settings->MuteOnLock(_muteLock->Checked());
+
+    settings->MicrophoneIconEnabled(_microphoneIcon->Checked());
+    settings->SubscribeMicrophoneEvents(_subscribeMicEvents->Checked());
+    int selectedCaptureDevice = _captureDevice->SelectionIndex();
+    if (selectedCaptureDevice == 0) {
+        settings->CaptureDeviceID(L"");
+    }
+    else {
+        settings->CaptureDeviceID(_captureDevices[selectedCaptureDevice - 1].id);
+    }
+    settings->MicMuteOnLock(_micMuteLock->Checked());
 
     settings->EjectIconEnabled(_ejectIcon->Checked());
     settings->SubscribeEjectEvents(_subscribeEjectEvents->Checked());

@@ -39,6 +39,15 @@ public:
     /// <summary>Loads and instantiates the Brightness OSD.</summary>
     virtual OSDComponent *BrightnessOSD() = 0;
 
+    /// <summary>Loads and instantiates the Microphone OSD.</summary>
+    virtual OSDComponent* MicrophoneOSD() = 0;
+
+    /// <summary>Retrieves the iconset used for the Microphone icon.</summary>
+    virtual std::vector<HICON> MicrophoneIconset() = 0;
+
+    /// <summary>Loads and instantiates the Microphone Mute OSD.</summary>
+    virtual OSDComponent* MicrophoneMuteOSD() = 0;
+
     /// <summary>
     /// Creates a Bitmap instance from a file on disk.
     /// </summary>

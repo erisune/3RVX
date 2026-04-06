@@ -231,6 +231,9 @@
     <ClInclude Include="HideWindowsOSD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OSD\MicrophoneOSD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Controllers\Volume\CoreAudio.cpp">
@@ -399,6 +402,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HideWindowsOSD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OSD\MicrophoneOSD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

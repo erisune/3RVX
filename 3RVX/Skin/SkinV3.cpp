@@ -63,6 +63,25 @@ SliderComponent *SkinV3::VolumeSlider() {
     return CreateSliderComponent("volume");
 }
 
+OSDComponent *SkinV3::MicrophoneOSD() {
+    return CreateOSDComponent("mic");
+}
+
+OSDComponent *SkinV3::MicrophoneMuteOSD() {
+    return CreateOSDComponent("micmute");
+}
+
+std::vector<HICON> SkinV3::MicrophoneIconset() {
+    std::vector<HICON> iconList;
+
+    XMLElement* micIconElem = SubElement("osds", "mic");
+    if (micIconElem == NULL) {
+        return iconList;
+    }
+
+    return Iconset(micIconElem);
+}
+
 OSDComponent *SkinV3::CreateOSDComponent(char *osdName) {
     XMLElement *osdElem = SubElement("osds", osdName);
     if (osdElem == NULL) {

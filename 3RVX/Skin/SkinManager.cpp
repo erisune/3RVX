@@ -76,6 +76,19 @@ void SkinManager::LoadSkin(std::wstring skinXML) {
         if (_brightnessOSD == nullptr) {
             _brightnessOSD = skin->BrightnessOSD();
         }
+
+        if (_microphoneOSD == nullptr) {
+            _microphoneOSD = skin->MicrophoneOSD();
+        }
+
+        if (_microphoneIconset.size() == 0) {
+            _microphoneIconset = skin->MicrophoneIconset();
+        }
+
+        if (_microphoneMuteOSD == nullptr) {
+            _microphoneMuteOSD = skin->MicrophoneMuteOSD();
+        }
+
     }
 
     for (Skin *skin : skins) {
@@ -107,8 +120,20 @@ HICON &SkinManager::EjectIcon() {
     return _ejectIcon;
 }
 
-OSDComponent * SkinManager::BrightnessOSD() {
+OSDComponent *SkinManager::BrightnessOSD() {
     return _brightnessOSD;
+}
+
+OSDComponent *SkinManager::MicrophoneOSD() {
+    return _microphoneOSD;
+}
+
+std::vector<HICON> &SkinManager::MicrophoneIconset() {
+    return _microphoneIconset;
+}
+
+OSDComponent *SkinManager::MicrophoneMuteOSD() {
+    return _microphoneMuteOSD;
 }
 
 SkinManager::~SkinManager() {
@@ -135,4 +160,14 @@ void SkinManager::DisposeComponents() {
 
     delete _brightnessOSD;
     _brightnessOSD = nullptr;
+
+    delete _microphoneOSD;
+    _microphoneOSD = nullptr;
+    for (HICON icon : _microphoneIconset) {
+        DestroyIcon(icon);
+    }
+    _microphoneIconset.clear();
+
+    delete _microphoneMuteOSD;
+    _microphoneMuteOSD = nullptr;
 }

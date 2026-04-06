@@ -23,13 +23,16 @@ public:
     static const bool EjectOSDEnabled = true;
     static const bool BrightnessOSDEnabled = true;
     static const bool KeyboardOSDEnabled = false;
+    static const bool MicrophoneOSDEnabled = false;
 
     /* System Event Subscriptions*/
     static const bool SubscribeVolumeEvents = true;
+    static const bool SubscribeMicrophoneEvents = true;
     static const bool SubscribeEjectEvents = true;
 
     /* Notification Icons */
     static const bool EjectIcon = false;
+    static const bool MicrophoneIcon = false;
     static const bool VolumeIcon = true;
 
     static const bool OnTop = true;

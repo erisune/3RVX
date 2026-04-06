@@ -19,6 +19,7 @@
 #include "OSD/EjectOSD.h"
 #include "OSD/KeyboardOSD.h"
 #include "OSD/VolumeOSD.h"
+#include "OSD/MicrophoneOSD.h"
 #include "Settings.h"
 #include "Skin/AccentColor.h"
 #include "Skin/SkinManager.h"
@@ -104,10 +105,12 @@ void _3RVX::Initialize() {
     delete _eOSD;
     delete _bOSD;
     delete _kOSD;
+    delete _mOSD;
     _vOSD = nullptr;
     _eOSD = nullptr;
     _bOSD = nullptr;
     _kOSD = nullptr;
+    _mOSD = nullptr;
 
     Settings *settings = Settings::Instance();
     settings->Load();
@@ -131,12 +134,14 @@ void _3RVX::Initialize() {
     _vOSD = new VolumeOSD();
     _bOSD = new BrightnessOSD();
     _kOSD = new KeyboardOSD();
+    _mOSD = new MicrophoneOSD();
 
     _osds.clear();
     _osds.push_back(_eOSD);
     _osds.push_back(_vOSD);
     _osds.push_back(_bOSD);
     _osds.push_back(_kOSD);
+    _osds.push_back(_mOSD);
 
     /* Hotkey setup */
     if (_hkManager != NULL) {
@@ -163,6 +168,15 @@ void _3RVX::ProcessHotkeys(HotkeyInfo &hki) {
     case HotkeyInfo::VolumeSlider:
         if (_vOSD) {
             _vOSD->ProcessHotkeys(hki);
+        }
+        break;
+
+    case HotkeyInfo::IncreaseMicVolume:
+    case HotkeyInfo::DecreaseMicVolume:
+    case HotkeyInfo::SetMicVolume:
+    case HotkeyInfo::MuteMic:
+        if (_mOSD) {
+            _mOSD->ProcessHotkeys(hki);
         }
         break;
 
@@ -251,6 +265,7 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
         HotkeyManager::Instance()->Shutdown();
         _vOSD->HideIcon();
         _eOSD->HideIcon();
+        _mOSD->HideIcon();
         break;
     }
 
@@ -303,16 +318,26 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             case Volume:
                 if (_eOSD) { _eOSD->Hide(); }
                 if (_bOSD) { _bOSD->Hide(); }
+                if (_mOSD) { _mOSD->Hide(); }
                 break;
 
             case Eject:
                 if (_vOSD) { _vOSD->Hide(); }
                 if (_bOSD) { _bOSD->Hide(); }
+                if (_mOSD) { _mOSD->Hide(); }
                 break;
 
             case Brightness:
                 if (_vOSD) { _vOSD->Hide(); }
                 if (_eOSD) { _eOSD->Hide(); }
+                if (_mOSD) { _mOSD->Hide(); }
+                break;
+
+            case Mic:
+                if (_vOSD) { _vOSD->Hide(); }
+                if (_bOSD) { _bOSD->Hide(); }
+                if (_eOSD) { _eOSD->Hide(); }
+                break;
             }
 
             break;

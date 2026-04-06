@@ -197,6 +197,15 @@ std::wstring Settings::AudioDeviceID() {
     return GetText(XML_AUDIODEV);
 }
 
+void Settings::CaptureDeviceID(std::wstring id) {
+    std::string idStr = StringUtils::Narrow(id);
+    return SetText(XML_CAPTUREDEV, idStr);
+}
+
+std::wstring Settings::CaptureDeviceID() {
+    return GetText(XML_CAPTUREDEV);
+}
+
 int Settings::VolumeCurveAdjustment() {
     return GetInt(XML_CURVE_ADJUST, 0);
 }
@@ -231,6 +240,23 @@ bool Settings::SubscribeVolumeEvents() {
 
 void Settings::SubscribeVolumeEvents(bool enable) {
     SetEnabled(XML_SUBSCRIBE_VOL, enable);
+}
+
+bool Settings::MicMuteOnLock() {
+    return GetEnabled(XML_MICMUTELOCK, DefaultSettings::MuteLock);
+}
+
+void Settings::MicMuteOnLock(bool enable) {
+    SetEnabled(XML_MICMUTELOCK, enable);
+}
+
+bool Settings::SubscribeMicrophoneEvents() {
+    return GetEnabled(
+        XML_SUBSCRIBE_MIC, DefaultSettings::SubscribeMicrophoneEvents);
+}
+
+void Settings::SubscribeMicrophoneEvents(bool enable) {
+    SetEnabled(XML_SUBSCRIBE_MIC, enable);
 }
 
 std::wstring Settings::LanguageName() {
@@ -356,6 +382,14 @@ bool Settings::VolumeOSDEnabled() {
 
 void Settings::VolumeOSDEnabled(bool enable) {
     SetEnabled(XML_ENABLE_VOSD, enable);
+}
+
+bool Settings::MicrophoneOSDEnabled() {
+    return GetEnabled(XML_ENABLE_MOSD, DefaultSettings::VolumeOSDEnabled);
+}
+
+void Settings::MicrophoneOSDEnabled(bool enable) {
+    SetEnabled(XML_ENABLE_MOSD, enable);
 }
 
 AnimationTypes::HideAnimation Settings::HideAnim() {
@@ -538,6 +572,14 @@ bool Settings::VolumeIconEnabled() {
 
 void Settings::VolumeIconEnabled(bool enable) {
     SetEnabled(XML_VOLUMEICON, enable);
+}
+
+bool Settings::MicrophoneIconEnabled() {
+    return GetEnabled(XML_MICICON, DefaultSettings::MicrophoneIcon);
+}
+
+void Settings::MicrophoneIconEnabled(bool enable) {
+    SetEnabled(XML_MICICON, enable);
 }
 
 bool Settings::SoundEffectsEnabled() {

@@ -26,9 +26,12 @@ public:
     virtual OSDComponent *MuteOSD();
     virtual OSDComponent *EjectOSD();
     virtual OSDComponent *BrightnessOSD();
+    virtual OSDComponent *MicrophoneOSD();
+    virtual OSDComponent *MicrophoneMuteOSD();
 
     virtual HICON EjectIcon();
     virtual std::vector<HICON> VolumeIconset();
+    virtual std::vector<HICON> MicrophoneIconset();
 
     virtual SliderComponent *VolumeSlider();
 };

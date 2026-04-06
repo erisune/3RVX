@@ -89,6 +89,8 @@ public:
     void KeyboardOSDEnabled(bool enable);
     bool VolumeOSDEnabled();
     void VolumeOSDEnabled(bool enable);
+    bool MicrophoneOSDEnabled();
+    void MicrophoneOSDEnabled(bool enable);
 
     /* Volume */
     void AudioDeviceID(std::wstring id);
@@ -103,6 +105,16 @@ public:
     void VolumeLimiter(float limit);
     bool VolumeIconEnabled();
     void VolumeIconEnabled(bool enable);
+
+    /* Microphone */
+    void CaptureDeviceID(std::wstring id);
+    std::wstring CaptureDeviceID();
+    bool MicMuteOnLock();
+    void MicMuteOnLock(bool enable);
+    bool SubscribeMicrophoneEvents();
+    void SubscribeMicrophoneEvents(bool enable);
+    bool MicrophoneIconEnabled();
+    void MicrophoneIconEnabled(bool enable);
 
     /* Eject */
     bool EjectIconEnabled();
@@ -199,11 +211,13 @@ private:
 private:
     /* XML tag names */
     static constexpr const char *XML_AUDIODEV = "audioDeviceID";
+    static constexpr const char *XML_CAPTUREDEV = "captureDeviceID";
     static constexpr const char *XML_CURVE_ADJUST = "curveAdjust";
     static constexpr const char *XML_EJECTICON = "ejectIcon";
     static constexpr const char *XML_ENABLE_BOSD = "brightnessOSDEnabled";
     static constexpr const char *XML_ENABLE_EOSD = "ejectOSDEnabled";
     static constexpr const char *XML_ENABLE_KOSD = "keyboardOSDEnabled";
+    static constexpr const char *XML_ENABLE_MOSD = "micOSDEnabled";
     static constexpr const char *XML_ENABLE_VOSD = "volumeOSDEnabled";
     static constexpr const char *XML_HIDE_WHENFULL = "hideFullscreen";
     static constexpr const char *XML_HIDE_DIRECTX = "hideDirectX";
@@ -211,8 +225,11 @@ private:
     static constexpr const char *XML_HIDETIME = "hideDelay";
     static constexpr const char *XML_HIDESPEED = "hideSpeed";
     static constexpr const char *XML_IGNOREUPDATE = "ignoreUpdateVersion";
+    static constexpr const char *XML_GLASS = "glassEffects";
     static constexpr const char *XML_LANGUAGE = "language";
     static constexpr const char *XML_MONITOR = "monitor";
+    static constexpr const char *XML_MICICON = "micIcon";
+    static constexpr const char *XML_MICMUTELOCK = "micMuteDuringLock";
     static constexpr const char *XML_MUTELOCK = "muteDuringLock";
     /* Note: the XML_VOLUMEICON tag name is 'notifyIcon' to ensure backwards
      * compatibility with previous versions of 3RVX that didn't support multiple
@@ -226,8 +243,8 @@ private:
     static constexpr const char *XML_SHOWONSTART = "showOnStartup";
     static constexpr const char *XML_SKIN = "skin";
     static constexpr const char *XML_SOUNDS = "soundEffects";
-    static constexpr const char *XML_GLASS = "glassEffects";
     static constexpr const char *XML_SUBSCRIBE_EJECT = "subscribeEjectEvents";
+    static constexpr const char *XML_SUBSCRIBE_MIC = "subscribeMicEvents";
     static constexpr const char *XML_SUBSCRIBE_VOL = "subscribeVolumeEvents";
     static constexpr const char *XML_UPDATEAUTO = "automaticUpdates";
     static constexpr const char *XML_UPDATECHECKTIME = "lastUpdateCheck";
