@@ -23,7 +23,7 @@ MicrophoneOSD::MicrophoneOSD() :
     OSD(L"3RVX-MicDispatcher"),
     _mWnd(L"3RVX-MicrophoneOSD", L"3RVX-MicrophoneOSD"),
     _muteWnd(L"3RVX-MicMuteOSD", L"3RVX-MicMuteOSD") {
-    \
+    
     LoadSkin();
 
     /* Start the volume controller */
@@ -141,8 +141,8 @@ void MicrophoneOSD::LoadSkin() {
 
     /* Mute OSD */
     _muteWnd.BackgroundImage(skin->MicrophoneMuteOSD()->background);
-    _muteWnd.EnableGlass(skin->MuteOSD()->mask);
-    for (Meter* m : skin->MuteOSD()->meters) {
+    _muteWnd.EnableGlass(skin->MicrophoneMuteOSD()->mask);
+    for (Meter* m : skin->MicrophoneMuteOSD()->meters) {
         _muteWnd.AddMeter(m);
     }
     _muteWnd.MeterLevels(0);
