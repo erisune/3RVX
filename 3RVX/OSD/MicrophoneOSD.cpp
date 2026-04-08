@@ -24,10 +24,6 @@ MicrophoneOSD::MicrophoneOSD() :
     _mWnd(L"3RVX-MicrophoneOSD", L"3RVX-MicrophoneOSD"),
     _muteWnd(L"3RVX-MicMuteOSD", L"3RVX-MicMuteOSD") {
     
-    SkinManager *skin = SkinManager::Instance();
-    if (skin->MicrophoneOSD() == nullptr || skin->MicrophoneMuteOSD() == nullptr) {
-        return;
-    }
     LoadSkin();
 
     /* Start the volume controller */
@@ -88,9 +84,7 @@ MicrophoneOSD::~MicrophoneOSD() {
     DestroyMenu(_menu);
     delete _icon;
     delete _callbackMeter;
-    if (_volumeCtrl != nullptr) {
-        _volumeCtrl->Dispose();
-    }
+    _volumeCtrl->Dispose();
 }
 
 void MicrophoneOSD::UpdateDeviceMenu() {
@@ -129,30 +123,38 @@ void MicrophoneOSD::LoadSkin() {
 
     /* Microphone OSD */
     OSDComponent* microphoneOSD = skin->MicrophoneOSD();
-    _mWnd.BackgroundImage(microphoneOSD->background);
-    _mWnd.EnableGlass(microphoneOSD->mask);
-    for (Meter* m : microphoneOSD->meters) {
-        _mWnd.AddMeter(m);
+    if (microphoneOSD == nullptr) {
+        _validSkin = false;
+    } else {
+        _validSkin = true;
+        _mWnd.BackgroundImage(microphoneOSD->background);
+        _mWnd.EnableGlass(microphoneOSD->mask);
+        for (Meter* m : microphoneOSD->meters) {
+            _mWnd.AddMeter(m);
+        }
+
+        /* Add a callback meter with the default volume increment for sounds */
+        _callbackMeter = new CallbackMeter(microphoneOSD->defaultUnits, *this);
+        _mWnd.AddMeter(_callbackMeter);
+
+        /* Default volume increment */
+        _defaultIncrement = (float)(10000 / microphoneOSD->defaultUnits) / 10000.0f;
+        CLOG(L"Default volume increment: %f", _defaultIncrement);
+
+        _mWnd.Update();
     }
-
-    /* Add a callback meter with the default volume increment for sounds */
-    _callbackMeter = new CallbackMeter(microphoneOSD->defaultUnits, *this);
-    _mWnd.AddMeter(_callbackMeter);
-
-    /* Default volume increment */
-    _defaultIncrement = (float)(10000 / microphoneOSD->defaultUnits) / 10000.0f;
-    CLOG(L"Default volume increment: %f", _defaultIncrement);
-
-    _mWnd.Update();
 
     /* Mute OSD */
-    _muteWnd.BackgroundImage(skin->MicrophoneMuteOSD()->background);
-    _muteWnd.EnableGlass(skin->MicrophoneMuteOSD()->mask);
-    for (Meter* m : skin->MicrophoneMuteOSD()->meters) {
-        _muteWnd.AddMeter(m);
+    OSDComponent* MicMuteOSD = skin->MicrophoneMuteOSD();
+    if (MicMuteOSD != nullptr) {
+        _muteWnd.BackgroundImage(MicMuteOSD->background);
+        _muteWnd.EnableGlass(MicMuteOSD->mask);
+        for (Meter* m : MicMuteOSD->meters) {
+            _muteWnd.AddMeter(m);
+        }
+        _muteWnd.MeterLevels(0);
+        _muteWnd.Update();
     }
-    _muteWnd.MeterLevels(0);
-    _muteWnd.Update();
 
     /* Now that everything is set up, initialize the meter windows. */
     OSD::InitMeterWnd(_mWnd);
@@ -167,14 +169,18 @@ void MicrophoneOSD::LoadSkin() {
     }
 
     /* Enable sound effects, if any */
-    if (_settings->SoundEffectsEnabled()) {
-        _soundPlayer = microphoneOSD->sound;
+    if (_validSkin) {
+        if (_settings->SoundEffectsEnabled()) {
+            _soundPlayer = microphoneOSD->sound;
+        }
     }
 }
 
 void MicrophoneOSD::MeterLevels(float level) {
-    _mWnd.MeterLevels(level);
-    _mWnd.Update();
+    if (_validSkin) {
+        _mWnd.MeterLevels(level);
+        _mWnd.Update();
+    }
 }
 
 void MicrophoneOSD::MeterChangeCallback(int units) {

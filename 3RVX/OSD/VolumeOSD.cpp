@@ -28,10 +28,6 @@ OSD(L"3RVX-VolumeDispatcher"),
 _mWnd(L"3RVX-VolumeOSD", L"3RVX-VolumeOSD"),
 _muteWnd(L"3RVX-MuteOSD", L"3RVX-MuteOSD") {
 
-    SkinManager *skin = SkinManager::Instance();
-    if (skin->VolumeOSD() == nullptr || skin->MuteOSD() == nullptr) {
-        return;
-    }
     LoadSkin();
 
     /* Start the volume controller */
@@ -95,7 +91,9 @@ _muteWnd(L"3RVX-MuteOSD", L"3RVX-MuteOSD") {
     UpdateIcon();
     float v = _volumeCtrl->Volume();
     MeterLevels(v);
-    _volumeSlider->MeterLevels(v);
+    if (_validSlider) {
+        _volumeSlider->MeterLevels(v);
+    }
 
     if (_settings->MuteOnLock()) {
         /* If muting volume on lock is enabled, register for notifications. */
@@ -121,9 +119,7 @@ VolumeOSD::~VolumeOSD() {
         delete trans;
     }
     _volumeTransformations.clear();
-    if (_volumeCtrl != nullptr) {
-        _volumeCtrl->Dispose();
-    }
+    _volumeCtrl->Dispose();
 }
 
 void VolumeOSD::UpdateDeviceMenu() {
@@ -162,34 +158,48 @@ void VolumeOSD::LoadSkin() {
 
     /* Volume OSD */
     OSDComponent *volumeOSD = skin->VolumeOSD();
-    _mWnd.BackgroundImage(volumeOSD->background);
-    _mWnd.EnableGlass(volumeOSD->mask);
-    for (Meter *m : volumeOSD->meters) {
-        _mWnd.AddMeter(m);
+    if (volumeOSD == nullptr) {
+        _validSkin = false;
+    } else {
+        _validSkin = true;
+        _mWnd.BackgroundImage(volumeOSD->background);
+        _mWnd.EnableGlass(volumeOSD->mask);
+        for (Meter* m : volumeOSD->meters) {
+            _mWnd.AddMeter(m);
+        }
+
+        /* Add a callback meter with the default volume increment for sounds */
+        _callbackMeter = new CallbackMeter(volumeOSD->defaultUnits, *this);
+        _mWnd.AddMeter(_callbackMeter);
+
+        /* Default volume increment */
+        _defaultIncrement = (float)(10000 / volumeOSD->defaultUnits) / 10000.0f;
+        CLOG(L"Default volume increment: %f", _defaultIncrement);
+
+        _mWnd.Update();
     }
-
-    /* Add a callback meter with the default volume increment for sounds */
-    _callbackMeter = new CallbackMeter(volumeOSD->defaultUnits, *this);
-    _mWnd.AddMeter(_callbackMeter);
-
-    /* Default volume increment */
-    _defaultIncrement = (float) (10000 / volumeOSD->defaultUnits) / 10000.0f;
-    CLOG(L"Default volume increment: %f", _defaultIncrement);
-
-    _mWnd.Update();
 
     /* Mute OSD */
-    _muteWnd.BackgroundImage(skin->MuteOSD()->background);
-    _muteWnd.EnableGlass(skin->MuteOSD()->mask);
-    for (Meter *m : skin->MuteOSD()->meters) {
-        _muteWnd.AddMeter(m);
+    OSDComponent *muteOSD = skin->MuteOSD();
+    if (muteOSD != nullptr) {
+        _muteWnd.BackgroundImage(muteOSD->background);
+        _muteWnd.EnableGlass(muteOSD->mask);
+        for (Meter* m : muteOSD->meters) {
+            _muteWnd.AddMeter(m);
+        }
+        _muteWnd.MeterLevels(0);
+        _muteWnd.Update();
     }
-    _muteWnd.MeterLevels(0);
-    _muteWnd.Update();
 
     /* Now that everything is set up, initialize the meter windows. */
     OSD::InitMeterWnd(_mWnd);
     OSD::InitMeterWnd(_muteWnd);
+
+    if (skin->VolumeSlider() == nullptr) {
+        _validSlider = false;
+    } else {
+        _validSlider = true;
+    }
 
     /* Set up notification icon */
     if (_settings->VolumeIconEnabled()) {
@@ -200,14 +210,18 @@ void VolumeOSD::LoadSkin() {
     }
 
     /* Enable sound effects, if any */
-    if (_settings->SoundEffectsEnabled()) {
-        _soundPlayer = volumeOSD->sound;
+    if (_validSkin) {
+        if (_settings->SoundEffectsEnabled()) {
+            _soundPlayer = volumeOSD->sound;
+        }
     }
 }
 
 void VolumeOSD::MeterLevels(float level) {
-    _mWnd.MeterLevels(level);
-    _mWnd.Update();
+    if (_validSkin) {
+        _mWnd.MeterLevels(level);
+        _mWnd.Update();
+    }
 }
 
 void VolumeOSD::MeterChangeCallback(int units) {
@@ -379,7 +393,9 @@ void VolumeOSD::ProcessVolumeHotkeys(HotkeyInfo &hki) {
 void VolumeOSD::UpdateVolumeState() {
     float v = _volumeCtrl->Volume();
     MeterLevels(v);
-    _volumeSlider->MeterLevels(v);
+    if (_validSlider) {
+        _volumeSlider->MeterLevels(v);
+    }
     UpdateIcon();
 }
 
@@ -441,9 +457,11 @@ void VolumeOSD::OnMenuEvent(WPARAM wParam) {
 
 void VolumeOSD::OnNotifyIconEvent(HWND hWnd, LPARAM lParam) {
     if (lParam == WM_LBUTTONUP) {
-        if (_volumeCtrl->DeviceEnabled()) {
-            _volumeSlider->MeterLevels(_volumeCtrl->Volume());
-            _volumeSlider->Show();
+        if (_validSlider) {
+            if (_volumeCtrl->DeviceEnabled()) {
+                _volumeSlider->MeterLevels(_volumeCtrl->Volume());
+                _volumeSlider->Show();
+            }
         }
     } else if (lParam == WM_RBUTTONUP) {
         POINT p;
@@ -475,7 +493,9 @@ void VolumeOSD::OnVolumeChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
     float v = _volumeCtrl->Volume();
     bool muteState = _volumeCtrl->Muted();
 
-    _volumeSlider->MeterLevels(v);
+    if (_validSlider) {
+        _volumeSlider->MeterLevels(v);
+    }
     UpdateIcon();
     HideWindowsOSD::Init();
 

@@ -39,6 +39,7 @@ private:
     bool _monitorSession;
     bool _subscribeVolEvents;
     bool _unlockUnmute;
+    bool _validSkin;
 
     MeterWnd _mWnd;
     CallbackMeter* _callbackMeter;

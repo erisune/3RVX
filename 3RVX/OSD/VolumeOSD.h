@@ -37,6 +37,8 @@ private:
     bool _monitorSession;
     bool _subscribeVolEvents;
     bool _unlockUnmute;
+    bool _validSkin;
+    bool _validSlider;
     std::vector<VolumeTransformation *> _volumeTransformations;
 
     MeterWnd _mWnd;
