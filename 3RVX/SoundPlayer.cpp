@@ -57,7 +57,9 @@ _repeatLimit(repeatLimit) {
 SoundPlayer::~SoundPlayer() {
     _ready = false;
     _cv.notify_all();
-    _thread.join();
+    if (_thread.joinable()) {
+        _thread.join();
+    }
 
     COMUtil::SafeRelease(_mediaSeek);
     COMUtil::SafeRelease(_mediaEv);
