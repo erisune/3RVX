@@ -164,6 +164,14 @@ std::list<std::wstring> General::FindSkins(std::wstring dir) {
         if (fName.at(0) == L'.') {
             continue;
         }
+        if (ffd.dwFileAttributes & ~FILE_ATTRIBUTE_DIRECTORY) {
+            continue;
+        }
+        std::wstring skinXML = Settings::Instance()->SkinXML(fName);
+        if (FindFirstFile(skinXML.c_str(), &ffd) == INVALID_HANDLE_VALUE) {
+            QCLOG(L"XML not found in folder %s, skipping", fName.c_str());
+            continue;
+        }
         QCLOG(L"%s", fName.c_str());
         skins.push_back(fName);
     } while (FindNextFile(hFind, &ffd));
