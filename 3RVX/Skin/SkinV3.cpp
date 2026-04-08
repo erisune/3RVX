@@ -45,6 +45,9 @@ OSDComponent *SkinV3::BrightnessOSD() {
 
 HICON SkinV3::EjectIcon() {
     XMLElement *eject = SubElement("osds", "eject");
+    if (eject == nullptr) {
+        return NULL;
+    }
     return Icon(eject);
 }
 

@@ -15,6 +15,9 @@ SliderWnd(L"3RVX-VolumeSlider", L"3RVX Volume Slider"),
 _volumeCtrl(volumeCtrl) {
 
     SkinManager *skin = SkinManager::Instance();
+    if (skin->VolumeSlider() == nullptr) {
+        return;
+    }
     BackgroundImage(skin->VolumeSlider()->background);
     EnableGlass(skin->VolumeSlider()->mask);
 

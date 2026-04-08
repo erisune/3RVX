@@ -24,6 +24,10 @@ MicrophoneOSD::MicrophoneOSD() :
     _mWnd(L"3RVX-MicrophoneOSD", L"3RVX-MicrophoneOSD"),
     _muteWnd(L"3RVX-MicMuteOSD", L"3RVX-MicMuteOSD") {
     
+    SkinManager *skin = SkinManager::Instance();
+    if (skin->MicrophoneOSD() == nullptr || skin->MicrophoneMuteOSD() == nullptr) {
+        return;
+    }
     LoadSkin();
 
     /* Start the volume controller */
@@ -84,7 +88,9 @@ MicrophoneOSD::~MicrophoneOSD() {
     DestroyMenu(_menu);
     delete _icon;
     delete _callbackMeter;
-    _volumeCtrl->Dispose();
+    if (_volumeCtrl != nullptr) {
+        _volumeCtrl->Dispose();
+    }
 }
 
 void MicrophoneOSD::UpdateDeviceMenu() {

@@ -18,6 +18,9 @@ OSD(L"3RVX-EjectDispatcher"),
 _mWnd(L"3RVX-EjectOSD", L"3RVX-EjectOSD") {
 
     SkinManager *skin = SkinManager::Instance();
+    if (skin->EjectOSD() == nullptr) {
+        return;
+    }
     OSDComponent *ejectOSD = skin->EjectOSD();
     _mWnd.BackgroundImage(ejectOSD->background);
     _mWnd.EnableGlass(ejectOSD->mask);

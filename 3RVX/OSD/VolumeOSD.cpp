@@ -28,6 +28,10 @@ OSD(L"3RVX-VolumeDispatcher"),
 _mWnd(L"3RVX-VolumeOSD", L"3RVX-VolumeOSD"),
 _muteWnd(L"3RVX-MuteOSD", L"3RVX-MuteOSD") {
 
+    SkinManager *skin = SkinManager::Instance();
+    if (skin->VolumeOSD() == nullptr || skin->MuteOSD() == nullptr) {
+        return;
+    }
     LoadSkin();
 
     /* Start the volume controller */
@@ -117,7 +121,9 @@ VolumeOSD::~VolumeOSD() {
         delete trans;
     }
     _volumeTransformations.clear();
-    _volumeCtrl->Dispose();
+    if (_volumeCtrl != nullptr) {
+        _volumeCtrl->Dispose();
+    }
 }
 
 void VolumeOSD::UpdateDeviceMenu() {

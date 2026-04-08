@@ -45,8 +45,6 @@ void SkinManager::LoadSkin(std::wstring skinXML) {
 
     std::vector<Skin *> skins;
     skins.push_back(skin);
-    skins.push_back(new SkinV3(settings->SkinXML(L"Classic")));
-    skins.push_back(new ErrorSkin());
 
     for (Skin *skin : skins) {
         if (_volumeOSD == nullptr) {
