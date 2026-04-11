@@ -13,6 +13,10 @@ Animation *AnimationFactory::Create(
         animation = new FadeOut(speed);
         break;
 
+    case AnimationTypes::Slide:
+        animation = new Slide(speed);
+        break;
+
     case AnimationTypes::None:
     default:
         animation = NULL;

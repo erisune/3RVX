@@ -5,6 +5,7 @@
 
 std::vector<std::wstring> AnimationTypes::HideAnimationNames = {
     L"None",
-    L"Fade"
+    L"Fade",
+    L"Slide"
 };
 
