@@ -76,7 +76,7 @@ void Slide::Init(MeterWnd* meterWnd) {
     int bestError = iMin;
     int bestInterval = 10;
     for (int i = 10; i <= 20; ++i) {
-        int si = _speed / i;
+        int si = max(_speed / i, 1);
         int error = iMin - iMin / si * si;
         if (error < bestError) {
             bestError = error;
