@@ -13,6 +13,7 @@
 
 #include "DisplayManager.h"
 #include "HotkeyManager.h"
+#include "HideWindowsOSD.h"
 #include "Logger.h"
 #include "OSD/OSD.h"
 #include "OSD/BrightnessOSD.h"
@@ -23,7 +24,7 @@
 #include "Settings.h"
 #include "Skin/AccentColor.h"
 #include "Skin/SkinManager.h"
-#include "HideWindowsOSD.h"
+#include "StringUtils.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR lpCmdLine, _In_ int nShowCmd) {
@@ -202,8 +203,18 @@ void _3RVX::ProcessHotkeys(HotkeyInfo &hki) {
 
     case HotkeyInfo::Run:
         if (hki.HasArgs()) {
-            ShellExecute(NULL, L"open", hki.args[0].c_str(),
-                NULL, NULL, SW_SHOWNORMAL);
+            std::wstring cmd = StringUtils::Trim(hki.args[0]);
+            size_t argpos = cmd.find_first_of(L" ");
+            if (argpos == std::wstring::npos) {
+                ShellExecute(NULL, L"open", cmd.c_str(),
+                    NULL, NULL, SW_SHOWNORMAL);
+            }
+            else {
+                std::wstring exec = cmd.substr(0, argpos);
+                std::wstring args = cmd.substr(argpos + 1, cmd.length());
+                ShellExecute(NULL, L"open", exec.c_str(),
+                    args.c_str(), NULL, SW_SHOWNORMAL);
+            }
         }
         break;
 
