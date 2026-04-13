@@ -240,6 +240,7 @@ void VolumeOSD::Show(bool mute) {
     if (OSD::Enabled() == false) {
         return;
     }
+    HideWindowsOSD::Init();
 
     if (mute) {
         _muteWnd.Show();
@@ -497,7 +498,6 @@ void VolumeOSD::OnVolumeChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
         _volumeSlider->MeterLevels(v);
     }
     UpdateIcon();
-    HideWindowsOSD::Init();
 
     if (_subscribeVolEvents == false && lParam == 0) {
         return;

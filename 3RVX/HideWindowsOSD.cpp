@@ -4,7 +4,7 @@ static HWND hOSD = NULL;
 
 void HideWindowsOSD::Init() {
     if (hOSD != NULL) {
-        return;
+        HideOSD();
     }
 
     if ((hOSD = FindOSDWindow()) != NULL) {
@@ -21,17 +21,16 @@ HWND HideWindowsOSD::FindOSDWindow() {
     if (IsWindows1122H2OrGreater()) {
         CLOG(L"RtlGetVersion reports Windows 11 Build 22621 or greater");
         HWND hChild = NULL;
-        while ((hParent = FindWindowEx(NULL, hParent, L"XamlExplorerHostIslandWindow", NULL)) != NULL)
+        while ((hParent = FindWindowEx(NULL, hParent, L"XamlExplorerHostIslandWindow", L"")) != NULL)
         {
             if ((hChild = FindWindowEx(hParent, NULL, L"Windows.UI.Composition.DesktopWindowContentBridge", L"DesktopWindowXamlSource")) != NULL)
             {
-                if (FindWindowEx(hChild, NULL, L"Windows.UI.Input.InputSize.WindowClass", NULL) != NULL)
+                if (FindWindowEx(hChild, NULL, L"Windows.UI.Input.InputSite.WindowClass", L"") != NULL)
                 {
                     if (!bMatched) {
                         hFound = hParent;
                         bMatched = true;
-                    }
-                    else if (bMatched) {
+                    } else {
                         CLOG(L"Found more than one match");
                         return NULL;
                     }
@@ -40,15 +39,14 @@ HWND HideWindowsOSD::FindOSDWindow() {
         }
     }
     else {
-        while ((hParent = FindWindowEx(NULL, hParent, L"NativeHWNDHost", NULL)) != NULL)
+        while ((hParent = FindWindowEx(NULL, hParent, L"NativeHWNDHost", L"")) != NULL)
         {
-            if (FindWindowEx(hParent, NULL, L"DirectUIHWND", NULL) != NULL)
+            if (FindWindowEx(hParent, NULL, L"DirectUIHWND", L"") != NULL)
             {
                 if (!bMatched) {
                     hFound = hParent;
                     bMatched = true;
-                }
-                else if (bMatched) {
+                } else {
                     CLOG(L"Found more than one match");
                     return NULL;
                 }
