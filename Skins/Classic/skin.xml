@@ -29,6 +29,18 @@
       <iconset location="Icons\Microphone"/>
     </mic>
     <micmute background="OSD\micmute.png"/>
+
+    <keyboard>
+      <capslock>
+        <icon file="Icons\Caps.ico"/>
+      </capslock>
+      <numlock>
+        <icon file="Icons\Num.ico"/>
+      </numlock>
+      <scrolllock>
+        <icon file="Icons\Scroll.ico"/>
+      </scrolllock>
+    </keyboard>
   </osds>
 
   <sliders>
