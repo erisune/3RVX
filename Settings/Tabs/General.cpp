@@ -12,6 +12,7 @@
 #include "../../3RVX/Logger.h"
 #include "../../3RVX/Settings.h"
 #include "../../3RVX/Skin/SkinInfo.h"
+#include "../../3RVX/StringUtils.h"
 #include "../resource.h"
 #include "../Updater/ProgressWindow.h"
 #include "../Updater/Updater.h"
@@ -81,11 +82,59 @@ void General::LoadSettings() {
         if (ext == language.npos) {
             continue;
         }
-
-        _language->AddItem(language.substr(0, ext));
+        /* List only files in the new format */
+        std::wstring langName = GetLanguageName(language);
+        if (!langName.empty()) {
+            _language->AddItem(langName);
+        }
     }
-    std::wstring currentLang = settings->LanguageName();
+    std::wstring currentSetting = settings->LanguageName();
+    std::wstring currentLang = GetLanguageName(currentSetting + L".xml");
     _language->Select(currentLang);
+}
+
+std::wstring General::GetLanguageName(std::wstring langFileName) {
+    CLOG(L"Reading language name in XML: %s", langFileName.c_str());
+    std::wstring langFile = Settings::LanguagesDir() + L"\\" + langFileName;
+    FILE *fp;
+    _wfopen_s(&fp, langFile.c_str(), L"rb");
+    if (fp == NULL) {
+        return L"";
+    }
+    tinyxml2::XMLDocument xml;
+    tinyxml2::XMLElement *root;
+    tinyxml2::XMLError result = xml.LoadFile(fp);
+    fclose(fp);
+    if (result != tinyxml2::XMLError::XML_SUCCESS) {
+        return L"";
+    }
+    root = xml.GetDocument()->FirstChildElement("translation");
+    if (root == NULL) {
+        return L"";
+    }
+    tinyxml2::XMLElement *trans = root->FirstChildElement("language");
+    if (trans == NULL) {
+        return L"";
+    }
+    return StringUtils::Widen(trans->Attribute("name"));
+}
+
+std::wstring General::GetLanguageFileName(std::wstring langName) {
+    std::list<std::wstring> languages = FindLanguages(
+        Settings::LanguagesDir().c_str());
+    for (std::wstring language : languages) {
+        int ext = language.find(L".xml");
+        if (ext == language.npos) {
+            continue;
+        }
+        std::wstring name = GetLanguageName(language);
+        if (!name.empty()) {
+            if (langName == name) {
+                return language.substr(0, ext);
+            }
+        }
+    }
+    return DefaultSettings::Language;
 }
 
 void General::SaveSettings() {
@@ -100,7 +149,7 @@ void General::SaveSettings() {
 
     settings->CurrentSkin(_skin->Selection());
 
-    std::wstring lang = _language->Selection();
+    std::wstring lang = GetLanguageFileName(_language->Selection());
     if (lang != settings->LanguageName()) {
         settings->LanguageName(lang);
         _3RVX::SettingsMessage(_3RVX::MSG_MUSTRESTART, NULL);

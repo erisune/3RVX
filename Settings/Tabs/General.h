@@ -23,6 +23,8 @@ private:
     virtual void Initialize();
     virtual void LoadSettings();
 
+    std::wstring GetLanguageName(std::wstring langFileName);
+    std::wstring GetLanguageFileName(std::wstring langName);
     std::list<std::wstring> FindLanguages(std::wstring dir);
     std::list<std::wstring> FindSkins(std::wstring dir);
     void LoadSkinInfo(std::wstring skinName);
