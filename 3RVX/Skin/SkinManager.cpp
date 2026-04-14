@@ -71,6 +71,22 @@ void SkinManager::LoadSkin(std::wstring skinXML) {
             _ejectIcon = skin->EjectIcon();
         }
 
+        if (_keyboardOSD == nullptr) {
+            _keyboardOSD = skin->KeyboardOSD();
+        }
+
+        if (_capsIcon == nullptr) {
+            _capsIcon = skin->CapsLockIcon();
+        }
+
+        if (_numIcon == nullptr) {
+            _numIcon = skin->NumLockIcon();
+        }
+
+        if (_scrollIcon == nullptr) {
+            _scrollIcon = skin->ScrollLockIcon();
+        }
+
         if (_brightnessOSD == nullptr) {
             _brightnessOSD = skin->BrightnessOSD();
         }
@@ -118,6 +134,22 @@ HICON &SkinManager::EjectIcon() {
     return _ejectIcon;
 }
 
+OSDComponent *SkinManager::KeyboardOSD() {
+    return _keyboardOSD;
+}
+
+HICON &SkinManager::CapsLockIcon() {
+    return _capsIcon;
+}
+
+HICON &SkinManager::NumLockIcon() {
+    return _numIcon;
+}
+
+HICON &SkinManager::ScrollLockIcon() {
+    return _scrollIcon;
+}
+
 OSDComponent *SkinManager::BrightnessOSD() {
     return _brightnessOSD;
 }
@@ -155,6 +187,15 @@ void SkinManager::DisposeComponents() {
     _ejectOSD = nullptr;
     DestroyIcon(_ejectIcon);
     _ejectIcon = nullptr;
+
+    delete _keyboardOSD;
+    _keyboardOSD = nullptr;
+    DestroyIcon(_capsIcon);
+    DestroyIcon(_numIcon);
+    DestroyIcon(_scrollIcon);
+    _capsIcon = nullptr;
+    _numIcon = nullptr;
+    _scrollIcon = nullptr;
 
     delete _brightnessOSD;
     _brightnessOSD = nullptr;

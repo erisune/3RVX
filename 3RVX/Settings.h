@@ -122,6 +122,16 @@ public:
     bool SubscribeEjectEvents();
     void SubscribeEjectEvents(bool enable);
 
+    /* Keyboard */
+    bool KeyboardIconsEnabled();
+    void KeyboardIconsEnabled(bool enable);
+    bool CapsLockEnabled();
+    void CapsLockEnabled(bool enable);
+    bool NumLockEnabled();
+    void NumLockEnabled(bool enable);
+    bool ScrollLockEnabled();
+    void ScrollLockEnabled(bool enable);
+
     /* Hotkeys */
     std::unordered_map<int, HotkeyInfo> Hotkeys();
     void Hotkeys(std::vector<HotkeyInfo> hotkeys);
@@ -211,6 +221,7 @@ private:
 private:
     /* XML tag names */
     static constexpr const char *XML_AUDIODEV = "audioDeviceID";
+    static constexpr const char *XML_CAPSLOCK = "capsLock";
     static constexpr const char *XML_CAPTUREDEV = "captureDeviceID";
     static constexpr const char *XML_CURVE_ADJUST = "curveAdjust";
     static constexpr const char *XML_EJECTICON = "ejectIcon";
@@ -226,11 +237,13 @@ private:
     static constexpr const char *XML_HIDESPEED = "hideSpeed";
     static constexpr const char *XML_IGNOREUPDATE = "ignoreUpdateVersion";
     static constexpr const char *XML_GLASS = "glassEffects";
+    static constexpr const char *XML_KEYBOARDICONS = "keyboardIcons";
     static constexpr const char *XML_LANGUAGE = "language";
     static constexpr const char *XML_MONITOR = "monitor";
     static constexpr const char *XML_MICICON = "micIcon";
     static constexpr const char *XML_MICMUTELOCK = "micMuteDuringLock";
     static constexpr const char *XML_MUTELOCK = "muteDuringLock";
+    static constexpr const char *XML_NUMLOCK = "numLock";
     /* Note: the XML_VOLUMEICON tag name is 'notifyIcon' to ensure backwards
      * compatibility with previous versions of 3RVX that didn't support multiple
      * icon types. */
@@ -240,6 +253,7 @@ private:
     static constexpr const char *XML_OSD_POS = "osdPosition";
     static constexpr const char *XML_OSD_X = "osdX";
     static constexpr const char *XML_OSD_Y = "osdY";
+    static constexpr const char *XML_SCROLLLOCK = "scrollLock";
     static constexpr const char *XML_SHOWONSTART = "showOnStartup";
     static constexpr const char *XML_SKIN = "skin";
     static constexpr const char *XML_SOUNDS = "soundEffects";

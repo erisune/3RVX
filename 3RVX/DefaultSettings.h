@@ -34,6 +34,11 @@ public:
     static const bool EjectIcon = false;
     static const bool MicrophoneIcon = false;
     static const bool VolumeIcon = true;
+    static const bool KeyboardIcons = false;
+
+    static const bool CapsLock = false;
+    static const bool NumLock = false;
+    static const bool ScrollLock = false;
 
     static const bool OnTop = true;
     static const bool HideFullscreen = false;

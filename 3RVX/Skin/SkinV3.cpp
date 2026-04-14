@@ -39,6 +39,10 @@ OSDComponent *SkinV3::EjectOSD() {
     return CreateOSDComponent("eject");
 }
 
+OSDComponent *SkinV3::KeyboardOSD() {
+    return CreateOSDComponent("keyboard");
+}
+
 OSDComponent *SkinV3::BrightnessOSD() {
     return CreateOSDComponent("brightness");
 }
@@ -49,6 +53,42 @@ HICON SkinV3::EjectIcon() {
         return NULL;
     }
     return Icon(eject);
+}
+
+HICON SkinV3::CapsLockIcon() {
+    XMLElement *keyboard = SubElement("osds", "keyboard");
+    if (keyboard == nullptr) {
+        return NULL;
+    }
+    XMLElement *capsLock = keyboard->FirstChildElement("capslock");
+    if (capsLock == nullptr) {
+        return NULL;
+    }
+    return Icon(capsLock);
+}
+
+HICON SkinV3::NumLockIcon() {
+    XMLElement *keyboard = SubElement("osds", "keyboard");
+    if (keyboard == nullptr) {
+        return NULL;
+    }
+    XMLElement *numLock = keyboard->FirstChildElement("numlock");
+    if (numLock == nullptr) {
+        return NULL;
+    }
+    return Icon(numLock);
+}
+
+HICON SkinV3::ScrollLockIcon() {
+    XMLElement *keyboard = SubElement("osds", "keyboard");
+    if (keyboard == nullptr) {
+        return NULL;
+    }
+    XMLElement *scrollLock = keyboard->FirstChildElement("scrolllock");
+    if (scrollLock == nullptr) {
+        return NULL;
+    }
+    return Icon(scrollLock);
 }
 
 std::vector<HICON> SkinV3::VolumeIconset() {

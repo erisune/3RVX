@@ -26,12 +26,17 @@ public:
     OSDComponent *EjectOSD();
     HICON &EjectIcon();
 
+    OSDComponent *KeyboardOSD();
+    HICON &CapsLockIcon();
+    HICON &NumLockIcon();
+    HICON &ScrollLockIcon();
+
     OSDComponent *BrightnessOSD();
 
     OSDComponent *MicrophoneOSD();
-    std::vector<HICON>& MicrophoneIconset();
+    std::vector<HICON> &MicrophoneIconset();
 
-    OSDComponent* MicrophoneMuteOSD();
+    OSDComponent *MicrophoneMuteOSD();
 
 private:
     OSDComponent *_volumeOSD;
@@ -41,6 +46,11 @@ private:
 
     OSDComponent *_ejectOSD;
     HICON _ejectIcon;
+
+    OSDComponent *_keyboardOSD;
+    HICON _capsIcon;
+    HICON _numIcon;
+    HICON _scrollIcon;
 
     OSDComponent *_brightnessOSD;
 

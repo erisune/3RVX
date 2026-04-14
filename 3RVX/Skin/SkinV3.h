@@ -26,11 +26,15 @@ public:
     virtual OSDComponent *VolumeOSD();
     virtual OSDComponent *MuteOSD();
     virtual OSDComponent *EjectOSD();
+    virtual OSDComponent *KeyboardOSD();
     virtual OSDComponent *BrightnessOSD();
     virtual OSDComponent *MicrophoneOSD();
     virtual OSDComponent *MicrophoneMuteOSD();
 
     virtual HICON EjectIcon();
+    virtual HICON CapsLockIcon();
+    virtual HICON NumLockIcon();
+    virtual HICON ScrollLockIcon();
     virtual std::vector<HICON> VolumeIconset();
     virtual std::vector<HICON> MicrophoneIconset();
 

@@ -36,17 +36,29 @@ public:
     /// <summary>Retrieves the icon used for the eject icon.</summary>
     virtual HICON EjectIcon() = 0;
 
+    /// <summary>Loads and instantiates the Keyboard OSD.</summary>
+    virtual OSDComponent *KeyboardOSD() = 0;
+
+    /// <summary>Retrieves the icon used for the caps lock icon.</summary>
+    virtual HICON CapsLockIcon() = 0;
+
+    /// <summary>Retrieves the icon used for the num lock icon.</summary>
+    virtual HICON NumLockIcon() = 0;
+
+    /// <summary>Retrieves the icon used for the scroll lock icon.</summary>
+    virtual HICON ScrollLockIcon() = 0;
+
     /// <summary>Loads and instantiates the Brightness OSD.</summary>
     virtual OSDComponent *BrightnessOSD() = 0;
 
     /// <summary>Loads and instantiates the Microphone OSD.</summary>
-    virtual OSDComponent* MicrophoneOSD() = 0;
+    virtual OSDComponent *MicrophoneOSD() = 0;
 
     /// <summary>Retrieves the iconset used for the Microphone icon.</summary>
     virtual std::vector<HICON> MicrophoneIconset() = 0;
 
     /// <summary>Loads and instantiates the Microphone Mute OSD.</summary>
-    virtual OSDComponent* MicrophoneMuteOSD() = 0;
+    virtual OSDComponent *MicrophoneMuteOSD() = 0;
 
     /// <summary>
     /// Creates a Bitmap instance from a file on disk.

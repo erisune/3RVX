@@ -194,6 +194,11 @@ void OSD::LoadSettings() {
 
     _ejectIcon->Checked(settings->EjectIconEnabled());
     _subscribeEjectEvents->Checked(settings->SubscribeEjectEvents());
+
+    _keyboardIcon->Checked(settings->KeyboardIconsEnabled());
+    _caps->Checked(settings->CapsLockEnabled());
+    _num->Checked(settings->NumLockEnabled());
+    _scroll->Checked(settings->ScrollLockEnabled());
 }
 
 void OSD::SaveSettings() {
@@ -238,6 +243,11 @@ void OSD::SaveSettings() {
 
     settings->EjectIconEnabled(_ejectIcon->Checked());
     settings->SubscribeEjectEvents(_subscribeEjectEvents->Checked());
+
+    settings->KeyboardIconsEnabled(_keyboardIcon->Checked());
+    settings->CapsLockEnabled(_caps->Checked());
+    settings->NumLockEnabled(_num->Checked());
+    settings->ScrollLockEnabled(_scroll->Checked());
 }
 
 void OSD::ShowGroup(int group) {

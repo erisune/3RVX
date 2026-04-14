@@ -113,6 +113,11 @@ OSDComponent *SkinV2::EjectOSD() {
     return eject;
 }
 
+OSDComponent* SkinV2::KeyboardOSD() {
+    /* Keyboard OSDs were not supported by the v2 skin format. */
+    return nullptr;
+}
+
 OSDComponent *SkinV2::BrightnessOSD() {
     /* Brightness OSDs were not supported by the v2 skin format. */
     return nullptr;
@@ -130,6 +135,21 @@ OSDComponent *SkinV2::MicrophoneMuteOSD() {
 
 HICON SkinV2::EjectIcon() {
     /* v2 skins didn't have eject icons */
+    return nullptr;
+}
+
+HICON SkinV2::CapsLockIcon() {
+    /* v2 skins didn't have caps lock icons */
+    return nullptr;
+}
+
+HICON SkinV2::NumLockIcon() {
+    /* v2 skins didn't have num lock icons */
+    return nullptr;
+}
+
+HICON SkinV2::ScrollLockIcon() {
+    /* v2 skins didn't have scroll lock icons */
     return nullptr;
 }
 
