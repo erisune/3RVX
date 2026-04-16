@@ -49,6 +49,11 @@ void General::Initialize() {
 
     _languageGroup = new GroupBox(GRP_LANGUAGE, *this);
     _language = new ComboBox(CMB_LANG, *this);
+    _language->OnSelectionChange = [this]() {
+        LoadLanguageInfo(GetLanguageFileName(_language->Selection()));
+        return true;
+    };
+    _translator = new Label(LBL_TRANSLATOR, *this);
 }
 
 void General::LoadSettings() {
@@ -88,12 +93,13 @@ void General::LoadSettings() {
             _language->AddItem(langName);
         }
     }
-    std::wstring currentSetting = settings->LanguageName();
-    std::wstring currentLang = GetLanguageName(currentSetting + L".xml");
+    std::wstring currentLangFile = settings->LanguageName() + L".xml";
+    std::wstring currentLang = GetLanguageName(currentLangFile);
     _language->Select(currentLang);
+    LoadLanguageInfo(settings->LanguageName());
 }
 
-std::wstring General::GetLanguageName(std::wstring langFileName) {
+std::wstring General::GetLanguageName(std::wstring langFileName, bool translator) {
     CLOG(L"Reading language name in XML: %s", langFileName.c_str());
     std::wstring langFile = Settings::LanguagesDir() + L"\\" + langFileName;
     FILE *fp;
@@ -112,7 +118,13 @@ std::wstring General::GetLanguageName(std::wstring langFileName) {
     if (root == NULL) {
         return L"";
     }
-    tinyxml2::XMLElement *trans = root->FirstChildElement("language");
+    tinyxml2::XMLElement *trans;
+    if (translator) {
+        trans = root->FirstChildElement("author");
+    } else {
+        trans = root->FirstChildElement("language");
+    }
+    
     if (trans == NULL) {
         return L"";
     }
@@ -245,6 +257,18 @@ void General::LoadSkinInfo(std::wstring skinName) {
         _url = s.URL();
         _website->Enable();
     }
+}
+
+void General::LoadLanguageInfo(std::wstring languageName) {
+    if (languageName == DefaultSettings::Language) {
+        _translator->Text(L"");
+        return;
+    }
+    std::wstring langFileName = languageName + L".xml";
+    std::wstring langTranslator = GetLanguageName(langFileName, true);
+    std::wstring translator = Settings::Instance()->Translator()->TranslateAndReplace(
+        L"Translator: {1}", langTranslator);
+    _translator->Text(translator);
 }
 
 std::list<std::wstring> General::FindLanguages(std::wstring dir) {

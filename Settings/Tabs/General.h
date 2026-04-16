@@ -23,11 +23,12 @@ private:
     virtual void Initialize();
     virtual void LoadSettings();
 
-    std::wstring GetLanguageName(std::wstring langFileName);
+    std::wstring GetLanguageName(std::wstring langFileName, bool translator = false);
     std::wstring GetLanguageFileName(std::wstring langName);
     std::list<std::wstring> FindLanguages(std::wstring dir);
     std::list<std::wstring> FindSkins(std::wstring dir);
     void LoadSkinInfo(std::wstring skinName);
+    void LoadLanguageInfo(std::wstring languageName);
     bool RunOnStartup();
     bool RunOnStartup(bool enable);
     bool CheckForUpdates();
@@ -49,6 +50,7 @@ private:
 
     GroupBox *_languageGroup;
     ComboBox *_language;
+    Label *_translator;
 
 private:
     static const wchar_t REGKEY_NAME[];
