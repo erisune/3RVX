@@ -70,6 +70,8 @@ public:
     virtual bool Visible();
     virtual void Visible(bool visible);
 
+    virtual void Icon(LPCWSTR resource);
+
     /// <summary>
     /// Retrieve the window attributes of this control. See the GetWindowLongPtr
     /// Win32 function for index values.

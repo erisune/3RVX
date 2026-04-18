@@ -226,3 +226,10 @@ void Control::RemoveWindowAttribute(int index, long attribute) {
     attr &= ~attribute;
     WindowAttributes(index, attr);
 }
+
+void Control::Icon(LPCWSTR resource) {
+    HICON hIcon = static_cast<HICON>(LoadImage(GetModuleHandle(NULL),
+        resource, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+    SendMessage(_hWnd, BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)hIcon);
+    DestroyIcon(hIcon);
+}
