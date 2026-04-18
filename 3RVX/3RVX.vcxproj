@@ -244,6 +244,7 @@
     <ClInclude Include="Skin\SkinV3.h" />
     <ClInclude Include="Skin\SliderComponent.h" />
     <ClInclude Include="Skin\AccentColor.h" />
+    <ClInclude Include="Skin\VariantInfo.h" />
     <ClInclude Include="SyntheticKeyboard.h" />
     <ClInclude Include="HotkeyInfo.h" />
     <ClInclude Include="HotkeyProcessor.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="Skin\SkinV2.cpp" />
     <ClCompile Include="Skin\SkinV3.cpp" />
     <ClCompile Include="Skin\AccentColor.cpp" />
+    <ClCompile Include="Skin\VariantInfo.cpp" />
     <ClCompile Include="SyntheticKeyboard.cpp" />
     <ClCompile Include="HotkeyInfo.cpp" />
     <ClCompile Include="KeyboardHotkeyProcessor.cpp" />

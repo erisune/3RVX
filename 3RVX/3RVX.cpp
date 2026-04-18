@@ -126,7 +126,7 @@ void _3RVX::Initialize() {
             NULL);
     }
 
-    SkinManager::Instance()->LoadSkin(settings->SkinXML());
+    SkinManager::Instance()->LoadSkin(settings->SkinXML(), settings->VariantXML());
 
     DisplayManager::UpdateMonitorMap();
 

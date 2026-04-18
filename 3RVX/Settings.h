@@ -49,6 +49,11 @@ public:
     std::wstring SkinXML();
     std::wstring SkinXML(std::wstring skinName);
 
+    std::wstring CurrentVariant();
+    bool CurrentVariant(std::wstring variantName);
+    std::wstring VariantXML();
+    std::wstring VariantXML(std::wstring variantName);
+
     /* Language */
     LanguageTranslator *Translator();
     std::wstring LanguageName();
@@ -262,5 +267,6 @@ private:
     static constexpr const char *XML_SUBSCRIBE_VOL = "subscribeVolumeEvents";
     static constexpr const char *XML_UPDATEAUTO = "automaticUpdates";
     static constexpr const char *XML_UPDATECHECKTIME = "lastUpdateCheck";
+    static constexpr const char *XML_VARIANT = "variant";
     static constexpr const char *XML_VOLUME_LIMITER = "volumeLimiter";
 };

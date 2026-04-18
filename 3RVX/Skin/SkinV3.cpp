@@ -19,7 +19,12 @@
 #include "SliderComponent.h"
 
 SkinV3::SkinV3(std::wstring skinXML) :
-SkinInfo(skinXML) {
+SkinInfo(skinXML), VariantInfo(NULL) {
+
+}
+
+SkinV3::SkinV3(std::wstring skinXML, std::wstring variantXML) :
+SkinInfo(skinXML), VariantInfo(variantXML) {
 
 }
 
@@ -188,8 +193,17 @@ Gdiplus::Bitmap *SkinV3::Image(XMLElement *elem, char *attName) {
         return NULL;
     }
 
-    std::wstring wImgFile = _skinDir + L"\\" + StringUtils::Widen(imgFile);
-    if (PathFileExists(wImgFile.c_str()) == FALSE) {
+    std::wstring wImgFile;
+    if (_validVariant) {
+        wImgFile = _variantDir + L"\\" + StringUtils::Widen(imgFile);
+        if (!PathFileExists(wImgFile.c_str())) {
+            /* Check for parent resource */
+            wImgFile = _skinDir + L"\\" + StringUtils::Widen(imgFile);
+        }
+    } else {
+        wImgFile = _skinDir + L"\\" + StringUtils::Widen(imgFile);
+    }
+    if (!PathFileExists(wImgFile.c_str())) {
         Error::ErrorMessageDie(Error::GENERR_NOTFOUND, wImgFile);
     }
 
@@ -202,7 +216,15 @@ std::wstring SkinV3::ImageName(XMLElement *meterXMLElement) {
     if (imgName == NULL) {
         return NULL;
     }
-    return _skinDir + L"\\" + StringUtils::Widen(imgName);
+    std::wstring imgPath;
+    if (_validVariant) {
+        imgPath = _variantDir + L"\\" + StringUtils::Widen(imgName);
+        if (PathFileExists(imgPath.c_str())) {
+            return imgPath;
+        }
+    }
+    imgPath = _skinDir + L"\\" + StringUtils::Widen(imgName);
+    return imgPath;
 }
 
 HICON SkinV3::Icon(XMLElement *elem) {
@@ -216,7 +238,15 @@ HICON SkinV3::Icon(XMLElement *elem) {
         return nullptr;
     }
 
-    return Skin::ReadIcon(_skinDir + L"\\" + StringUtils::Widen(file));
+    std::wstring iconPath;
+    if (_validVariant) {
+        iconPath = _variantDir + L"\\" + StringUtils::Widen(file);
+        if (PathFileExists(iconPath.c_str())) {
+            return Skin::ReadIcon(iconPath);
+        }
+    }
+    iconPath = _skinDir + L"\\" + StringUtils::Widen(file);
+    return Skin::ReadIcon(iconPath);
 }
 
 std::vector<HICON> SkinV3::Iconset(XMLElement *elem) {
@@ -231,7 +261,15 @@ std::vector<HICON> SkinV3::Iconset(XMLElement *elem) {
         return std::vector<HICON>();
     }
 
-    std::wstring iconDir = _skinDir + L"\\" + StringUtils::Widen(loc) + L"\\";
+    std::wstring iconDir;
+    if (_validVariant) {
+        iconDir = _variantDir + L"\\" + StringUtils::Widen(loc) + L"\\";
+        std::vector<HICON> icons = Skin::ReadIconDirectory(iconDir);
+        if (!icons.empty()) {
+            return icons;
+        }
+    }
+    iconDir = _skinDir + L"\\" + StringUtils::Widen(loc) + L"\\";
     return Skin::ReadIconDirectory(iconDir);
 }
 
@@ -247,7 +285,16 @@ SoundPlayer *SkinV3::Sound(XMLElement *elem) {
         return NULL;
     }
 
-    std::wstring wFileName = _skinDir + L"\\" + StringUtils::Widen(fileName);
+    std::wstring wFileName;
+    if (_validVariant) {
+        wFileName = _variantDir + L"\\" + StringUtils::Widen(fileName);
+        if (!PathFileExists(wFileName.c_str())) {
+            wFileName = _skinDir + L"\\" + StringUtils::Widen(fileName);
+        }
+    } else {
+        wFileName = _skinDir + L"\\" + StringUtils::Widen(fileName);
+    }
+    
     if (PathFileExists(wFileName.c_str()) == FALSE) {
         Error::ErrorMessage(Error::GENERR_NOTFOUND, wFileName);
     }

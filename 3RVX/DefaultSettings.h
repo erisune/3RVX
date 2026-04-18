@@ -17,6 +17,9 @@ public:
     static constexpr const wchar_t *LanguageDirName = L"Languages";
     static constexpr const wchar_t *SkinDirName = L"Skins";
     static constexpr const wchar_t *SkinFileName = L"Skin.xml";
+    static constexpr const wchar_t *Variant = L"<None>";
+    static constexpr const wchar_t *VariantDirName = L"Variants";
+    static constexpr const wchar_t *VariantFileName = L"Variant.xml";
 
     /* OSDs */
     static const bool VolumeOSDEnabled = true;

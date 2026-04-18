@@ -25,7 +25,7 @@ SkinManager *SkinManager::Instance() {
     return instance;
 }
 
-void SkinManager::LoadSkin(std::wstring skinXML) {
+void SkinManager::LoadSkin(std::wstring skinXML, std::wstring variantXML) {
     DisposeComponents();
 
     /* First, make sure the skin directory exists. */
@@ -40,7 +40,11 @@ void SkinManager::LoadSkin(std::wstring skinXML) {
     if (info.FormatVersion() == 2) {
         skin = new SkinV2(skinXML);
     } else {
-        skin = new SkinV3(skinXML);
+        if (variantXML.empty()) {
+            skin = new SkinV3(skinXML);
+        } else {
+            skin = new SkinV3(skinXML, variantXML);
+        }
     }
 
     std::vector<Skin *> skins;

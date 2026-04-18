@@ -459,6 +459,45 @@ std::wstring Settings::SkinXML(std::wstring skinName) {
     return skinXML;
 }
 
+bool Settings::CurrentVariant(std::wstring variantName) {
+    if (variantName.empty()) {
+        SetText(XML_VARIANT, "");
+        return true;
+    }
+    std::string name = StringUtils::Narrow(variantName);
+    std::wstring xml = VariantXML(variantName);
+    if (PathFileExists(xml.c_str()) == FALSE) {
+        return false;
+    }
+
+    SetText(XML_VARIANT, name);
+    return true;
+}
+
+std::wstring Settings::CurrentVariant() {
+    std::wstring name = GetText("variant");
+
+    if (name == L"") {
+        return DefaultSettings::Variant;
+    } else {
+        return name;
+    }
+}
+
+std::wstring Settings::VariantXML() {
+    return VariantXML(CurrentVariant());
+}
+
+std::wstring Settings::VariantXML(std::wstring variantName) {
+    std::wstring variantXML = Settings::AppDir() + L"\\"
+        + DefaultSettings::SkinDirName + L"\\"
+        + Settings::CurrentSkin() + L"\\"
+        + DefaultSettings::VariantDirName + L"\\"
+        + variantName + L"\\"
+        + DefaultSettings::VariantFileName;
+    return variantXML;
+}
+
 std::unordered_map<int, HotkeyInfo> Settings::Hotkeys() {
     std::unordered_map<int, HotkeyInfo> keyMappings;
 

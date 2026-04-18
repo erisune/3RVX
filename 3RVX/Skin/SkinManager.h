@@ -15,7 +15,7 @@ struct SliderComponent;
 class SkinManager {
 public:
     static SkinManager *Instance();
-    void LoadSkin(std::wstring skinXML);
+    void LoadSkin(std::wstring skinXML, std::wstring variantXML);
 
     OSDComponent *VolumeOSD();
     std::vector<HICON> &VolumeIconset();

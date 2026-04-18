@@ -8,6 +8,7 @@
 #include "../TinyXml2/tinyxml2.h"
 #include "Skin.h"
 #include "SkinInfo.h"
+#include "VariantInfo.h"
 
 class Meter;
 class SliderKnob;
@@ -18,9 +19,10 @@ struct MeterComponent;
 using tinyxml2::XMLElement;
 
 /// <summary>Defines the 3RVX version 3.0 skinning format.</summary>
-class SkinV3 : public Skin, public SkinInfo {
+class SkinV3 : public Skin, public SkinInfo, public VariantInfo {
 public:
     SkinV3(std::wstring skinXML);
+    SkinV3(std::wstring skinXML, std::wstring variantXML);
     ~SkinV3();
 
     virtual OSDComponent *VolumeOSD();
