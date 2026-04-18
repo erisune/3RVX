@@ -2,6 +2,7 @@
 // Distributed under the BSD 2-Clause License (see LICENSE.txt for details)
 
 #include "General.h"
+#include "SkinOptions.h"
 
 #include <shellapi.h>
 
@@ -47,6 +48,15 @@ void General::Initialize() {
         return true;
     };
 
+    _refresh = new Button(BTN_REFRESH, *this);
+    _refresh->Icon(MAKEINTRESOURCE(IDI_REFRESH));
+    _refresh->OnClick = std::bind(&General::LoadSkins, this);
+    _skinOptions = new Button(BTN_SKINOPTS, *this);
+    _skinOptions->OnClick = [this]() {
+        SkinOptions opts(TabPage::DialogHandle(), _skin->Selection());
+        opts.Show();
+        return true;
+    };
     _languageGroup = new GroupBox(GRP_LANGUAGE, *this);
     _language = new ComboBox(CMB_LANG, *this);
     _language->OnSelectionChange = [this]() {
@@ -54,6 +64,19 @@ void General::Initialize() {
         return true;
     };
     _translator = new Label(LBL_TRANSLATOR, *this);
+}
+
+bool General::LoadSkins() {
+    Settings *settings = Settings::Instance();
+    std::wstring selection = _skin->Selection();
+    _skin->Clear();
+    /* Determine which skins are available */
+    std::list<std::wstring> skins = FindSkins(Settings::SkinDir().c_str());
+    for (std::wstring skin : skins) {
+        _skin->AddItem(skin);
+    }
+    _skin->Select(selection);
+    return true;
 }
 
 void General::LoadSettings() {
@@ -65,11 +88,7 @@ void General::LoadSettings() {
     _glass->Checked(settings->GlassEffectsEnabled());
     _autoUpdate->Checked(settings->AutomaticUpdates());
 
-    /* Determine which skins are available */
-    std::list<std::wstring> skins = FindSkins(Settings::SkinDir().c_str());
-    for (std::wstring skin : skins) {
-        _skin->AddItem(skin);
-    }
+    LoadSkins();
 
     /* Update the combo box with the current skin */
     std::wstring current = settings->CurrentSkin();
@@ -159,7 +178,12 @@ void General::SaveSettings() {
     settings->GlassEffectsEnabled(_glass->Checked());
     settings->AutomaticUpdates(_autoUpdate->Checked());
 
-    settings->CurrentSkin(_skin->Selection());
+    std::wstring skin = _skin->Selection();
+    settings->CurrentSkin(skin);
+    if (skin != settings->CurrentSkin()) {
+        /* Clear variants if skin has been changed */
+        settings->CurrentVariant(L"");
+    }
 
     std::wstring lang = GetLanguageFileName(_language->Selection());
     if (lang != settings->LanguageName()) {

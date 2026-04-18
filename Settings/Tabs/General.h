@@ -22,6 +22,7 @@ private:
 
     virtual void Initialize();
     virtual void LoadSettings();
+    virtual bool LoadSkins();
 
     std::wstring GetLanguageName(std::wstring langFileName, bool translator = false);
     std::wstring GetLanguageFileName(std::wstring langName);
@@ -47,6 +48,8 @@ private:
     ComboBox *_skin;
     Label *_author;
     Button *_website;
+    Button *_refresh;
+    Button *_skinOptions;
 
     GroupBox *_languageGroup;
     ComboBox *_language;
