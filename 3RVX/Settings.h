@@ -54,6 +54,11 @@ public:
     std::wstring VariantXML();
     std::wstring VariantXML(std::wstring variantName);
 
+    int Opacity();
+    void Opacity(int opacity);
+    int Size();
+    void Size(int size);
+
     /* Language */
     LanguageTranslator *Translator();
     std::wstring LanguageName();
@@ -254,6 +259,7 @@ private:
      * icon types. */
     static constexpr const char *XML_VOLUMEICON = "notifyIcon";
     static constexpr const char *XML_ONTOP = "onTop";
+    static constexpr const char *XML_OPACITY = "opacity";
     static constexpr const char *XML_OSD_OFFSET = "osdEdgeOffset";
     static constexpr const char *XML_OSD_POS = "osdPosition";
     static constexpr const char *XML_OSD_X = "osdX";
@@ -261,6 +267,7 @@ private:
     static constexpr const char *XML_SCROLLLOCK = "scrollLock";
     static constexpr const char *XML_SHOWONSTART = "showOnStartup";
     static constexpr const char *XML_SKIN = "skin";
+    static constexpr const char *XML_SIZE = "size";
     static constexpr const char *XML_SOUNDS = "soundEffects";
     static constexpr const char *XML_SUBSCRIBE_EJECT = "subscribeEjectEvents";
     static constexpr const char *XML_SUBSCRIBE_MIC = "subscribeMicEvents";

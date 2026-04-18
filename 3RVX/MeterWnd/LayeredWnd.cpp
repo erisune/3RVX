@@ -17,10 +17,10 @@ LayeredWnd::LayeredWnd(LPCWSTR className, LPCWSTR title, HINSTANCE hInstance,
 Window(className, title, hInstance,
     CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, NULL,
     WS_POPUP, WS_EX_LAYERED | exStyles),
-_transparency(255),
 _visible(false),
 _settings(Settings::Instance()) {
 
+    _transparency = _settings->Opacity();
     Bitmap(bitmap);
 }
 
@@ -99,7 +99,15 @@ bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
         return false;
     }
 
-    _glassMask = mask;
+    float size = static_cast<float>(_settings->Size()) / 100.0f;
+    
+    if (size == 1.0f) {
+        _glassMask = mask;
+    } else {
+        _glassMask = static_cast<Gdiplus::Bitmap*>(mask->GetThumbnailImage(
+            static_cast<UINT>(mask->GetHeight() * size),
+            static_cast<UINT>(mask->GetWidth() * size)));
+    }
 
     using namespace Gdiplus;
     ARGB searchArgb = 0xFF000000;

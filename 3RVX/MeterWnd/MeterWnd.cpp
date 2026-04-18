@@ -51,6 +51,13 @@ void MeterWnd::Update() {
             CLOG(L"Drawing meter:\n%s", meter->ToString().c_str());
             meter->Draw(_composite, &graphics);
         }
+
+        float size = static_cast<float>(_settings->Size()) / 100.0f;
+        if (size != 1.0f) {
+            _composite = static_cast<Gdiplus::Bitmap*>(_composite->GetThumbnailImage(
+                static_cast<UINT>(_composite->GetWidth() * size),
+                static_cast<UINT>(_composite->GetHeight() * size)));
+        }
     }
 
     Bitmap(_composite);

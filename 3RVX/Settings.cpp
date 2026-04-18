@@ -498,6 +498,22 @@ std::wstring Settings::VariantXML(std::wstring variantName) {
     return variantXML;
 }
 
+int Settings::Opacity() {
+    return GetInt(XML_OPACITY, DefaultSettings::Opacity);
+}
+
+void Settings::Opacity(int opacity) {
+    SetElementValue(XML_OPACITY, opacity);
+}
+
+int Settings::Size() {
+    return GetInt(XML_SIZE, DefaultSettings::Size);
+}
+
+void Settings::Size(int size) {
+    SetElementValue(XML_SIZE, size);
+}
+
 std::unordered_map<int, HotkeyInfo> Settings::Hotkeys() {
     std::unordered_map<int, HotkeyInfo> keyMappings;
 

@@ -58,4 +58,6 @@ public:
     static const Settings::OSDPos OSDPosition = Settings::OSDPos::Bottom;
     static const bool AutoUpdate = false;
     static const bool MuteLock = false;
+    static const int Opacity = 255;
+    static const int Size = 100;
 };
