@@ -17,6 +17,9 @@ public:
     virtual int UpdateInterval();
 
 private:
+    unsigned char _opacity;
     int _interval;
     int _step;
+    bool _initialized;
+    virtual void Init(MeterWnd* meterWnd);
 };

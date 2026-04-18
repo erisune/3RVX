@@ -85,7 +85,7 @@ void Slide::Init(MeterWnd* meterWnd) {
     }
 
     _interval = bestInterval;
-    _step = iMin / (_speed / _interval);
+    _step = iMin / max(_speed / _interval, 1);
     _initialized = true;
 }
 

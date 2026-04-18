@@ -8,24 +8,8 @@
 
 FadeOut::FadeOut(int speed) :
 Animation(speed) {
-
-    /* Determine the best step/interval combination that gets us a nice linear
-     * animation without being excessively early or late (based on the speed) */
-    int bestError = 255;
-    int bestInterval = 10;
-    for (int i = 10; i <= 20; ++i) {
-        int si = max(_speed / i, 1);
-        int error = 255 - 255 / si * si;
-        if (error < bestError) {
-            bestError = error;
-            bestInterval = i;
-        }
-    }
-
-    _interval = bestInterval;
-    _step = 255 / (_speed / _interval);
+    _initialized = false;
 }
-
 
 bool FadeOut::Animate(MeterWnd *meterWnd) {
     byte current = meterWnd->Transparency();
@@ -39,8 +23,31 @@ bool FadeOut::Animate(MeterWnd *meterWnd) {
     return false;
 }
 
+void FadeOut::Init(MeterWnd* meterWnd) {
+    _opacity = meterWnd->Transparency();
+    /* Determine the best step/interval combination that gets us a nice linear
+     * animation without being excessively early or late (based on the speed) */
+    int bestError = _opacity;
+    int bestInterval = 10;
+    for (int i = 10; i <= 20; ++i) {
+        int si = max(_speed / i, 1);
+        int error = _opacity - _opacity / si * si;
+        if (error < bestError) {
+            bestError = error;
+            bestInterval = i;
+        }
+    }
+
+    _interval = bestInterval;
+    _step = _opacity / max(_speed / _interval, 1);
+    _initialized = true;
+}
+
 void FadeOut::Reset(MeterWnd *meterWnd) {
-    meterWnd->Transparency(255);
+    if (!_initialized) {
+        FadeOut::Init(meterWnd);
+    }
+    meterWnd->Transparency(_opacity);
 }
 
 int FadeOut::UpdateInterval() {
