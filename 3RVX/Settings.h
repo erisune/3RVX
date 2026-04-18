@@ -52,7 +52,7 @@ public:
     std::wstring CurrentVariant();
     bool CurrentVariant(std::wstring variantName);
     std::wstring VariantXML();
-    std::wstring VariantXML(std::wstring variantName);
+    std::wstring VariantXML(std::wstring skinName, std::wstring variantName);
 
     int Opacity();
     void Opacity(int opacity);

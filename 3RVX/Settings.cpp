@@ -465,7 +465,7 @@ bool Settings::CurrentVariant(std::wstring variantName) {
         return true;
     }
     std::string name = StringUtils::Narrow(variantName);
-    std::wstring xml = VariantXML(variantName);
+    std::wstring xml = VariantXML(CurrentSkin(), variantName);
     if (PathFileExists(xml.c_str()) == FALSE) {
         return false;
     }
@@ -485,13 +485,13 @@ std::wstring Settings::CurrentVariant() {
 }
 
 std::wstring Settings::VariantXML() {
-    return VariantXML(CurrentVariant());
+    return VariantXML(CurrentSkin(), CurrentVariant());
 }
 
-std::wstring Settings::VariantXML(std::wstring variantName) {
+std::wstring Settings::VariantXML(std::wstring skinName, std::wstring variantName) {
     std::wstring variantXML = Settings::AppDir() + L"\\"
         + DefaultSettings::SkinDirName + L"\\"
-        + Settings::CurrentSkin() + L"\\"
+        + skinName + L"\\"
         + DefaultSettings::VariantDirName + L"\\"
         + variantName + L"\\"
         + DefaultSettings::VariantFileName;
