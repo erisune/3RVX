@@ -215,7 +215,7 @@
   <ItemGroup>
     <ClInclude Include="3RVX.h" />
     <ClInclude Include="CommCtl.h" />
-    <ClInclude Include="Controllers\BrightnessController.h" />
+    <ClInclude Include="Controllers\Brightness\BrightnessController.h" />
     <ClInclude Include="Controllers\Brightness\DDCBrightnessController.h" />
     <ClInclude Include="Controllers\Brightness\WMIBrightnessController.h" />
     <ClInclude Include="Controllers\Volume\CoreAudio.h" />

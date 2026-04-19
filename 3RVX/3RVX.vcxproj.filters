@@ -186,9 +186,6 @@
     <ClInclude Include="OSD\BrightnessOSD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controllers\BrightnessController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Skin\ErrorSkin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -222,12 +219,6 @@
     <ClInclude Include="D3DDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controllers\Brightness\DDCBrightnessController.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Controllers\Brightness\WMIBrightnessController.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="HideWindowsOSD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -238,6 +229,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Skin\VariantInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\Brightness\BrightnessController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\Brightness\DDCBrightnessController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\Brightness\WMIBrightnessController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
