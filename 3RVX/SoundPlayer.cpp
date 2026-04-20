@@ -87,8 +87,7 @@ void SoundPlayer::PlayerThread() {
     while (_ready == true) {
         if (_repeat > 0) {
             _mediaCtrl->Run();
-            _mediaEv->WaitForCompletion(INFINITE, &evCode);
-            _mediaCtrl->Pause();
+            _mediaEv->WaitForCompletion(75, &evCode);
             _mediaSeek->SetPositions(
                 &start, AM_SEEKING_AbsolutePositioning,
                 NULL, AM_SEEKING_NoPositioning);
