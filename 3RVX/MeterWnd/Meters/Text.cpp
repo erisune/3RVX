@@ -49,16 +49,16 @@ void Text::Draw(Gdiplus::Bitmap* buffer, Gdiplus::Graphics* graphics)
     const wchar_t *str = tempstr.c_str();
 
     if (_glow > 0)
-    {
+    {   
         graphics->SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
         Gdiplus::FontFamily glowFontFamily;
         _font->GetFamily(&glowFontFamily);
         Gdiplus::GraphicsPath path;
         path.AddString(str, -1, &glowFontFamily, _font->GetStyle(),
-            float(_font->GetSize() * 1.25), layoutRect, &_strFormat);
-        for (int i = 0; i < _glow; i++)
+            _font->GetSize() * 1.345f, layoutRect, &_strFormat);
+        for (float i = 0; i < _glow; i++)
         {
-            Gdiplus::Pen pen(Gdiplus::Color(12, 255, 255, 255), (float)i);
+            Gdiplus::Pen pen(Gdiplus::Color(12, 255, 255, 255), i);
             pen.SetLineJoin(Gdiplus::LineJoinRound);
             graphics->DrawPath(&pen, &path);
         }
