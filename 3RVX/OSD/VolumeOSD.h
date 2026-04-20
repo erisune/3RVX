@@ -87,16 +87,18 @@ private:
 
 private:
     std::wstring _menuSetStr = L"Settings";
-    std::wstring _menuDevStr = L"Audio Device";
-    std::wstring _menuMixerStr = L"Mixer";
+    std::wstring _menuDevStr = L"Selected device";
+    std::wstring _menuMixerStr = L"Open Volume Mixer";
+    std::wstring _menuPlayStr = L"Playback devices";
     std::wstring _menuExitStr = L"Exit 3RVX";
 
     std::wstring _iconMuteStr = L"Muted";
 
 private:
     static const int MENU_SETTINGS = 0;
-    static const int MENU_MIXER = 1;
-    static const int MENU_EXIT = 2;
+    static const int MENU_MMSYS = 1;
+    static const int MENU_MIXER = 2;
+    static const int MENU_EXIT = 3;
     static const int MENU_DEVICE = 0xF000;
 
 };

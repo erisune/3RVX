@@ -72,9 +72,12 @@ _muteWnd(L"3RVX-MuteOSD", L"3RVX-MuteOSD") {
         _menu = CreatePopupMenu();
         _deviceMenu = CreatePopupMenu();
 
-        InsertMenu(_menu, -1, MF_ENABLED, MENU_SETTINGS, _menuSetStr.c_str());
-        InsertMenu(_menu, -1, MF_POPUP, UINT(_deviceMenu), _menuDevStr.c_str());
         InsertMenu(_menu, -1, MF_ENABLED, MENU_MIXER, _menuMixerStr.c_str());
+        InsertMenu(_menu, -1, MF_SEPARATOR, NULL, NULL);
+        InsertMenu(_menu, -1, MF_ENABLED, MENU_MMSYS, _menuPlayStr.c_str());
+        InsertMenu(_menu, -1, MF_POPUP, UINT(_deviceMenu), _menuDevStr.c_str());
+        InsertMenu(_menu, -1, MF_ENABLED, MENU_SETTINGS, _menuSetStr.c_str());
+        InsertMenu(_menu, -1, MF_SEPARATOR, NULL, NULL);
         InsertMenu(_menu, -1, MF_ENABLED, MENU_EXIT, _menuExitStr.c_str());
 
         /* Menu accepts both left and right clicks on its items: */
@@ -431,6 +434,13 @@ void VolumeOSD::OnMenuEvent(WPARAM wParam) {
         CLOG(L"Menu: Mixer");
         HINSTANCE code = ShellExecute(NULL, L"open", L"sndvol",
             NULL, NULL, SW_SHOWNORMAL);
+        break;
+    }
+
+    case MENU_MMSYS: {
+        CLOG(L"Menu: Playback devices");
+        HINSTANCE code = ShellExecute(NULL, L"open", L"control",
+            L"mmsys.cpl ,0", NULL, SW_SHOWNORMAL);
         break;
     }
 
