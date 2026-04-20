@@ -702,6 +702,15 @@ void Settings::ScrollLockEnabled(bool enable) {
     SetEnabled(XML_SCROLLLOCK, enable);
 }
 
+bool Settings::BrightnessIconEnabled() {
+    return GetEnabled(XML_BRIGHTNESSICON, DefaultSettings::BrightnessIcon);
+}
+
+void Settings::BrightnessIconEnabled(bool enable) {
+    SetEnabled(XML_BRIGHTNESSICON, enable);
+}
+
+
 bool Settings::HasSetting(std::string elementName) {
     tinyxml2::XMLElement *el = _root->FirstChildElement(elementName.c_str());
     return (el != NULL);

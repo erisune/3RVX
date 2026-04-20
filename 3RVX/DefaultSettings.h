@@ -38,6 +38,7 @@ public:
     static const bool MicrophoneIcon = false;
     static const bool VolumeIcon = true;
     static const bool KeyboardIcons = false;
+    static const bool BrightnessIcon = false;
 
     static const bool CapsLock = false;
     static const bool NumLock = false;

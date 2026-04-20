@@ -195,6 +195,8 @@ void OSD::LoadSettings() {
     _ejectIcon->Checked(settings->EjectIconEnabled());
     _subscribeEjectEvents->Checked(settings->SubscribeEjectEvents());
 
+    _brightnessIcon->Checked(settings->BrightnessIconEnabled());
+
     _keyboardIcon->Checked(settings->KeyboardIconsEnabled());
     _caps->Checked(settings->CapsLockEnabled());
     _num->Checked(settings->NumLockEnabled());
@@ -243,6 +245,8 @@ void OSD::SaveSettings() {
 
     settings->EjectIconEnabled(_ejectIcon->Checked());
     settings->SubscribeEjectEvents(_subscribeEjectEvents->Checked());
+
+    settings->BrightnessIconEnabled(_brightnessIcon->Checked());
 
     settings->KeyboardIconsEnabled(_keyboardIcon->Checked());
     settings->CapsLockEnabled(_caps->Checked());

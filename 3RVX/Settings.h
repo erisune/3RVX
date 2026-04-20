@@ -142,6 +142,10 @@ public:
     bool ScrollLockEnabled();
     void ScrollLockEnabled(bool enable);
 
+    /* Brightness */
+    bool BrightnessIconEnabled();
+    void BrightnessIconEnabled(bool enable);
+
     /* Hotkeys */
     std::unordered_map<int, HotkeyInfo> Hotkeys();
     void Hotkeys(std::vector<HotkeyInfo> hotkeys);
@@ -231,6 +235,7 @@ private:
 private:
     /* XML tag names */
     static constexpr const char *XML_AUDIODEV = "audioDeviceID";
+    static constexpr const char *XML_BRIGHTNESSICON = "brightnessIcon";
     static constexpr const char *XML_CAPSLOCK = "capsLock";
     static constexpr const char *XML_CAPTUREDEV = "captureDeviceID";
     static constexpr const char *XML_CURVE_ADJUST = "curveAdjust";
