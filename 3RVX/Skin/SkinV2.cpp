@@ -163,6 +163,11 @@ std::vector<HICON> SkinV2::MicrophoneIconset() {
     return std::vector<HICON>();
 }
 
+std::vector<HICON> SkinV2::BrightnessIconset() {
+    /* Brightness OSDs were not supported by the v2 skin format. */
+    return std::vector<HICON>();
+}
+
 SliderComponent *SkinV2::VolumeSlider() {
     SliderComponent *slider = new SliderComponent;
     slider->background = LoadImg(_skinDir + L"\\Control\\back.png");

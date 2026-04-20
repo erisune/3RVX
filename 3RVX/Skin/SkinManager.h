@@ -32,6 +32,7 @@ public:
     HICON &ScrollLockIcon();
 
     OSDComponent *BrightnessOSD();
+    std::vector<HICON> &BrightnessIconset();
 
     OSDComponent *MicrophoneOSD();
     std::vector<HICON> &MicrophoneIconset();
@@ -53,6 +54,7 @@ private:
     HICON _scrollIcon;
 
     OSDComponent *_brightnessOSD;
+    std::vector<HICON> _brightnessIconset;
 
     OSDComponent *_microphoneOSD;
     std::vector<HICON> _microphoneIconset;

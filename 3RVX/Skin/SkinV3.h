@@ -39,6 +39,7 @@ public:
     virtual HICON ScrollLockIcon();
     virtual std::vector<HICON> VolumeIconset();
     virtual std::vector<HICON> MicrophoneIconset();
+    virtual std::vector<HICON> BrightnessIconset();
 
     virtual SliderComponent *VolumeSlider();
 

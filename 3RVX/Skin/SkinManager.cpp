@@ -95,6 +95,10 @@ void SkinManager::LoadSkin(std::wstring skinXML, std::wstring variantXML) {
             _brightnessOSD = skin->BrightnessOSD();
         }
 
+        if (_brightnessIconset.size() == 0) {
+            _brightnessIconset = skin->BrightnessIconset();
+        }
+
         if (_microphoneOSD == nullptr) {
             _microphoneOSD = skin->MicrophoneOSD();
         }
@@ -158,6 +162,10 @@ OSDComponent *SkinManager::BrightnessOSD() {
     return _brightnessOSD;
 }
 
+std::vector<HICON> &SkinManager::BrightnessIconset() {
+    return _brightnessIconset;
+}
+
 OSDComponent *SkinManager::MicrophoneOSD() {
     return _microphoneOSD;
 }
@@ -203,6 +211,10 @@ void SkinManager::DisposeComponents() {
 
     delete _brightnessOSD;
     _brightnessOSD = nullptr;
+    for (HICON icon : _brightnessIconset) {
+        DestroyIcon(icon);
+    }
+    _brightnessIconset.clear();
 
     delete _microphoneOSD;
     _microphoneOSD = nullptr;
