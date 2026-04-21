@@ -322,7 +322,7 @@ void VolumeOSD::ProcessHotkeys(HotkeyInfo &hki) {
             _volumeCtrl->Volume(numUnits * _defaultIncrement);
         } else if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
             double perc = hki.ArgToDouble(0);
-            _volumeCtrl->Volume((float) perc);
+            _volumeCtrl->Volume((float) perc / 100.0f);
         }
     }
 
