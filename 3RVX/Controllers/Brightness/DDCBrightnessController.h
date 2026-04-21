@@ -19,6 +19,7 @@ public:
 
     float Brightness() override;
     void Brightness(float level) override;
+    bool SupportsBrightnessAPI() override;
 
 private:
     HANDLE _monitorHandle;

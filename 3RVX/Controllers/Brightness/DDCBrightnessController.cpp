@@ -14,6 +14,7 @@ DDCBrightnessController::DDCBrightnessController(HMONITOR monitor) {
 
     if (result == FALSE || numPhysicalMonitors <= 0) {
         CLOG(L"Could not get physical monitors");
+        _useBrightnessAPI = false;
         return;
     }
 
@@ -23,10 +24,10 @@ DDCBrightnessController::DDCBrightnessController(HMONITOR monitor) {
         monitor, numPhysicalMonitors, monitors);
     for (unsigned int i = 0; i < numPhysicalMonitors; ++i) {
         CLOG(L"Monitor: %s", monitors[i].szPhysicalMonitorDescription);
-        bool supportsAPI = SupportsBrightnessAPI(monitors[i]);
+        _useBrightnessAPI = SupportsBrightnessAPI(monitors[i]);
         QCLOG(L"Supports *MonitorBrightness APIs: %s",
-            supportsAPI ? L"YES" : L"NO");
-        if (supportsAPI) {
+            _useBrightnessAPI ? L"YES" : L"NO");
+        if (_useBrightnessAPI) {
             /* For now, we use the first compatible monitor found. */
             _monitorHandle = monitors[i].hPhysicalMonitor;
             break;
@@ -34,7 +35,9 @@ DDCBrightnessController::DDCBrightnessController(HMONITOR monitor) {
     }
     delete[] monitors;
 
-    InitializeBrightnessValues();
+    if (_useBrightnessAPI) {
+        InitializeBrightnessValues();
+    }
 }
 
 DDCBrightnessController::DDCBrightnessController(Monitor &monitor) :
@@ -83,6 +86,10 @@ void DDCBrightnessController::Brightness(float level) {
     if (result) {
         _curBrightness = setLevel;
     }
+}
+
+bool DDCBrightnessController::SupportsBrightnessAPI() {
+    return _useBrightnessAPI;
 }
 
 bool DDCBrightnessController::SupportsBrightnessAPI(PHYSICAL_MONITOR &pm) {
