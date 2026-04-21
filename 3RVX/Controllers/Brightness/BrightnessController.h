@@ -7,4 +7,6 @@ class BrightnessController {
 public:
     virtual float Brightness() = 0;
     virtual void Brightness(float level) = 0;
+
+    static const int MSG_BRI_CHNG = WM_APP + 2080;
 };
