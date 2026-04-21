@@ -25,6 +25,7 @@ std::vector<std::wstring> HotkeyInfo::ActionNames = {
     L"Decrease Brightness",
     L"Set Brightness",
     L"Brightness Slider",
+    L"Turn Off Display",
     L"Media Key",
     L"Virtual Key",
     L"Run",

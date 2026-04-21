@@ -196,6 +196,10 @@ void _3RVX::ProcessHotkeys(HotkeyInfo &hki) {
         }
         break;
 
+    case HotkeyInfo::TurnOffDisplay:
+        SendMessage(Window::Handle(), WM_SYSCOMMAND, SC_MONITORPOWER, static_cast<LPARAM>(2));
+        break;
+
     case HotkeyInfo::MediaKey:
     case HotkeyInfo::VirtualKey:
         _kbHotkeyProcessor.ProcessHotkeys(hki);

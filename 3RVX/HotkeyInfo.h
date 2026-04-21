@@ -40,6 +40,7 @@ public:
         DecreaseBrightness,
         SetBrightness,
         BrightnessSlider,
+        TurnOffDisplay,
         MediaKey,
         VirtualKey,
         Run,
