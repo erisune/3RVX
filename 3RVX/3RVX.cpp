@@ -277,6 +277,8 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
         _vOSD->HideIcon();
         _eOSD->HideIcon();
         _mOSD->HideIcon();
+        _bOSD->HideIcon();
+        _kOSD->HideIcon();
         break;
     }
 
