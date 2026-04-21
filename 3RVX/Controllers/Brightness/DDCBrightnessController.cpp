@@ -34,14 +34,7 @@ DDCBrightnessController::DDCBrightnessController(HMONITOR monitor) {
     }
     delete[] monitors;
 
-    DWORD min, cur, max;
-    result = GetMonitorBrightness(_monitorHandle, &min, &cur, &max);
-    if (result == 0) {
-        Logger::LogLastError();
-    }
-    _minBrightness = min;
-    _maxBrightness = max;
-    CLOG(L"Got brightness: [%d, %d] %f", min, max, Brightness());
+    InitializeBrightnessValues();
 }
 
 DDCBrightnessController::DDCBrightnessController(Monitor &monitor) :
@@ -49,15 +42,47 @@ DDCBrightnessController(monitor.Handle()) {
 
 }
 
+DDCBrightnessController::~DDCBrightnessController() {
+    DestroyPhysicalMonitor(_monitorHandle);
+}
+
+void DDCBrightnessController::InitializeBrightnessValues() {
+    DWORD dwMin, dwCur, dwMax;
+    BOOL result = GetMonitorBrightness(_monitorHandle, &dwMin, &dwCur, &dwMax);
+    if (result == FALSE) {
+        Logger::LogLastError();
+    }
+    /* I'm using a variable to store the current brightness value
+     * because GetMonitorBrightness is a little slow. */
+    _minBrightness = dwMin;
+    _curBrightness = dwCur;
+    _maxBrightness = dwMax;
+    CLOG(L"Got brightness: [%d, %d] %f", dwMin, dwMax, dwCur);
+}
+
 float DDCBrightnessController::Brightness() {
-    DWORD min, cur, max;
-    GetMonitorBrightness(_monitorHandle, &min, &cur, &max);
-    return (float) (cur - _minBrightness) / (_maxBrightness - _minBrightness);
+    return static_cast<float>((_curBrightness - _minBrightness)) / (_maxBrightness - _minBrightness);
 }
 
 void DDCBrightnessController::Brightness(float level) {
-    DWORD setLevel = (DWORD) ((_maxBrightness - _minBrightness) * level);
-    SetMonitorBrightness(_monitorHandle, setLevel);
+    if (level > 1.0f) {
+        level = 1.0f;
+    }
+    else if (level < 0.0f) {
+        level = 0.0f;
+    }
+
+    if (level == Brightness()) {
+        /* No change, don't send DDC command. */
+        return;
+    }
+
+    DWORD setLevel = static_cast<DWORD>(round((_maxBrightness - _minBrightness) * level));
+    CLOG("Setting brightness level to %d", setLevel);
+    BOOL result = SetMonitorBrightness(_monitorHandle, setLevel);
+    if (result) {
+        _curBrightness = setLevel;
+    }
 }
 
 bool DDCBrightnessController::SupportsBrightnessAPI(PHYSICAL_MONITOR &pm) {
