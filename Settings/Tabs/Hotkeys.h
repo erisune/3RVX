@@ -75,7 +75,7 @@ protected:
     std::wstring _hotkeysColumnStr = L"Hotkeys";
     std::wstring _actionColumnStr = L"Action";
     std::wstring _amountVolArgStr = L"Amount:";
-    std::wstring _unitsVolArgStr = L"Volume Units";
+    std::wstring _unitsVolArgStr = L"Units";
     std::wstring _percentVolArgStr = L"Percent";
     std::wstring _keyArgStr = L"Key:";
     std::wstring _driveArgStr = L"Drive:";
