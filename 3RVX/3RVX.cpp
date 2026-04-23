@@ -131,18 +131,27 @@ void _3RVX::Initialize() {
     DisplayManager::UpdateMonitorMap();
 
     /* OSDs */
-    _eOSD = new EjectOSD();
-    _vOSD = new VolumeOSD();
-    _bOSD = new BrightnessOSD();
-    _kOSD = new KeyboardOSD();
-    _mOSD = new MicrophoneOSD();
-
     _osds.clear();
-    _osds.push_back(_eOSD);
-    _osds.push_back(_vOSD);
-    _osds.push_back(_bOSD);
-    _osds.push_back(_kOSD);
-    _osds.push_back(_mOSD);
+    if (settings->VolumeOSDEnabled()) {
+        _vOSD = new VolumeOSD();
+        _osds.push_back(_vOSD);
+    }
+    if (settings->MicrophoneOSDEnabled()) {
+        _mOSD = new MicrophoneOSD();
+        _osds.push_back(_mOSD);
+    }
+    if (settings->KeyboardOSDEnabled()) {
+        _kOSD = new KeyboardOSD();
+        _osds.push_back(_kOSD);
+    }
+    if (settings->EjectOSDEnabled()) {
+        _eOSD = new EjectOSD();
+        _osds.push_back(_eOSD);
+    }
+    if (settings->BrightnessOSDEnabled()) {
+        _bOSD = new BrightnessOSD();
+        _osds.push_back(_bOSD);
+    }
 
     /* Hotkey setup */
     if (_hkManager != NULL) {
@@ -278,11 +287,11 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
         CLOG(L"Shutting down");
         HideWindowsOSD::ShowOSD();
         HotkeyManager::Instance()->Shutdown();
-        _vOSD->HideIcon();
-        _eOSD->HideIcon();
-        _mOSD->HideIcon();
-        _bOSD->HideIcon();
-        _kOSD->HideIcon();
+        if(_vOSD) { _vOSD->HideIcon(); }
+        if(_eOSD) { _eOSD->HideIcon(); }
+        if(_mOSD) { _mOSD->HideIcon(); }
+        if(_bOSD) { _bOSD->HideIcon(); }
+        if(_kOSD) { _kOSD->HideIcon(); }
         break;
     }
 
