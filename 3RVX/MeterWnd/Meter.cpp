@@ -79,6 +79,7 @@ int Meter::CalcUnits() {
 
 void Meter::ApplyColorTransform(UINT32 from, UINT32 to, UINT8 alphaOverride) {
     _transformAlpha = false;
+    _transformMatrix = false;
     if (alphaOverride > 0) {
         /* Remove existing alpha level */
         to = to & 0x00FFFFFF;
@@ -95,13 +96,52 @@ void Meter::ApplyColorTransform(UINT32 from, UINT32 to, UINT8 alphaOverride) {
     _imageAttributes.SetRemapTable(1, &_colorMap);
 }
 
+void Meter::ApplyColorTransformMatrix(UINT32 from, UINT32 to, UINT8 alphaOverride) {
+    _transformAlpha = false;
+    _transformMatrix = true;
+    float r = (static_cast<byte>(to >> 16) - static_cast<byte>(from >> 16)) / 255.0f;
+    float g = (static_cast<byte>(to >> 8) - static_cast<byte>(from >> 8)) / 255.0f;
+    float b = (static_cast<byte>(to >> 0) - static_cast<byte>(from >> 0)) / 255.0f;
+
+    float fr = static_cast<byte>(from >> 16) / 255.0f;
+    float fg = static_cast<byte>(from >> 8) / 255.0f;
+    float fb = static_cast<byte>(from >> 0) / 255.0f;
+
+    float a = 1.0f;
+    if (alphaOverride > 0) {
+        a = alphaOverride / 255.0f;
+        _transformAlpha = true;
+    } else {
+        a = static_cast<byte>(to >> 24) / 255.0f;
+    }
+
+    Gdiplus::ColorMatrix colorMatrix = {
+        fr, 0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, fg, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, fb, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, a, 0.0f,
+        r, g, b, 0.0f, 1.0f
+    };
+
+    CLOG(L"Applying color transformation matrix: %x -> %x", from, to);
+    /* Store values for later updates */
+    _colorMap.oldColor = Gdiplus::Color(from);
+    _colorMap.newColor = Gdiplus::Color(to);
+    _imageAttributes.SetColorMatrix(&colorMatrix);
+}
+
 void Meter::ClearColorTransform() {
     _imageAttributes.ClearRemapTable();
+    _imageAttributes.ClearColorMatrix();
 }
 
 bool Meter::HasColorTransform() {
     return !(_colorMap.newColor.GetValue() == 0xFF000000
         && _colorMap.oldColor.GetValue() == 0xFF000000);
+}
+
+bool Meter::HasColorTransformMatrix() const {
+    return _transformMatrix;
 }
 
 void Meter::UpdateColorTransform(UINT32 to) {
@@ -114,6 +154,32 @@ void Meter::UpdateColorTransform(UINT32 to) {
 
     _colorMap.newColor = Gdiplus::Color(to);
     _imageAttributes.SetRemapTable(1, &_colorMap);
+}
+
+void Meter::UpdateColorTransformMatrix(UINT32 to) {
+    float a = 1.0f;
+    if (_transformAlpha) {
+        a = ((_colorMap.newColor.GetValue() & 0xFF000000) >> 24) / 255.0f;
+    } else {
+        a = static_cast<byte>(to >> 24) / 255.0f;
+    }
+    UINT32 oldColor = _colorMap.oldColor.GetValue();
+    float r = (static_cast<byte>(to >> 16) - static_cast<byte>(oldColor >> 16)) / 255.0f;
+    float g = (static_cast<byte>(to >> 8) - static_cast<byte>(oldColor >> 8)) / 255.0f;
+    float b = (static_cast<byte>(to >> 0) - static_cast<byte>(oldColor >> 0)) / 255.0f;
+
+    float fr = static_cast<byte>(oldColor >> 16) / 255.0f;
+    float fg = static_cast<byte>(oldColor >> 8) / 255.0f;
+    float fb = static_cast<byte>(oldColor >> 0) / 255.0f;
+
+    Gdiplus::ColorMatrix colorMatrix = {
+        fr, 0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, fg, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, fb, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, a, 0.0f,
+        r, g, b, 0.0f, 1.0f
+    };
+    _imageAttributes.SetColorMatrix(&colorMatrix);
 }
 
 int Meter::X() const {

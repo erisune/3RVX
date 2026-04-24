@@ -266,7 +266,10 @@ LRESULT MeterWnd::WndProc(
         AccentColor::Instance()->Refresh();
         UINT32 color = AccentColor::Instance()->Color();
         for (Meter *m : _meters) {
-            if (m->HasColorTransform()) {
+            if (m->HasColorTransformMatrix()) {
+                m->UpdateColorTransformMatrix(color);
+            }
+            else if (m->HasColorTransform()) {
                 m->UpdateColorTransform(color);
             }
         }

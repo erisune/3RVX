@@ -64,6 +64,27 @@ public:
     void UpdateColorTransform(UINT32 to);
 
     /// <summary>
+    /// Applies a color transformation on this meter using a color matrix.
+    /// </summary>
+    /// <param name="from">The color to replace</param>
+    /// <param name="to">The replacement color</param>
+    /// <param name="alphaOverride">
+    /// When set to a value greater than 0, the alpha channel in the replacement
+    /// color will be overridden with the provided value.
+    /// </param>
+    void ApplyColorTransformMatrix(UINT32 from, UINT32 to, UINT8 alphaOverride);
+
+    /// <summary>
+    /// Retrieves whether or not this Meter has a color transformation matrix.
+    /// </summary>
+    bool HasColorTransformMatrix() const;
+
+    /// <summary>
+    /// Updates an existing color transformation matrix with a new replacement color.
+    /// </summary>
+    void UpdateColorTransformMatrix(UINT32 to);
+
+    /// <summary>
     /// Calculates the current number of units the meter should display.
     /// </summary>
     virtual int CalcUnits();
@@ -100,6 +121,7 @@ protected:
     Gdiplus::ImageAttributes _imageAttributes;
     Gdiplus::Rect _rect;
     bool _transformAlpha;
+    bool _transformMatrix;
 
     /// <summary>
     /// Updates state variables after a draw operation. This helps distinguish

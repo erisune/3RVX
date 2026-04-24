@@ -447,7 +447,16 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
             "colorTransformTransparency", &trans);
         trans &= 0xFF;
 
-        m->ApplyColorTransform(searchColor, accentColor, trans);
+        /* Check if the color transformation should use a color matrix */
+        bool matrix = false;
+        meterXMLElement->QueryBoolAttribute(
+            "colorTransformMatrix", &matrix);
+
+        if (matrix) {
+            m->ApplyColorTransformMatrix(searchColor, accentColor, trans);
+        } else {
+            m->ApplyColorTransform(searchColor, accentColor, trans);
+        }
     }
 
     CLOG(L"Created meter [%s]:\n%s",
