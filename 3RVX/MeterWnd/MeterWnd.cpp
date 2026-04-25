@@ -54,9 +54,11 @@ void MeterWnd::Update() {
 
         float size = static_cast<float>(_settings->Size()) / 100.0f;
         if (size != 1.0f) {
-            _composite = static_cast<Gdiplus::Bitmap*>(_composite->GetThumbnailImage(
-                static_cast<UINT>(_composite->GetWidth() * size),
-                static_cast<UINT>(_composite->GetHeight() * size)));
+            unsigned int width = static_cast<UINT>(_composite->GetWidth() * size);
+            unsigned int height = static_cast<UINT>(_composite->GetHeight() * size);
+            Gdiplus::Bitmap *resized = static_cast<Gdiplus::Bitmap*>(_composite->GetThumbnailImage(width, height));
+            delete _composite;
+            _composite = resized;
         }
     }
 
