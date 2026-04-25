@@ -153,6 +153,7 @@ bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
     blurBehind.hRgnBlur = glassRegion.GetHRGN(&g);
 
     HRESULT hr = DwmEnableBlurBehindWindow(Window::Handle(), &blurBehind);
+    DeleteObject(blurBehind.hRgnBlur);
     return SUCCEEDED(hr);
 }
 
