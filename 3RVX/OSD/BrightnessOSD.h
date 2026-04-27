@@ -5,10 +5,12 @@
 
 #include "..\MeterWnd\MeterCallbackReceiver.h"
 #include "..\NotifyIcon.h"
+#include "..\Slider\BrightnessSlider.h"
 #include "OSD.h"
 
 class CallbackMeter;
 class BrightnessController;
+class BrightnessSlider;
 class SoundPlayer;
 
 class BrightnessOSD : public OSD, MeterCallbackReceiver {
@@ -26,9 +28,11 @@ private:
     BrightnessController *_brightnessCtrl;
     float _defaultIncrement;
     bool _validSkin;
+    bool _validSlider;
 
     MeterWnd _mWnd;
     CallbackMeter *_callbackMeter;
+    BrightnessSlider *_brightnessSlider;
 
     NotifyIcon *_icon;
     std::vector<HICON> _iconImages;

@@ -240,6 +240,9 @@
     <ClInclude Include="Controllers\Brightness\WMIBrightnessController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Slider\BrightnessSlider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Controllers\Volume\CoreAudio.cpp">
@@ -417,6 +420,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Skin\VariantInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider\BrightnessSlider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

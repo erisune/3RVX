@@ -177,6 +177,11 @@ SliderComponent *SkinV2::VolumeSlider() {
     return slider;
 }
 
+SliderComponent *SkinV2::BrightnessSlider() {
+    /* Brightness sliders were not supported by the v2 skin format. */
+    return nullptr;
+}
+
 Text *SkinV2::CreateText(Gdiplus::Bitmap *baseBitmap) {
     tinyxml2::XMLElement *fontTag = SubElement("osd", "font");
     if (fontTag == nullptr) {

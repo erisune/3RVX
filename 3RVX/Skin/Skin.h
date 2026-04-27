@@ -54,6 +54,9 @@ public:
     /// <summary>Retrieves the iconset used for the Brightness icon.</summary>
     virtual std::vector<HICON> BrightnessIconset() = 0;
 
+    /// <summary>Loads and instantiates the Brightness slider.</summary>
+    virtual SliderComponent *BrightnessSlider() = 0;
+
     /// <summary>Loads and instantiates the Microphone OSD.</summary>
     virtual OSDComponent *MicrophoneOSD() = 0;
 

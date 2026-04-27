@@ -51,6 +51,15 @@ _mWnd(L"3RVX-BrightnessOSD", L"3RVX-BrightnessOSD") {
         return;
     }
 
+    if (skin->BrightnessSlider() == nullptr) {
+        _validSlider = false;
+    } else {
+        _validSlider = true;
+    }
+
+    /* Create the slider */
+    _brightnessSlider = new BrightnessSlider(*_brightnessCtrl);
+
     /* Set up notification icon */
     if (_settings->BrightnessIconEnabled()) {
         _iconImages = skin->BrightnessIconset();
@@ -96,6 +105,7 @@ BrightnessOSD::~BrightnessOSD() {
     DestroyMenu(_menu);
     delete _icon;
     delete _brightnessCtrl;
+    delete _brightnessSlider;
     delete _callbackMeter;
 }
 
@@ -263,7 +273,14 @@ void BrightnessOSD::OnMenuEvent(WPARAM wParam) {
 }
 
 void BrightnessOSD::OnNotifyIconEvent(HWND hWnd, LPARAM lParam) {
-    if (lParam == WM_RBUTTONUP) {
+    if (lParam == WM_LBUTTONUP) {
+        if (_validSlider) {
+            if (_brightnessCtrl->SupportsBrightnessAPI()) {
+                _brightnessSlider->MeterLevels(_brightnessCtrl->Brightness());
+                _brightnessSlider->Show();
+            }
+        }
+    } else if (lParam == WM_RBUTTONUP) {
         POINT p;
         GetCursorPos(&p);
         SetForegroundWindow(hWnd);
@@ -276,7 +293,13 @@ void BrightnessOSD::OnNotifyIconEvent(HWND hWnd, LPARAM lParam) {
 void BrightnessOSD::OnBrightnessChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
     float b = _brightnessCtrl->Brightness();
 
+    if (_validSlider) {
+        _brightnessSlider->MeterLevels(b);
+    }
+
     UpdateIcon();
+
+    if (!_brightnessSlider->Visible()) {
     MeterLevels(b);
     Show();
 
@@ -284,6 +307,7 @@ void BrightnessOSD::OnBrightnessChange(HWND hWnd, WPARAM wParam, LPARAM lParam) 
         _soundPlayer->Play();
     }
     HideOthers(Brightness);
+}
 }
 
 LRESULT

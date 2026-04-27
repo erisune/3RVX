@@ -38,6 +38,7 @@ public:
     virtual std::vector<HICON> BrightnessIconset();
 
     virtual SliderComponent *VolumeSlider();
+    virtual SliderComponent *BrightnessSlider();
 
 private:
     Text *CreateText(Gdiplus::Bitmap *baseBitmap);

@@ -33,6 +33,7 @@ public:
 
     OSDComponent *BrightnessOSD();
     std::vector<HICON> &BrightnessIconset();
+    SliderComponent *BrightnessSlider();
 
     OSDComponent *MicrophoneOSD();
     std::vector<HICON> &MicrophoneIconset();
@@ -55,6 +56,7 @@ private:
 
     OSDComponent *_brightnessOSD;
     std::vector<HICON> _brightnessIconset;
+    SliderComponent *_brightnessSlider;
 
     OSDComponent *_microphoneOSD;
     std::vector<HICON> _microphoneIconset;

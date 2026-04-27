@@ -122,6 +122,10 @@ SliderComponent *SkinV3::VolumeSlider() {
     return CreateSliderComponent("volume");
 }
 
+SliderComponent *SkinV3::BrightnessSlider() {
+    return CreateSliderComponent("brightness");
+}
+
 OSDComponent *SkinV3::MicrophoneOSD() {
     return CreateOSDComponent("mic");
 }
