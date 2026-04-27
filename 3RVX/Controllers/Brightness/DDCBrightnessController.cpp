@@ -6,7 +6,7 @@
 #include "../../Monitor.h"
 #include "../../Logger.h"
 
-DDCBrightnessController::DDCBrightnessController(HMONITOR monitor) {
+DDCBrightnessController::DDCBrightnessController(HWND hWnd, HMONITOR monitor) {
     BOOL result;
     DWORD numPhysicalMonitors = 0;
     result = GetNumberOfPhysicalMonitorsFromHMONITOR(
@@ -36,12 +36,13 @@ DDCBrightnessController::DDCBrightnessController(HMONITOR monitor) {
     delete[] monitors;
 
     if (_useBrightnessAPI) {
+        _notifyHwnd = hWnd;
         InitializeBrightnessValues();
     }
 }
 
-DDCBrightnessController::DDCBrightnessController(Monitor &monitor) :
-DDCBrightnessController(monitor.Handle()) {
+DDCBrightnessController::DDCBrightnessController(HWND hWnd, Monitor &monitor) :
+DDCBrightnessController(hWnd, monitor.Handle()) {
 
 }
 
@@ -85,6 +86,7 @@ void DDCBrightnessController::Brightness(float level) {
     BOOL result = SetMonitorBrightness(_monitorHandle, setLevel);
     if (result) {
         _curBrightness = setLevel;
+        PostMessage(_notifyHwnd, MSG_BRI_CHNG, static_cast<WPARAM>(1), 0);
     }
 }
 

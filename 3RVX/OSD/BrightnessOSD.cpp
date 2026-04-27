@@ -44,7 +44,7 @@ _mWnd(L"3RVX-BrightnessOSD", L"3RVX-BrightnessOSD") {
     OSD::InitMeterWnd(_mWnd);
 
     _brightnessCtrl = new DDCBrightnessController(
-        DisplayManager::Primary().Handle());
+        Window::Handle(), DisplayManager::Primary().Handle());
 
     /* Check if brightness API is supported */
     if (!_brightnessCtrl->SupportsBrightnessAPI()) {
@@ -241,7 +241,7 @@ void BrightnessOSD::UpdateBrightnessState() {
 void BrightnessOSD::OnDisplayChange() {
     delete _brightnessCtrl;
     _brightnessCtrl = new DDCBrightnessController(
-        DisplayManager::Primary().Handle());
+        Window::Handle(), DisplayManager::Primary().Handle());
     InitMeterWnd(_mWnd);
 }
 
@@ -300,14 +300,14 @@ void BrightnessOSD::OnBrightnessChange(HWND hWnd, WPARAM wParam, LPARAM lParam) 
     UpdateIcon();
 
     if (!_brightnessSlider->Visible()) {
-    MeterLevels(b);
-    Show();
+        MeterLevels(b);
+        Show();
 
-    if (_soundPlayer) {
-        _soundPlayer->Play();
+        if (_soundPlayer) {
+            _soundPlayer->Play();
+        }
+        HideOthers(Brightness);
     }
-    HideOthers(Brightness);
-}
 }
 
 LRESULT

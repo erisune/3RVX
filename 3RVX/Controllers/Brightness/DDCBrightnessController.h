@@ -13,8 +13,8 @@ class Monitor;
 
 class DDCBrightnessController : public BrightnessController {
 public:
-    DDCBrightnessController(HMONITOR monitor);
-    DDCBrightnessController(Monitor &monitor);
+    DDCBrightnessController(HWND hWnd, HMONITOR monitor);
+    DDCBrightnessController(HWND hWnd, Monitor &monitor);
     ~DDCBrightnessController();
 
     float Brightness() override;
@@ -22,6 +22,7 @@ public:
     bool SupportsBrightnessAPI() override;
 
 private:
+    HWND _notifyHwnd;
     HANDLE _monitorHandle;
     DWORD _minBrightness;
     DWORD _maxBrightness;
