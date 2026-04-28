@@ -174,6 +174,7 @@ void BrightnessOSD::ProcessHotkeys(HotkeyInfo &hki) {
         ProcessBrightnessHotkeys(hki);
         break;
     case HotkeyInfo::SetBrightness:
+    {
         /* I should probably rename the enum */
         HotkeyInfo::VolumeKeyArgTypes type = HotkeyInfo::VolumeArgType(hki);
         if (type == HotkeyInfo::VolumeKeyArgTypes::NoArgs) {
@@ -187,6 +188,15 @@ void BrightnessOSD::ProcessHotkeys(HotkeyInfo &hki) {
         }
         SendMessage(Window::Handle(), BrightnessController::MSG_BRI_CHNG,
             NULL, static_cast<LPARAM>(1));
+        break;
+    }
+    case HotkeyInfo::BrightnessSlider:
+        if (_validSlider) {
+            if (_brightnessCtrl->SupportsBrightnessAPI()) {
+                _brightnessSlider->MeterLevels(_brightnessCtrl->Brightness());
+                _brightnessSlider->Show();
+            }
+        }
         break;
     }
 }

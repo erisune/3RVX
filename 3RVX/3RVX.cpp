@@ -200,6 +200,7 @@ void _3RVX::ProcessHotkeys(HotkeyInfo &hki) {
     case HotkeyInfo::IncreaseBrightness:
     case HotkeyInfo::DecreaseBrightness:
     case HotkeyInfo::SetBrightness:
+    case HotkeyInfo::BrightnessSlider:
         if (_bOSD) {
             _bOSD->ProcessHotkeys(hki);
         }
