@@ -89,10 +89,10 @@ INT64 AccentColor::ColorizationParamColor() {
 
     HRESULT(WINAPI *DwmGetColorizationParameters)
         (DwmColorizationParams *colorParams);
-    const int ColorizationParamOrd = 127;
+    constexpr unsigned short ColorizationParamOrd = 127;
 
     *(FARPROC *) &DwmGetColorizationParameters
-        = GetProcAddress(_dwmLib, (LPCSTR) ColorizationParamOrd);
+        = GetProcAddress(_dwmLib, reinterpret_cast<LPCSTR>(ColorizationParamOrd));
     if (DwmGetColorizationParameters == nullptr) {
         CLOG(L"Could not retrieve DwmGetColorizationParameters address");
         return -1;

@@ -66,7 +66,7 @@ SIZE Control::TextDimensions(std::wstring &text) {
     SIZE sz = { 0 };
 
     /* Determine the width and height of the text */
-    GetTextExtentPoint32(dc, &text[0], text.size(), &sz);
+    GetTextExtentPoint32(dc, &text[0], static_cast<int>(text.size()), &sz);
     ReleaseDC(_hWnd, dc);
     return sz;
 }

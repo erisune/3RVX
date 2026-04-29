@@ -280,7 +280,7 @@ void BrightnessOSD::OnMenuEvent(WPARAM wParam) {
     }
 
     case MENU_EXIT:
-        CLOG(L"Menu: Exit: %d", reinterpret_cast<int>(_masterWnd));
+        CLOG(L"Menu: Exit: %Ix", reinterpret_cast<DWORD_PTR>(_masterWnd));
         SendMessage(_masterWnd, WM_CLOSE, NULL, NULL);
         break;
     }

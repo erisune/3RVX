@@ -61,7 +61,7 @@ void DDCBrightnessController::InitializeBrightnessValues() {
     _minBrightness = dwMin;
     _curBrightness = dwCur;
     _maxBrightness = dwMax;
-    CLOG(L"Got brightness: [%d, %d] %f", dwMin, dwMax, dwCur);
+    CLOG(L"Got brightness: [%d, %d] %d", dwMin, dwMax, dwCur);
 }
 
 float DDCBrightnessController::Brightness() {

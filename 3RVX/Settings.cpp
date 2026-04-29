@@ -180,8 +180,8 @@ void Settings::LaunchSettingsApp() {
     std::wstring app = SettingsApp();
 
     CLOG(L"Opening Settings App: %s", app.c_str());
-    int exec = (int) ShellExecute(
-        NULL, L"open", app.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    INT_PTR exec = reinterpret_cast<INT_PTR>(ShellExecute(
+        NULL, L"open", app.c_str(), NULL, NULL, SW_SHOWNORMAL));
 
     if (exec <= 32) {
         Error::ErrorMessage(Error::GENERR_NOTFOUND, app);

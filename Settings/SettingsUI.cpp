@@ -106,8 +106,8 @@ int APIENTRY wWinMain(
 
     if (alreadyRunning) {
         HWND settingsWnd = _3RVX::MasterSettingsHwnd();
-        CLOG(L"A settings instance is already running. Moving window [%d] "
-            L"to the foreground.", (int) settingsWnd);
+        CLOG(L"A settings instance is already running. Moving window [%Ix] "
+            L"to the foreground.", reinterpret_cast<DWORD_PTR>(settingsWnd));
         SetForegroundWindow(settingsWnd);
         SendMessage(
             settingsWnd,
@@ -136,7 +136,7 @@ int APIENTRY wWinMain(
         CLOG(L"Relaunch: %s", relaunch ? L"TRUE" : L"FALSE");
     } while (relaunch == true);
 
-    return result;
+    return static_cast<int>(result);
 }
 
 SettingsUI::SettingsUI(HINSTANCE hInstance) :
@@ -173,7 +173,7 @@ INT_PTR SettingsUI::LaunchPropertySheet() {
     psh.pszIcon = MAKEINTRESOURCE(IDI_SETTINGS);
     psh.pszCaption = L"3RVX Settings";
     psh.nStartPage = 0;
-    psh.nPages = _tabs.size();
+    psh.nPages = static_cast<UINT>(_tabs.size());
     psh.phpage = pages;
     psh.pfnCallback = PropSheetProc;
 

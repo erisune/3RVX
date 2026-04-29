@@ -161,7 +161,7 @@ void OSD::LoadSettings() {
     int level = settings->VolumeCurveAdjustment();
     if (_taperLevels.find(level) == _taperLevels.end()) {
         /* Select the last item (custom) */
-        _audioTaper->Select(_taperLevels.size());
+        _audioTaper->Select(static_cast<UINT>(_taperLevels.size()));
         _audioTaperEdit->Text(settings->VolumeCurveAdjustment());
     } else {
         _audioTaper->Select(translator->Translate(_taperLevels[level]));

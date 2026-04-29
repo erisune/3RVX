@@ -87,7 +87,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg,
 
     case WM_NOTIFY: {
         NMHDR *nHdr = (NMHDR *) lParam;
-        ctrlId = nHdr->idFrom;
+        ctrlId = static_cast<USHORT>(nHdr->idFrom);
         if (_controlMap.count(ctrlId) > 0) {
             return _controlMap[ctrlId]->Notification(nHdr);
         } else {

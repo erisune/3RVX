@@ -11,7 +11,7 @@ SliderWnd::SliderWnd(LPCWSTR className, LPCWSTR title, HINSTANCE hInstance) :
 MeterWnd(className, title, hInstance),
 _dragging(false),
 _active(false) {
-    long styles = GetWindowLongPtr(Window::Handle(), GWL_EXSTYLE);
+    LONG_PTR styles = GetWindowLongPtr(Window::Handle(), GWL_EXSTYLE);
     styles &= ~(WS_EX_NOACTIVATE | WS_EX_TRANSPARENT);
     SetWindowLongPtr(Window::Handle(), GWL_EXSTYLE, styles);
 }
@@ -227,7 +227,7 @@ LRESULT SliderWnd::WndProc(
         }
 
         case WM_KEYUP:
-            KeyPress(wParam);
+            KeyPress(static_cast<UINT>(wParam));
             break;
         }
     }

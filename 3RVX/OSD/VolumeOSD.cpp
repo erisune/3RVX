@@ -75,7 +75,7 @@ _muteWnd(L"3RVX-MuteOSD", L"3RVX-MuteOSD") {
         InsertMenu(_menu, -1, MF_ENABLED, MENU_MIXER, _menuMixerStr.c_str());
         InsertMenu(_menu, -1, MF_SEPARATOR, NULL, NULL);
         InsertMenu(_menu, -1, MF_ENABLED, MENU_MMSYS, _menuPlayStr.c_str());
-        InsertMenu(_menu, -1, MF_POPUP, UINT(_deviceMenu), _menuDevStr.c_str());
+        InsertMenu(_menu, -1, MF_POPUP, UINT_PTR(_deviceMenu), _menuDevStr.c_str());
         InsertMenu(_menu, -1, MF_ENABLED, MENU_SETTINGS, _menuSetStr.c_str());
         InsertMenu(_menu, -1, MF_SEPARATOR, NULL, NULL);
         InsertMenu(_menu, -1, MF_ENABLED, MENU_EXIT, _menuExitStr.c_str());
@@ -141,7 +141,7 @@ void VolumeOSD::UpdateDeviceMenu() {
     std::wstring currentDeviceId = _volumeCtrl->DeviceId();
 
     /* Disable/enable the menu depending on whether devices are available */
-    EnableMenuItem(_menu, UINT(_deviceMenu),
+    EnableMenuItem(_menu, static_cast<UINT>(reinterpret_cast<UINT_PTR>(_deviceMenu)),
         devices.size() == 0 ? MF_GRAYED : MF_ENABLED);
 
     int menuItem = MENU_DEVICE;
@@ -450,7 +450,7 @@ void VolumeOSD::OnMenuEvent(WPARAM wParam) {
     }
 
     case MENU_EXIT:
-        CLOG(L"Menu: Exit: %d", (int) _masterWnd);
+        CLOG(L"Menu: Exit: %Ix", reinterpret_cast<DWORD_PTR>(_masterWnd));
         SendMessage(_masterWnd, WM_CLOSE, NULL, NULL);
         break;
     }

@@ -102,7 +102,7 @@ void General::LoadSettings() {
     std::list<std::wstring> languages = FindLanguages(
         settings->LanguagesDir().c_str());
     for (std::wstring language : languages) {
-        int ext = language.find(L".xml");
+        size_t ext = language.find(L".xml");
         if (ext == language.npos) {
             continue;
         }
@@ -154,7 +154,7 @@ std::wstring General::GetLanguageFileName(std::wstring langName) {
     std::list<std::wstring> languages = FindLanguages(
         Settings::LanguagesDir().c_str());
     for (std::wstring language : languages) {
-        int ext = language.find(L".xml");
+        size_t ext = language.find(L".xml");
         if (ext == language.npos) {
             continue;
         }
@@ -219,7 +219,7 @@ bool General::RunOnStartup(bool enable) {
     if (res == ERROR_SUCCESS) {
         if (enable) {
             res = RegSetValueEx(key, REGKEY_NAME, NULL, REG_SZ,
-                (LPBYTE) path.c_str(), (path.size() + 1) * sizeof(TCHAR));
+                (LPBYTE) path.c_str(), static_cast<DWORD>(path.size() + 1) * sizeof(TCHAR));
             ok = (res == ERROR_SUCCESS);
         } else {
             res = RegDeleteValue(key, REGKEY_NAME);
