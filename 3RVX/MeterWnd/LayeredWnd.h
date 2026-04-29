@@ -95,6 +95,8 @@ protected:
     bool _noShowD3D;
     D3DDevice *_d3dDevice;
 
+    HRGN GetMaskRegion(Gdiplus::Bitmap *mask);
+
     /// <summary>
     /// Updates layered window properties. Called after the window bitmap
     /// changes.

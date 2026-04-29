@@ -90,6 +90,46 @@ void LayeredWnd::UpdateTransparency() {
     UpdateLayeredWindowIndirect(Window::Handle(), &lwInfo);
 }
 
+HRGN LayeredWnd::GetMaskRegion(Gdiplus::Bitmap *mask) {
+    using namespace Gdiplus;
+    ARGB searchArgb = 0xFF000000;
+
+    unsigned int height = mask->GetHeight();
+    unsigned int width = mask->GetWidth();
+
+    Region glassRegion;
+    glassRegion.MakeEmpty();
+    bool match = false;
+
+    /* One row of pixels is scanned at a time, so the height is 1. */
+    Rect rec(0, 0, 0, 1);
+
+    for (unsigned int y = 0; y < height; ++y) {
+        for (unsigned int x = 0; x < width; ++x) {
+            Color pixelColor;
+            mask->GetPixel(x, y, &pixelColor);
+            ARGB pixelArgb = pixelColor.GetValue();
+
+            if (searchArgb == pixelArgb && (x + 1 != width)) {
+                if (match) {
+                    continue;
+                }
+                match = true;
+                rec.X = x;
+                rec.Y = y;
+            } else if (match) {
+                /* Reached the end of a matching line */
+                match = false;
+                rec.Width = x - rec.X;
+                glassRegion.Union(rec);
+            }
+        }
+    }
+    
+    Graphics g(mask);
+    return glassRegion.GetHRGN(&g);
+}
+
 bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
     if (mask == NULL) {
         return false;
@@ -117,52 +157,16 @@ bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
             _glassMask = resized;
         }
     }
-    
-    using namespace Gdiplus;
-    ARGB searchArgb = 0xFF000000;
-
-    unsigned int height = _glassMask->GetHeight();
-    unsigned int width = _glassMask->GetWidth();
-
-    Region glassRegion;
-    glassRegion.MakeEmpty();
-    bool match = false;
-
-    /* One row of pixels is scanned at a time, so the height is 1. */
-    Rect rec(0, 0, 0, 1);
-
-    for (unsigned int y = 0; y < height; ++y) {
-        for (unsigned int x = 0; x < width; ++x) {
-            Color pixelColor;
-            _glassMask->GetPixel(x, y, &pixelColor);
-            ARGB pixelArgb = pixelColor.GetValue();
-
-            if (searchArgb == pixelArgb && (x + 1 != width)) {
-                if (match) {
-                    continue;
-                }
-
-                match = true;
-                rec.X = x;
-                rec.Y = y;
-            } else if (match) {
-                /* Reached the end of a matching line */
-                match = false;
-                rec.Width = x - rec.X;
-                glassRegion.Union(rec);
-            }
-        }
-    }
 
     DWM_BLURBEHIND blurBehind = { 0 };
+    HRGN glassRegion = GetMaskRegion(_glassMask);
     blurBehind.dwFlags = DWM_BB_ENABLE | DWM_BB_BLURREGION;
     blurBehind.fEnable = TRUE;
-
-    Graphics g(_glassMask);
-    blurBehind.hRgnBlur = glassRegion.GetHRGN(&g);
+    blurBehind.hRgnBlur = glassRegion;
 
     HRESULT hr = DwmEnableBlurBehindWindow(Window::Handle(), &blurBehind);
     DeleteObject(blurBehind.hRgnBlur);
+    DeleteObject(glassRegion);
     return SUCCEEDED(hr);
 }
 
