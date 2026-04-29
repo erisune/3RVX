@@ -7,15 +7,17 @@
 
 #include "../MeterWnd/Meters/SliderKnob.h"
 
-#define TIMER_IGNORE_INPUT 50
-#define IGNORE_DURATION 100
-
 SliderWnd::SliderWnd(LPCWSTR className, LPCWSTR title, HINSTANCE hInstance) :
 MeterWnd(className, title, hInstance),
-_dragging(false) {
+_dragging(false),
+_active(false) {
     long styles = GetWindowLongPtr(Window::Handle(), GWL_EXSTYLE);
     styles &= ~(WS_EX_NOACTIVATE | WS_EX_TRANSPARENT);
     SetWindowLongPtr(Window::Handle(), GWL_EXSTYLE, styles);
+}
+
+bool SliderWnd::Active() const {
+    return _active;
 }
 
 void SliderWnd::Show() {
@@ -23,6 +25,18 @@ void SliderWnd::Show() {
     MeterWnd::Show(false);
     _ignoreInput = true;
     SetTimer(Window::Handle(), TIMER_IGNORE_INPUT, IGNORE_DURATION, NULL);
+    _active = true;
+}
+
+void SliderWnd::Hide(bool hotkeyAction) {
+    MeterWnd::Hide(false);
+    /* Called from hotkey action */
+    if (hotkeyAction) {
+        KillTimer(Window::Handle(), TIMER_IGNORE_INPUT);
+        _ignoreInput = false;
+        KillTimer(Window::Handle(), TIMER_ACTIVE);
+        _active = false;
+    }
 }
 
 void SliderWnd::Knob(SliderKnob *knob) {
@@ -131,6 +145,10 @@ LRESULT SliderWnd::WndProc(
             KillTimer(hWnd, TIMER_IGNORE_INPUT);
             _ignoreInput = false;
         }
+        else if (wParam == TIMER_ACTIVE) {
+            KillTimer(hWnd, TIMER_ACTIVE);
+            _active = false;
+        }
         break;
 
     case WM_KILLFOCUS:
@@ -141,6 +159,7 @@ LRESULT SliderWnd::WndProc(
         if (wParam == 0) {
             /* We're being deactivated */
             Hide();
+            SetTimer(Window::Handle(), TIMER_ACTIVE, ACTIVE_DELAY, NULL);
         }
         break;
 

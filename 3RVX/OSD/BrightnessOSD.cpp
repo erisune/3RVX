@@ -194,7 +194,11 @@ void BrightnessOSD::ProcessHotkeys(HotkeyInfo &hki) {
         if (_validSlider) {
             if (_brightnessCtrl->SupportsBrightnessAPI()) {
                 _brightnessSlider->MeterLevels(_brightnessCtrl->Brightness());
-                _brightnessSlider->Show();
+                if (_brightnessSlider->Active()) {
+                    _brightnessSlider->Hide(true);
+                } else {
+                    SendMessage(Window::Handle(), MSG_NOTIFYICON, NULL, WM_LBUTTONUP);
+                }
             }
         }
         break;
@@ -287,7 +291,11 @@ void BrightnessOSD::OnNotifyIconEvent(HWND hWnd, LPARAM lParam) {
         if (_validSlider) {
             if (_brightnessCtrl->SupportsBrightnessAPI()) {
                 _brightnessSlider->MeterLevels(_brightnessCtrl->Brightness());
-                _brightnessSlider->Show();
+                if (_brightnessSlider->Active()) {
+                    _brightnessSlider->Hide();
+                } else {
+                    _brightnessSlider->Show();
+                }
             }
         }
     } else if (lParam == WM_RBUTTONUP) {

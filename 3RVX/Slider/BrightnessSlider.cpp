@@ -99,13 +99,9 @@ void BrightnessSlider::MeterLevels(float level) {
 void BrightnessSlider::Show() {
     MeterWnd::MeterLevels(_level);
     Update();
-    if (_visible) {
-        SliderWnd::Hide();
-    } else {
-        SliderWnd::Show();
-        SetActiveWindow(Window::Handle());
-        SetForegroundWindow(Window::Handle());
-    }
+    SliderWnd::Show();
+    SetActiveWindow(Window::Handle());
+    SetForegroundWindow(Window::Handle());
 }
 
 bool BrightnessSlider::Visible() {

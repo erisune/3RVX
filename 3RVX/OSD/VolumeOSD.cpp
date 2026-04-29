@@ -337,11 +337,16 @@ void VolumeOSD::ProcessHotkeys(HotkeyInfo &hki) {
         break;
 
     case HotkeyInfo::VolumeSlider:
-        if (_volumeSlider->Visible()) {
-            /* If the slider is already visible, user must want to close it. */
-            _volumeSlider->Hide();
-        } else {
-            SendMessage(Window::Handle(), MSG_NOTIFYICON, NULL, WM_LBUTTONUP);
+        if (_validSlider) {
+            if (_volumeCtrl->DeviceEnabled()) {
+                _volumeSlider->MeterLevels(_volumeCtrl->Volume());
+                if (_volumeSlider->Active()) {
+                    /* If the slider is already visible, user must want to close it. */
+                    _volumeSlider->Hide(true);
+                } else {
+                    SendMessage(Window::Handle(), MSG_NOTIFYICON, NULL, WM_LBUTTONUP);
+                }
+            }
         }
         break;
     }
@@ -471,7 +476,11 @@ void VolumeOSD::OnNotifyIconEvent(HWND hWnd, LPARAM lParam) {
         if (_validSlider) {
             if (_volumeCtrl->DeviceEnabled()) {
                 _volumeSlider->MeterLevels(_volumeCtrl->Volume());
-                _volumeSlider->Show();
+                if (_volumeSlider->Active()) {
+                    _volumeSlider->Hide();
+                } else {
+                    _volumeSlider->Show();
+                }
             }
         }
     } else if (lParam == WM_RBUTTONUP) {

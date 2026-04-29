@@ -8,6 +8,10 @@
 class SliderKnob;
 
 class SliderWnd : public MeterWnd {
+public:
+    bool Active() const;
+    void Hide(bool hotkeyAction = false);
+
 protected:
     bool _dragging;
     bool _vertical;
@@ -24,6 +28,7 @@ protected:
 
 private:
     bool _ignoreInput;
+    bool _active;
     SliderKnob *_knob;
     int _dragOffset;
 
@@ -34,4 +39,9 @@ private:
 
     virtual LRESULT WndProc(HWND hWnd, UINT message,
         WPARAM wParam, LPARAM lParam);
+
+    static constexpr const int TIMER_IGNORE_INPUT = 50;
+    static constexpr const int IGNORE_DURATION = 100;
+    static constexpr const int TIMER_ACTIVE = 51;
+    static constexpr const int ACTIVE_DELAY = 200;
 };
