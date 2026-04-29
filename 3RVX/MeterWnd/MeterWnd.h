@@ -39,6 +39,7 @@ public:
 
     void BackgroundImage(Gdiplus::Bitmap *background);
     bool EnableGlass(Gdiplus::Bitmap *mask);
+    bool DrawBackdrop(Gdiplus::Bitmap *mask);
 
 protected:
     /// <summary>
@@ -48,6 +49,8 @@ protected:
 	Gdiplus::Bitmap *_composite;
 
     Gdiplus::Bitmap *_background;
+
+    Gdiplus::Bitmap *_buffer;
 
     RECT *_dirtyRect;
 

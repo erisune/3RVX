@@ -96,7 +96,47 @@ void MeterWnd::BackgroundImage(Gdiplus::Bitmap *background) {
 bool MeterWnd::EnableGlass(Gdiplus::Bitmap *mask) {
     bool result = LayeredWnd::EnableGlass(mask);
     ApplyClonesGlass();
+    if (!_settings->GlassEffectsEnabled()) {
+        result = DrawBackdrop(_glassMask);
+    }
     return result;
+}
+
+bool MeterWnd::DrawBackdrop(Gdiplus::Bitmap *mask) {
+    if (mask == NULL) {
+        return false;
+    }
+    /* Saving in case of accent color updates */
+    if (_buffer == NULL) {
+        _buffer = _background;
+    } else {
+        delete _background;
+        _background = _buffer;
+    }
+    HRGN maskRegion = GetMaskRegion(mask);
+    Gdiplus::Region region(maskRegion);
+    DeleteObject(maskRegion);
+    Gdiplus::Rect rect(0, 0, mask->GetWidth(), mask->GetHeight());
+    Gdiplus::Bitmap *backdrop = mask->Clone(rect, PixelFormat32bppARGB);
+    Gdiplus::Graphics g(backdrop);
+    g.Clear(Gdiplus::Color::Transparent);
+
+    /* Get accent color for backdrop */
+    AccentColor::Instance()->Refresh();
+    UINT32 accentColor = AccentColor::Instance()->Color();
+    UINT8 alpha = _settings->Opacity();
+
+    /* Modify alpha based on user settings */
+    alpha &= 0x80;
+    accentColor = (accentColor & 0x00FFFFFF) | (alpha << 24);
+        
+    Gdiplus::Color color = Gdiplus::ARGB(accentColor);
+    Gdiplus::SolidBrush brush(accentColor);
+    g.FillRegion(&brush, &region);
+    g.DrawImage(_background, rect);
+    _background = backdrop->Clone(rect, PixelFormat32bppARGB);
+    delete backdrop;
+    return true;
 }
 
 void MeterWnd::Show(bool animate) {
@@ -267,6 +307,9 @@ LRESULT MeterWnd::WndProc(
         CLOG(L"updating meter color maps");
         AccentColor::Instance()->Refresh();
         UINT32 color = AccentColor::Instance()->Color();
+        if (!_settings->GlassEffectsEnabled()) {
+            DrawBackdrop(_glassMask);
+        }
         for (Meter *m : _meters) {
             if (m->HasColorTransformMatrix()) {
                 m->UpdateColorTransformMatrix(color);
