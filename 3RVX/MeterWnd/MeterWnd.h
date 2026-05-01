@@ -17,7 +17,7 @@ public:
     MeterWnd(LPCWSTR className, LPCWSTR title, HINSTANCE hInstance = NULL);
     ~MeterWnd();
 
-	void Update();
+	void Update(bool forceUpdate = false);
 
     LayeredWnd *Clone();
     std::vector<LayeredWnd *> Clones();
@@ -30,6 +30,7 @@ public:
     void Transparency(byte transparency);
 
     void AddMeter(Meter *meter);
+    void SetMeters(std::list<Meter*> meters);
     const std::list<Meter *> &Meters();
     void MeterLevels(float value);
     float MeterLevels();

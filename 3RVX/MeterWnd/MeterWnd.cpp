@@ -23,11 +23,15 @@ MeterWnd::~MeterWnd() {
     DeleteClones();
 }
 
-void MeterWnd::Update() {
+void MeterWnd::Update(bool forceUpdate) {
     CLOG(L"Updating meter window");
     using namespace Gdiplus;
 
     bool dirty = (_composite == NULL);
+
+    if (forceUpdate) {
+        dirty = true;
+    }
 
     for (Meter *meter : _meters) {
         if (meter->Dirty() == true) {
@@ -64,6 +68,10 @@ void MeterWnd::Update() {
 
     Bitmap(_composite);
     UpdateClones();
+}
+
+void MeterWnd::SetMeters(std::list<Meter*> meters) {
+    _meters.assign(meters.begin(), meters.end());
 }
 
 void MeterWnd::AddMeter(Meter *meter) {
