@@ -8,8 +8,8 @@
 #include "../Skin/SkinManager.h"
 
 KeyboardOSD::KeyboardOSD() :
-OSD(L"3RVX-KeyOSDDispatcher"),
-_mWnd(L"3RVX-KeyboardOSD", L"3RVX-KeyboardOSD") {
+OSD(L"3RVX-KeyDispatcher"),
+_mWnd(L"3RVX-KeyboardOSD", L"3RVX Keyboard OSD") {
     RAWINPUTDEVICE rin[1] = { 0 };
     rin[0].dwFlags = RIDEV_INPUTSINK | RIDEV_NOLEGACY;
     rin[0].hwndTarget = this->Handle();

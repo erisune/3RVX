@@ -8,7 +8,7 @@
 #include "../Skin/SliderComponent.h"
 
 BrightnessSlider::BrightnessSlider(BrightnessController &brightnessCtrl) :
-SliderWnd(L"3RVX Brightness Slider", L"3RVX Brightness Slider"),
+SliderWnd(L"3RVX-BrightnessSlider", L"3RVX Brightness Slider"),
 _brightnessCtrl(brightnessCtrl) {
 
     SkinManager *skin = SkinManager::Instance();

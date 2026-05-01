@@ -15,7 +15,7 @@
 
 BrightnessOSD::BrightnessOSD() :
 OSD(L"3RVX-BrightnessDispatcher"),
-_mWnd(L"3RVX-BrightnessOSD", L"3RVX-BrightnessOSD") {
+_mWnd(L"3RVX-BrightnessOSD", L"3RVX Brightness OSD") {
 
     SkinManager *skin = SkinManager::Instance();
     OSDComponent *brightnessOSD = skin->BrightnessOSD();

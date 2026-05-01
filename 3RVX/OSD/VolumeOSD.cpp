@@ -25,8 +25,8 @@
 
 VolumeOSD::VolumeOSD() :
 OSD(L"3RVX-VolumeDispatcher"),
-_mWnd(L"3RVX-VolumeOSD", L"3RVX-VolumeOSD"),
-_muteWnd(L"3RVX-MuteOSD", L"3RVX-MuteOSD") {
+_mWnd(L"3RVX-VolumeOSD", L"3RVX Volume OSD"),
+_muteWnd(L"3RVX-MuteOSD", L"3RVX Mute OSD") {
 
     LoadSkin();
 

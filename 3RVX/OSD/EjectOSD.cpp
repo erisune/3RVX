@@ -15,7 +15,7 @@
 
 EjectOSD::EjectOSD() :
 OSD(L"3RVX-EjectDispatcher"),
-_mWnd(L"3RVX-EjectOSD", L"3RVX-EjectOSD") {
+_mWnd(L"3RVX-EjectOSD", L"3RVX Eject OSD") {
 
     SkinManager *skin = SkinManager::Instance();
     OSDComponent *ejectOSD = skin->EjectOSD();

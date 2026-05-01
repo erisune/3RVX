@@ -21,8 +21,8 @@
 
 MicrophoneOSD::MicrophoneOSD() :
     OSD(L"3RVX-MicDispatcher"),
-    _mWnd(L"3RVX-MicrophoneOSD", L"3RVX-MicrophoneOSD"),
-    _muteWnd(L"3RVX-MicMuteOSD", L"3RVX-MicMuteOSD") {
+    _mWnd(L"3RVX-MicrophoneOSD", L"3RVX Microphone OSD"),
+    _muteWnd(L"3RVX-MicMuteOSD", L"3RVX Mute Microphone OSD") {
     
     LoadSkin();
 
