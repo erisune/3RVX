@@ -76,7 +76,7 @@ HICON SkinV3::CapsLockIcon() {
     if (keyboard == nullptr) {
         return NULL;
     }
-    XMLElement *capsLock = keyboard->FirstChildElement("capslock");
+    XMLElement *capsLock = keyboard->FirstChildElement("capsLock");
     if (capsLock == nullptr) {
         return NULL;
     }
@@ -88,7 +88,7 @@ HICON SkinV3::NumLockIcon() {
     if (keyboard == nullptr) {
         return NULL;
     }
-    XMLElement *numLock = keyboard->FirstChildElement("numlock");
+    XMLElement *numLock = keyboard->FirstChildElement("numLock");
     if (numLock == nullptr) {
         return NULL;
     }
@@ -100,7 +100,7 @@ HICON SkinV3::ScrollLockIcon() {
     if (keyboard == nullptr) {
         return NULL;
     }
-    XMLElement *scrollLock = keyboard->FirstChildElement("scrolllock");
+    XMLElement *scrollLock = keyboard->FirstChildElement("scrollLock");
     if (scrollLock == nullptr) {
         return NULL;
     }
