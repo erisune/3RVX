@@ -9,6 +9,7 @@
 #include <vector>
 
 class Skin;
+struct MeterComponent;
 struct OSDComponent;
 struct SliderComponent;
 
@@ -30,6 +31,7 @@ public:
     HICON &CapsLockIcon();
     HICON &NumLockIcon();
     HICON &ScrollLockIcon();
+    std::vector<MeterComponent*> &KeyboardSet();
 
     OSDComponent *BrightnessOSD();
     std::vector<HICON> &BrightnessIconset();
@@ -50,6 +52,7 @@ private:
     HICON _ejectIcon;
 
     OSDComponent *_keyboardOSD;
+    std::vector<MeterComponent*> _keyboardSet;
     HICON _capsIcon;
     HICON _numIcon;
     HICON _scrollIcon;

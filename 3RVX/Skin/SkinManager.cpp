@@ -79,6 +79,10 @@ void SkinManager::LoadSkin(std::wstring skinXML, std::wstring variantXML) {
             _keyboardOSD = skin->KeyboardOSD();
         }
 
+        if (_keyboardSet.size() == 0) {
+            _keyboardSet = skin->KeyboardSet();
+        }
+
         if (_capsIcon == nullptr) {
             _capsIcon = skin->CapsLockIcon();
         }
@@ -162,6 +166,10 @@ HICON &SkinManager::ScrollLockIcon() {
     return _scrollIcon;
 }
 
+std::vector<MeterComponent*> &SkinManager::KeyboardSet() {
+    return _keyboardSet;
+}
+
 OSDComponent *SkinManager::BrightnessOSD() {
     return _brightnessOSD;
 }
@@ -216,6 +224,11 @@ void SkinManager::DisposeComponents() {
     _capsIcon = nullptr;
     _numIcon = nullptr;
     _scrollIcon = nullptr;
+    for (MeterComponent *key : _keyboardSet) {
+        delete key;
+        key = nullptr;
+    }
+    _keyboardSet.clear();
 
     delete _brightnessOSD;
     _brightnessOSD = nullptr;

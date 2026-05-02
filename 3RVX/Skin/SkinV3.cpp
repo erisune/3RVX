@@ -52,6 +52,26 @@ OSDComponent *SkinV3::BrightnessOSD() {
     return CreateOSDComponent("brightness");
 }
 
+std::vector<MeterComponent*> SkinV3::KeyboardSet() {
+    std::vector<MeterComponent*> keySet = {
+        /* In the same order as listed in the KeyType enum */
+        CreateKeyboardComponent("capsLock"),
+        CreateKeyboardComponent("numLock"),
+        CreateKeyboardComponent("scrollLock"),
+        CreateKeyboardComponent("capsUnlock"),
+        CreateKeyboardComponent("numUnlock"),
+        CreateKeyboardComponent("scrollUnlock"),
+        CreateKeyboardComponent("playPause"),
+        CreateKeyboardComponent("play"),
+        CreateKeyboardComponent("pause"),
+        CreateKeyboardComponent("stop"),
+        CreateKeyboardComponent("next"),
+        CreateKeyboardComponent("previous"),
+        CreateKeyboardComponent("run")
+    };
+    return keySet;
+}
+
 std::vector<HICON> SkinV3::BrightnessIconset() {
     std::vector<HICON> iconList;
 
@@ -160,6 +180,23 @@ OSDComponent *SkinV3::CreateOSDComponent(char *osdName) {
     osd->defaultUnits = DefaultUnits(osdElem);
 
     return osd;
+}
+
+MeterComponent *SkinV3::CreateKeyboardComponent(char *keyType) {
+    XMLElement *keyboard = SubElement("osds", "keyboard");
+    if (keyboard == nullptr) {
+        return NULL;
+    }
+    XMLElement *keyElem = keyboard->FirstChildElement(keyType);
+    if (keyElem == nullptr) {
+        return NULL;
+    }
+    MeterComponent *component = new MeterComponent;
+    component->background = NULL;
+    component->mask = NULL;
+    component->meters = Meters(keyElem);
+    component->sound = Sound(keyElem);
+    return component;
 }
 
 SliderComponent *SkinV3::CreateSliderComponent(char *sliderName) {

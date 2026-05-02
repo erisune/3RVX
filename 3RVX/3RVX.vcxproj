@@ -168,6 +168,7 @@
     <ClInclude Include="OSD\BrightnessOSD.h" />
     <ClInclude Include="OSD\KeyboardOSD.h" />
     <ClInclude Include="DefaultSettings.h" />
+    <ClInclude Include="OSD\KeyType.h" />
     <ClInclude Include="OSD\MicrophoneOSD.h" />
     <ClInclude Include="Skin\ErrorSkin.h" />
     <ClInclude Include="Skin\MultiSkin.h" />

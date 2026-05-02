@@ -168,6 +168,11 @@ std::vector<HICON> SkinV2::BrightnessIconset() {
     return std::vector<HICON>();
 }
 
+std::vector<MeterComponent*> SkinV2::KeyboardSet() {
+    /* Keyboard OSDs were not supported by the v2 skin format. */
+    return std::vector<MeterComponent*>();
+}
+
 SliderComponent *SkinV2::VolumeSlider() {
     SliderComponent *slider = new SliderComponent;
     slider->background = LoadImg(_skinDir + L"\\Control\\back.png");

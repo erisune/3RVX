@@ -36,6 +36,7 @@ public:
     virtual std::vector<HICON> VolumeIconset();
     virtual std::vector<HICON> MicrophoneIconset();
     virtual std::vector<HICON> BrightnessIconset();
+    virtual std::vector<MeterComponent*> KeyboardSet();
 
     virtual SliderComponent *VolumeSlider();
     virtual SliderComponent *BrightnessSlider();

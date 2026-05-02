@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 
+struct MeterComponent;
 struct OSDComponent;
 struct SkinComponent;
 struct SliderComponent;
@@ -38,6 +39,9 @@ public:
 
     /// <summary>Loads and instantiates the Keyboard OSD.</summary>
     virtual OSDComponent *KeyboardOSD() = 0;
+
+    /// <summary>Loads and instantiates the Keyboard meter set.</summary>
+    virtual std::vector<MeterComponent*> KeyboardSet() = 0;
 
     /// <summary>Retrieves the icon used for the caps lock icon.</summary>
     virtual HICON CapsLockIcon() = 0;
