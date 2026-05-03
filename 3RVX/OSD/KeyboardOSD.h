@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "KeyType.h"
 #include "OSD.h"
 
 class NotifyIcon;
@@ -12,16 +13,13 @@ public:
     KeyboardOSD();
     ~KeyboardOSD();
 
-    enum LockKey {
-        CapsLock,
-        NumLock,
-        ScrollLock
-    };
-
     void Hide();
     void HideIcon();
-    void HideIcon(LockKey key);
-    void ShowIcon(LockKey key);
+    void HideIcon(KeyType key);
+    void Show();
+    void Show(KeyType key);
+    void ShowIcon();
+    void ShowIcon(KeyType key);
 
     void ProcessHotkeys(HotkeyInfo &hki);
 
@@ -35,7 +33,10 @@ private:
     HICON _numIconImage;
     HICON _scrollIconImage;
 
+    void UpdateMeters(KeyType key);
+
     virtual void OnDisplayChange();
+    void OnKeyboardInput(WPARAM wParam, LPARAM lParam);
 
     virtual LRESULT WndProc(HWND hWnd, UINT message,
         WPARAM wParam, LPARAM lParam);

@@ -8,5 +8,6 @@ enum OSDType {
     Volume,
     Mic,
     Eject,
-    Brightness
+    Brightness,
+    Keyboard
 };

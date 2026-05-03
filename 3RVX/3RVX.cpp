@@ -216,6 +216,9 @@ void _3RVX::ProcessHotkeys(HotkeyInfo &hki) {
         break;
 
     case HotkeyInfo::Run:
+        if (_kOSD) {
+            _kOSD->ProcessHotkeys(hki);
+        }
         if (hki.HasArgs()) {
             std::wstring cmd = StringUtils::Trim(hki.args[0]);
             size_t argpos = cmd.find_first_of(L" ");
@@ -346,24 +349,35 @@ LRESULT _3RVX::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                 if (_eOSD) { _eOSD->Hide(); }
                 if (_bOSD) { _bOSD->Hide(); }
                 if (_mOSD) { _mOSD->Hide(); }
+                if (_kOSD) { _kOSD->Hide(); }
                 break;
 
             case Eject:
                 if (_vOSD) { _vOSD->Hide(); }
                 if (_bOSD) { _bOSD->Hide(); }
                 if (_mOSD) { _mOSD->Hide(); }
+                if (_kOSD) { _kOSD->Hide(); }
                 break;
 
             case Brightness:
                 if (_vOSD) { _vOSD->Hide(); }
                 if (_eOSD) { _eOSD->Hide(); }
                 if (_mOSD) { _mOSD->Hide(); }
+                if (_kOSD) { _kOSD->Hide(); }
                 break;
 
             case Mic:
                 if (_vOSD) { _vOSD->Hide(); }
                 if (_bOSD) { _bOSD->Hide(); }
                 if (_eOSD) { _eOSD->Hide(); }
+                if (_kOSD) { _kOSD->Hide(); }
+                break;
+
+            case Keyboard:
+                if (_vOSD) { _vOSD->Hide(); }
+                if (_bOSD) { _bOSD->Hide(); }
+                if (_eOSD) { _eOSD->Hide(); }
+                if (_mOSD) { _mOSD->Hide(); }
                 break;
             }
 
