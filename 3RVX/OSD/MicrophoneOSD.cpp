@@ -279,19 +279,19 @@ void MicrophoneOSD::ProcessHotkeys(HotkeyInfo& hki) {
         break;
 
     case HotkeyInfo::SetMicVolume: {
-        HotkeyInfo::VolumeKeyArgTypes type = HotkeyInfo::VolumeArgType(hki);
-        if (type == HotkeyInfo::VolumeKeyArgTypes::NoArgs) {
-            return;
+            HotkeyInfo::VolumeKeyArgTypes type = HotkeyInfo::VolumeArgType(hki);
+            if (type == HotkeyInfo::VolumeKeyArgTypes::NoArgs) {
+                return;
+            }
+            else if (type == HotkeyInfo::VolumeKeyArgTypes::Units) {
+                int numUnits = hki.ArgToInt(0);
+                _volumeCtrl->Volume(numUnits * _defaultIncrement);
+            }
+            else if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
+                float perc = static_cast<float>(hki.ArgToDouble(0)) / 100.0f;
+                _volumeCtrl->Volume(perc);
+            }
         }
-        else if (type == HotkeyInfo::VolumeKeyArgTypes::Units) {
-            int numUnits = hki.ArgToInt(0);
-            _volumeCtrl->Volume(numUnits * _defaultIncrement);
-        }
-        else if (type == HotkeyInfo::VolumeKeyArgTypes::Percentage) {
-            double perc = hki.ArgToDouble(0);
-            _volumeCtrl->Volume((float)perc);
-        }
-    }
 
         SendMessage(Window::Handle(), VolumeController::MSG_CAP_CHNG,
             NULL, (LPARAM)1);
