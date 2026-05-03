@@ -1,3 +1,6 @@
+// Copyright (c) 2026, erisune.
+// Distributed under the GPL-3.0 License (see COPYING for details)
+
 #include "SkinOptions.h"
 
 #include "../../3RVX/3RVX.h"

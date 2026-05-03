@@ -1,3 +1,6 @@
+// Copyright (c) 2026, erisune.
+// Distributed under the GPL-3.0 License (see COPYING for details)
+
 #include "BrightnessSlider.h"
 
 #include "../Controllers/Brightness/BrightnessController.h"

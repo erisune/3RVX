@@ -1,5 +1,6 @@
 // Copyright (c) 2015, Matthew Malensek.
-// Distributed under the BSD 2-Clause License (see LICENSE.txt for details)
+// Copyright (c) 2026, erisune.
+// Distributed under the GPL-3.0 License (see COPYING for details)
 
 #include "ListView.h"
 

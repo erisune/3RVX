@@ -1,5 +1,6 @@
 // Copyright (c) 2016, Matthew Malensek.
-// Distributed under the BSD 2-Clause License (see LICENSE.txt for details)
+// Copyright (c) 2026, erisune.
+// Distributed under the GPL-3.0 License (see COPYING for details)
 
 #pragma once
 
@@ -17,19 +18,19 @@ public:
     static constexpr const wchar_t *LanguageDirName = L"Languages";
     static constexpr const wchar_t *SkinDirName = L"Skins";
     static constexpr const wchar_t *SkinFileName = L"Skin.xml";
-    static constexpr const wchar_t *Variant = L"<None>";
+    static constexpr const wchar_t *Variant = L"None";
     static constexpr const wchar_t *VariantDirName = L"Variants";
     static constexpr const wchar_t *VariantFileName = L"Variant.xml";
 
     /* OSDs */
     static const bool VolumeOSDEnabled = true;
-    static const bool EjectOSDEnabled = true;
-    static const bool BrightnessOSDEnabled = true;
+    static const bool EjectOSDEnabled = false;
+    static const bool BrightnessOSDEnabled = false;
     static const bool KeyboardOSDEnabled = false;
-    static const bool MicrophoneOSDEnabled = false;
+    static const bool MicrophoneOSDEnabled = true;
     static const bool ShowOSD = true;
 
-    /* System Event Subscriptions*/
+    /* System Event Subscriptions */
     static const bool SubscribeVolumeEvents = true;
     static const bool SubscribeMicrophoneEvents = true;
     static const bool SubscribeEjectEvents = true;
