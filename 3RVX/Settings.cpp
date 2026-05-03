@@ -517,12 +517,7 @@ bool Settings::CurrentVariant(std::wstring variantName) {
 
 std::wstring Settings::CurrentVariant() {
     std::wstring name = GetText("variant");
-
-    if (name == L"") {
-        return DefaultSettings::Variant;
-    } else {
-        return name;
-    }
+    return name;
 }
 
 std::wstring Settings::VariantXML() {

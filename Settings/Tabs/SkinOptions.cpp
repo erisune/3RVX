@@ -60,8 +60,8 @@ void SkinOptions::LoadSettings() {
     Settings *settings = Settings::Instance();
 
     std::wstring variant = settings->CurrentVariant();
-    if (variant == L"") {
-        _variant->Select(DefaultSettings::Variant);
+    if (variant.empty()) {
+        _variant->Select(0);
     } else {
         _variant->Select(variant);
     }
@@ -98,7 +98,9 @@ void SkinOptions::SaveSettings() {
 bool SkinOptions::LoadVariants(std::wstring skinName) {
     Settings *settings = Settings::Instance();
     _variant->Clear();
-    _variant->AddItem(DefaultSettings::Variant);
+    LanguageTranslator *translator = settings->Translator();
+    std::wstring noVariant = L"<" + translator->Translate(DefaultSettings::Variant) + L">";
+    _variant->AddItem(noVariant);
     /* Determine which variants are available */
     std::wstring variantDir = Settings::SkinDir() + L"\\" + 
         skinName + L"\\" + DefaultSettings::VariantDirName;
@@ -115,7 +117,7 @@ bool SkinOptions::LoadVariants(std::wstring skinName) {
     std::wstring current = settings->CurrentVariant();
     int idx = _variant->Select(current);
     if (idx == CB_ERR) {
-        _variant->Select(DefaultSettings::Variant);
+        _variant->Select(0);
     }
     LoadVariantInfo(current);
     return true;
