@@ -65,6 +65,7 @@ _muteWnd(L"3RVX-MuteOSD", L"3RVX Mute OSD") {
     if (_settings->VolumeIconEnabled()) {
         LanguageTranslator *translator = _settings->Translator();
         _menuSetStr = translator->Translate(_menuSetStr);
+        _menuPlayStr = translator->Translate(_menuPlayStr);
         _menuDevStr = translator->Translate(_menuDevStr);
         _menuMixerStr = translator->Translate(_menuMixerStr);
         _menuExitStr = translator->Translate(_menuExitStr);
