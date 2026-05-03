@@ -35,6 +35,7 @@ private:
 
     GroupBox *_volumeGroup;
     Checkbox *_volumeIcon;
+    Checkbox *_volumeShow;
     Checkbox *_subscribeVolEvents;
     Label *_audioDeviceLabel;
     ComboBox *_audioDevice;
@@ -49,6 +50,7 @@ private:
 
     GroupBox *_microphoneGroup;
     Checkbox *_microphoneIcon;
+    Checkbox *_microphoneShow;
     Checkbox *_subscribeMicEvents;
     Label *_captureDeviceLabel;
     ComboBox *_captureDevice;
@@ -56,17 +58,23 @@ private:
 
     GroupBox *_ejectGroup;
     Checkbox *_ejectIcon;
+    Checkbox *_ejectShow;
     Checkbox *_subscribeEjectEvents;
 
     GroupBox *_brightnessGroup;
     Checkbox *_brightnessIcon;
+    Checkbox *_brightnessShow;
+    Label *_displayDeviceLabel;
+    ComboBox *_displayDevice;
 
     GroupBox *_keyboardGroup;
     Checkbox *_keyboardIcon;
+    Checkbox *_keyboardShow;
     Checkbox *_caps;
     Checkbox *_scroll;
     Checkbox *_num;
     Checkbox *_media;
+    Checkbox *_run;
 
     std::vector<GroupBox *> _groups;
 

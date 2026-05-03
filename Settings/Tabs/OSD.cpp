@@ -17,6 +17,7 @@ void OSD::Initialize() {
     _osdList->OnItemChange = std::bind(&OSD::OnOSDListItemChange, this, _1);
 
     _volumeIcon = new Checkbox(CHK_VOLICON, *this);
+    _volumeShow = new Checkbox(CHK_VOLSHOW, *this);
     _subscribeVolEvents = new Checkbox(CHK_MONITORVOL, *this);
     _audioDeviceLabel = new Label(LBL_AUDIODEV, *this);
     _audioDevice = new ComboBox(CMB_AUDIODEV, *this);
@@ -43,6 +44,7 @@ void OSD::Initialize() {
     _volumeGroup = new GroupBox(GRP_VOLUME, *this);
     _volumeGroup->AddChildren({
         _volumeIcon,
+        _volumeShow,
         _subscribeVolEvents,
         _audioDeviceLabel, _audioDevice,
         _audioTaperLabel, _audioTaper, _audioTaperEdit,
@@ -52,6 +54,7 @@ void OSD::Initialize() {
     });
 
     _microphoneIcon = new Checkbox(CHK_MICICON, *this);
+    _microphoneShow = new Checkbox(CHK_MICSHOW, *this);
     _subscribeMicEvents = new Checkbox(CHK_SUBSCRIBEMIC, *this);
     _captureDeviceLabel = new Label(LBL_CAPTUREDEV, *this);
     _captureDevice = new ComboBox(CMB_CAPTUREDEV, *this);
@@ -59,35 +62,47 @@ void OSD::Initialize() {
     _microphoneGroup = new GroupBox(GRP_MICROPHONE, *this);
     _microphoneGroup->AddChildren({
         _microphoneIcon,
+        _microphoneShow,
         _subscribeMicEvents,
         _captureDeviceLabel, _captureDevice,
         _micMuteLock,
-        });
+    });
 
     _ejectIcon = new Checkbox(CHK_EJECTICON, *this);
+    _ejectShow = new Checkbox(CHK_EJECTSHOW, *this);
     _subscribeEjectEvents = new Checkbox(CHK_SUBSCRIBEEJECT, *this);
     _ejectGroup = new GroupBox(GRP_EJECT, *this);
     _ejectGroup->AddChildren({
         _ejectIcon,
+        _ejectShow,
         _subscribeEjectEvents,
     });
 
     _brightnessIcon = new Checkbox(CHK_BRIGHTICON, *this);
+    _brightnessShow = new Checkbox(CHK_BRIGHTSHOW, *this);
+    _displayDeviceLabel = new Label(LBL_DISPLAYDEV, *this);
+    _displayDevice = new ComboBox(CMB_DISPLAYDEV, *this);
     _brightnessGroup = new GroupBox(GRP_BRIGHTNESS, *this);
     _brightnessGroup->AddChildren({
         _brightnessIcon,
+        _brightnessShow,
+        /* Placeholder, hide for now */
+        /* _displayDeviceLabel, _displayDevice, */
     });
 
     _keyboardIcon = new Checkbox(CHK_KEYICON, *this);
+    _keyboardShow = new Checkbox(CHK_KEYSHOW, *this);
     _caps = new Checkbox(CHK_ENABLECAPS, *this);
     _scroll = new Checkbox(CHK_ENABLESCROLL, *this);
     _num = new Checkbox(CHK_ENABLENUM, *this);
     _media = new Checkbox(CHK_ENABLEMK, *this);
+    _run = new Checkbox(CHK_ENABLERUN, *this);
     _keyboardGroup = new GroupBox(GRP_KEYBOARD, *this);
     _keyboardGroup->AddChildren({
         _keyboardIcon,
+        _keyboardShow,
         _caps, _scroll, _num,
-        _media,
+        _media, _run
     });
 
     /* Define groupbox order */
@@ -184,23 +199,30 @@ void OSD::LoadSettings() {
     _osdList->Checked(4, settings->KeyboardOSDEnabled());
 
     _volumeIcon->Checked(settings->VolumeIconEnabled());
+    _volumeShow->Checked(settings->ShowVolumeOSD());
     _subscribeVolEvents->Checked(settings->SubscribeVolumeEvents());
     _limitSlider->Position((int) (settings->VolumeLimiter() * 100.0f));
     _muteLock->Checked(settings->MuteOnLock());
 
     _microphoneIcon->Checked(settings->MicrophoneIconEnabled());
+    _microphoneShow->Checked(settings->ShowMicrophoneOSD());
     _subscribeMicEvents->Checked(settings->SubscribeMicrophoneEvents());
     _micMuteLock->Checked(settings->MicMuteOnLock());
 
     _ejectIcon->Checked(settings->EjectIconEnabled());
+    _ejectShow->Checked(settings->ShowEjectOSD());
     _subscribeEjectEvents->Checked(settings->SubscribeEjectEvents());
 
     _brightnessIcon->Checked(settings->BrightnessIconEnabled());
+    _brightnessShow->Checked(settings->ShowBrightnessOSD());
 
     _keyboardIcon->Checked(settings->KeyboardIconsEnabled());
+    _keyboardShow->Checked(settings->ShowKeyboardOSD());
     _caps->Checked(settings->CapsLockEnabled());
     _num->Checked(settings->NumLockEnabled());
     _scroll->Checked(settings->ScrollLockEnabled());
+    _media->Checked(settings->MediaKeysEnabled());
+    _run->Checked(settings->ShowRunHotkey());
 }
 
 void OSD::SaveSettings() {
@@ -214,6 +236,7 @@ void OSD::SaveSettings() {
     settings->KeyboardOSDEnabled(_osdList->Checked(4));
 
     settings->VolumeIconEnabled(_volumeIcon->Checked());
+    settings->ShowVolumeOSD(_volumeShow->Checked());
     settings->SubscribeVolumeEvents(_subscribeVolEvents->Checked());
     int selectedDevice = _audioDevice->SelectionIndex();
     if (selectedDevice == 0) {
@@ -233,6 +256,7 @@ void OSD::SaveSettings() {
     settings->MuteOnLock(_muteLock->Checked());
 
     settings->MicrophoneIconEnabled(_microphoneIcon->Checked());
+    settings->ShowMicrophoneOSD(_microphoneShow->Checked());
     settings->SubscribeMicrophoneEvents(_subscribeMicEvents->Checked());
     int selectedCaptureDevice = _captureDevice->SelectionIndex();
     if (selectedCaptureDevice == 0) {
@@ -244,14 +268,19 @@ void OSD::SaveSettings() {
     settings->MicMuteOnLock(_micMuteLock->Checked());
 
     settings->EjectIconEnabled(_ejectIcon->Checked());
+    settings->ShowEjectOSD(_ejectShow->Checked());
     settings->SubscribeEjectEvents(_subscribeEjectEvents->Checked());
 
     settings->BrightnessIconEnabled(_brightnessIcon->Checked());
+    settings->ShowBrightnessOSD(_brightnessShow->Checked());
 
     settings->KeyboardIconsEnabled(_keyboardIcon->Checked());
+    settings->ShowKeyboardOSD(_keyboardShow->Checked());
     settings->CapsLockEnabled(_caps->Checked());
     settings->NumLockEnabled(_num->Checked());
     settings->ScrollLockEnabled(_scroll->Checked());
+    settings->MediaKeysEnabled(_media->Checked());
+    settings->ShowRunHotkey(_run->Checked());
 }
 
 void OSD::ShowGroup(int group) {
