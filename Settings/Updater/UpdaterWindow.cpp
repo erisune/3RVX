@@ -10,11 +10,13 @@
 #include "../../3RVX/NotifyIcon.h"
 #include "../../3RVX/Settings.h"
 #include "../resource.h"
+#include "../UITranslator.h"
 #include "ProgressWindow.h"
 #include "Updater.h"
 
 UpdaterWindow::UpdaterWindow() :
 Window(_3RVX::CLASS_3RVX_UPDATER, _3RVX::CLASS_3RVX_UPDATER) {
+    UITranslator::TranslateWindowText(Window::Handle());
     HRESULT hr;
     hr = LoadIconMetric(
         Window::InstanceHandle(),

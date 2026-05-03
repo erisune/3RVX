@@ -8,6 +8,7 @@
 #include "../../3RVX/StringUtils.h"
 #include "../../3RVX/Skin/VariantInfo.h"
 #include "../Controls/Controls.h"
+#include "../UITranslator.h"
 
 SkinOptions::SkinOptions(HWND parent, std::wstring skinName) :
 Dialog(parent, MAKEINTRESOURCE(IDD_SKINOPTS)) {
@@ -15,6 +16,7 @@ Dialog(parent, MAKEINTRESOURCE(IDD_SKINOPTS)) {
 }
 
 void SkinOptions::Initialize() {
+    UITranslator::TranslateWindowText(DialogHandle());
     _variantGroup = new GroupBox(GRP_VARIANT, *this);
     _variant = new ComboBox(CMB_VARIANT, *this);
     _variant->OnSelectionChange = [this]() {
