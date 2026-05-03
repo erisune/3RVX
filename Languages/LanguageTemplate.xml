@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <translation version="1">
 
-  <language name="Test" id="en" regions="us,uk,in"/>
-  <author name="Jane Doe" email=""/>
+  <language name="Template" id="en" regions="us,uk,in"/>
+  <author name="Jane Doe" website=""/>
 
   <!-- General Strings -->
   <string>
@@ -32,8 +32,24 @@
     <translation>XXXXX XXXXXX</translation>
   </string>
   <string>
+    <original>Playback devices</original>
+    <translation>XXXXXXXX XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Recording devices</original>
+    <translation>XXXXXXXXX XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Selected device</original>
+    <translation>XXXXXXXX XXXXXX</translation>
+  </string>
+  <string>
     <original>Mixer</original>
     <translation>XXXXX</translation>
+  </string>
+  <string>
+    <original>Open Volume Mixer</original>
+    <translation>XXXX XXXXXX XXXXX</translation>
   </string>
   <string>
     <original>Exit</original>
@@ -43,7 +59,40 @@
     <original>Muted</original>
     <translation>XXXXX</translation>
   </string>
+  <string>
+    <original>Display settings</original>
+    <translation>XXXXXXX XXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Turn off display</original>
+    <translation>XXXX XXX XXXXXXX</translation>
+  </string>
 
+  <!-- Skin Options -->
+  <string>
+    <original>Options</original>
+    <translation>XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Skin options</original>
+    <translation>XXXX XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Variant</original>
+    <translation>XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Properties</original>
+    <translation>XXXXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Opacity:</original>
+    <translation>XXXXXXX:</translation>
+  </string>
+  <string>
+    <original>Size (%):</original>
+    <translation>XXXX (%):</translation>
+  </string>
 
   <!-- Tab Names -->
   <string>
@@ -81,12 +130,12 @@
     <translation>XXXX XXXXXX XXX XX XXXXXXX</translation>
   </string>
   <string>
-    <original>Enable volume notification icon</original>
-    <translation>XXXXXX XXXXXX XXXXXXXXXXXX XXXX</translation>
-  </string>
-  <string>
     <original>Enable sound effects</original>
     <translation>XXXXXX XXXXX XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Enable Aero Glass effects</original>
+    <translation>XXXXXX XXXX XXXXX XXXXXXX</translation>
   </string>
   <string>
     <original>Automatic updates</original>
@@ -113,6 +162,10 @@
   <string>
     <original>Language</original>
     <translation>XXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Translator: {1}</original>
+    <translation>XXXXXXXXXX: {1}</translation>
   </string>
 
 
@@ -185,7 +238,7 @@
   </string>
   <string>
     <original>Display Device:</original>
-    <translation>XXXXXXX XXXXX:</translation>
+    <translation>XXXXXXX XXXXXX:</translation>
   </string>
   <string>
     <original>Primary Monitor</original>
@@ -206,7 +259,11 @@
   </string>
   <string>
     <original>Fade</original>
-    <translation>XXXX*</translation>
+    <translation>XXXX</translation>
+  </string>
+  <string>
+    <original>Slide</original>
+    <translation>XXXXX</translation>
   </string>
   <string>
     <original>Hide Delay (ms):</original>
@@ -224,6 +281,10 @@
       <translation>XXXXXX</translation>
   </string>
   <string>
+      <original>Microphone</original>
+      <translation>XXXXXXXXXX</translation>
+  </string>
+  <string>
       <original>Brightness</original>
       <translation>XXXXXXXXXX</translation>
   </string>
@@ -238,6 +299,87 @@
   <string>
     <original>Enable notification icon</original>
     <translation>XXXXXX XXXXXXXXXXXX XXXX</translation>
+  </string>
+  <string>
+    <original>Enable on-screen display</original>
+    <translation>XXXXXX XX-XXXXXX XXXXXXX</translation>
+  </string>
+  <string>
+    <original>Subscribe to system volume events</original>
+    <translation>XXXXXXXXX XX XXXXXX XXXXXX XXXXXX</translation>
+  </string>
+  <string>
+    <original>Device:</original>
+    <translation>XXXXXX:</translation>
+  </string>
+  <!-- Translate this as 'Adjust volume curve' if your language doesn't use this term -->
+  <string>
+    <original>Audio Taper:</original>
+    <translation>XXXXX XXXXX:</translation>
+  </string>
+  <string>
+    <original>Volume Limiter:</original>
+    <translation>XXXXXX XXXXXXX:</translation>
+  </string>
+  <string>
+    <original>Force volume limit</original>
+    <translation>XXXXX XXXXXX XXXXX</translation>
+  </string>
+  <string>
+    <original>Mute volume during session lock</original>
+    <translation>XXXX XXXXXX XXXXXX XXXXXXX XXXX</translation>
+  </string>
+  <string>
+    <original>Subscribe to system eject events</original>
+    <translation>XXXXXXXXX XX XXXXXX XXXXX XXXXXX</translation>
+  </string>
+  <string>
+    <original>Enable notification icons</original>
+    <translation>XXXXXX XXXXXXXXXXXX XXXXX</translation>
+  </string>
+  <string>
+    <original>Caps Lock</original>
+    <translation>XXXX XXXX</translation>
+  </string>
+  <string>
+    <original>Num Lock</original>
+    <translation>XXX XXXX</translation>
+  </string>
+  <string>
+    <original>Scroll Lock</original>
+    <translation>XXXXXX XXXX</translation>
+  </string>
+  <string>
+    <original>Media Keys</original>
+    <translation>XXXXX XXXX</translation>
+  </string>
+  <string>
+    <original>Run Hotkey</original>
+    <translation>XXX XXXXXX</translation>
+  </string>
+
+  <!-- Device Settings -->
+  <string>
+    <original>Default</original>
+    <translation>XXXXXXX</translation>
+  </string>
+
+  <!-- Audio Taper Settings -->
+  <string>
+    <original>Disabled</original>
+    <translation>XXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Low</original>
+    <translation>XXX</translation>
+  </string>
+  <string>
+    <original>Medium</original>
+    <translation>XXXXXX</translation>
+  </string>
+  <string>
+    <original>High</original>
+    <translation>XXXX</translation>
   </string>
 
   <!-- Hotkeys Tab -->
@@ -291,11 +433,11 @@
   </string>
   <string>
     <original>Stop</original>
-    <translation>XXXX1</translation>
+    <translation>XXXX</translation>
   </string>
   <string>
     <original>Next</original>
-    <translation>XXXX2</translation>
+    <translation>XXXX</translation>
   </string>
   <string>
     <original>Previous</original>
@@ -356,6 +498,46 @@
     <translation>XXXX XXXXXX XXXXXX</translation>
   </string>
   <string>
+    <original>Increase Microphone Volume</original>
+    <translation>XXXXXXXX XXXXXXXXXX XXXXXX</translation>
+  </string>
+  <string>
+    <original>Increase Microphone Volume {1}%</original>
+    <translation>XXXXXXXX XXXXXXXXXX XXXXXX {1}%</translation>
+  </string>
+  <string>
+    <original>Increase Microphone Volume {1} units</original>
+    <translation>XXXXXXXX XXXXXXXXXX XXXXXX {1} XXXXX</translation>
+  </string>
+  <string>
+    <original>Decrease Microphone Volume</original>
+    <translation>XXXXXXX XXXXXXXXXX XXXXXX</translation>
+  </string>
+  <string>
+    <original>Decrease Microphone Volume {1}%</original>
+    <translation>XXXXXXX XXXXXXXXXX XXXXXX {1}%</translation>
+  </string>
+  <string>
+    <original>Decrease Microphone Volume {1} units</original>
+    <translation>XXXXXXX XXXXXXXXXX XXXXXX {1} XXXXX</translation>
+  </string>
+  <string>
+    <original>Set Microphone Volume</original>
+    <translation>XXX XXXXXXXXXX XXXXXX</translation>
+  </string>
+  <string>
+    <original>Set Microphone Volume: {1}%</original>
+    <translation>XXX XXXXXXXXXX XXXXXX: {1}%</translation>
+  </string>
+  <string>
+    <original>Set Microphone Volume: {1} units</original>
+    <translation>XXX XXXXXXXXXX XXXXXX: {1} XXXXX</translation>
+  </string>
+  <string>
+    <original>Mute Microphone</original>
+    <translation>XXXX XXXXXXXXXX</translation>
+  </string>
+  <string>
     <original>Eject Drive</original>
     <translation>XXXXX XXXXX</translation>
   </string>
@@ -366,6 +548,26 @@
   <string>
     <original>Eject Last Disk</original>
     <translation>XXXXX XXXX XXXX</translation>
+  </string>
+  <string>
+    <original>Increase Brightness</original>
+    <translation>XXXXXXXX XXXXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Decrease Brightness</original>
+    <translation>XXXXXXXX XXXXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Set Brightness</original>
+    <translation>XXX XXXXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Show Brightness Slider</original>
+    <translation>XXXX XXXXXXXXXX XXXXXX</translation>
+  </string>
+  <string>
+    <original>Turn Off Display</original>
+    <translation>XXXX XXX XXXXXXX</translation>
   </string>
   <string>
     <original>Media Key</original>
@@ -433,11 +635,14 @@
 <!-- Error Messages -->
   <string>
     <original>File not found:\n{1}</original>
+    <translation>XXXX XXX XXXXX:\n{1}</translation>
   </string>
   <string>
     <original>Could not locate XML tag: {1}</original>
+    <translation>XXXXX XXX XXXXXX XXX XXX: {1}</translation>
   </string>
   <string>
     <original>An unknown error occurred: ID #{1}</original>
+    <translation>XX XXXXXXX XXXXX XXXXXXXX: ID #{1}</translation>
   </string>
 </translation>
