@@ -27,6 +27,7 @@ public:
     static const bool BrightnessOSDEnabled = true;
     static const bool KeyboardOSDEnabled = false;
     static const bool MicrophoneOSDEnabled = false;
+    static const bool ShowOSD = true;
 
     /* System Event Subscriptions*/
     static const bool SubscribeVolumeEvents = true;
@@ -43,6 +44,8 @@ public:
     static const bool CapsLock = false;
     static const bool NumLock = false;
     static const bool ScrollLock = false;
+    static const bool MediaKeys = false;
+    static const bool ShowRun = false;
 
     static const bool OnTop = true;
     static const bool HideFullscreen = false;

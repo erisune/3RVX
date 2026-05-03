@@ -102,6 +102,17 @@ public:
     bool MicrophoneOSDEnabled();
     void MicrophoneOSDEnabled(bool enable);
 
+    bool ShowBrightnessOSD();
+    void ShowBrightnessOSD(bool enable);
+    bool ShowEjectOSD();
+    void ShowEjectOSD(bool enable);
+    bool ShowKeyboardOSD();
+    void ShowKeyboardOSD(bool enable);
+    bool ShowVolumeOSD();
+    void ShowVolumeOSD(bool enable);
+    bool ShowMicrophoneOSD();
+    void ShowMicrophoneOSD(bool enable);
+
     /* Volume */
     void AudioDeviceID(std::wstring id);
     std::wstring AudioDeviceID();
@@ -141,6 +152,10 @@ public:
     void NumLockEnabled(bool enable);
     bool ScrollLockEnabled();
     void ScrollLockEnabled(bool enable);
+    bool MediaKeysEnabled();
+    void MediaKeysEnabled(bool enable);
+    bool ShowRunHotkey();
+    void ShowRunHotkey(bool enable);
 
     /* Brightness */
     bool BrightnessIconEnabled();
@@ -255,6 +270,7 @@ private:
     static constexpr const char *XML_KEYBOARDICONS = "keyboardIcons";
     static constexpr const char *XML_LANGUAGE = "language";
     static constexpr const char *XML_MONITOR = "monitor";
+    static constexpr const char *XML_MEDIAKEYS = "mediaKeys";
     static constexpr const char *XML_MICICON = "micIcon";
     static constexpr const char *XML_MICMUTELOCK = "micMuteDuringLock";
     static constexpr const char *XML_MUTELOCK = "muteDuringLock";
@@ -271,6 +287,12 @@ private:
     static constexpr const char *XML_OSD_Y = "osdY";
     static constexpr const char *XML_SCROLLLOCK = "scrollLock";
     static constexpr const char *XML_SHOWONSTART = "showOnStartup";
+    static constexpr const char *XML_SHOWRUN = "showRun";
+    static constexpr const char *XML_SHOW_BOSD = "showBrightnessOSD";
+    static constexpr const char *XML_SHOW_EOSD = "showEjectOSD";
+    static constexpr const char *XML_SHOW_KOSD = "showKeyboardOSD";
+    static constexpr const char *XML_SHOW_MOSD = "showMicOSD";
+    static constexpr const char *XML_SHOW_VOSD = "showVolumeOSD";
     static constexpr const char *XML_SKIN = "skin";
     static constexpr const char *XML_SIZE = "size";
     static constexpr const char *XML_SOUNDS = "soundEffects";

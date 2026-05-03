@@ -392,6 +392,46 @@ void Settings::MicrophoneOSDEnabled(bool enable) {
     SetEnabled(XML_ENABLE_MOSD, enable);
 }
 
+bool Settings::ShowBrightnessOSD() {
+    return GetEnabled(XML_SHOW_BOSD, DefaultSettings::ShowOSD);
+}
+
+void Settings::ShowBrightnessOSD(bool enable) {
+    SetEnabled(XML_SHOW_BOSD, enable);
+}
+
+bool Settings::ShowEjectOSD() {
+    return GetEnabled(XML_SHOW_EOSD, DefaultSettings::ShowOSD);
+}
+
+void Settings::ShowEjectOSD(bool enable) {
+    SetEnabled(XML_SHOW_EOSD, enable);
+}
+
+bool Settings::ShowKeyboardOSD() {
+    return GetEnabled(XML_SHOW_KOSD, DefaultSettings::ShowOSD);
+}
+
+void Settings::ShowKeyboardOSD(bool enable) {
+    SetEnabled(XML_SHOW_KOSD, enable);
+}
+
+bool Settings::ShowMicrophoneOSD() {
+    return GetEnabled(XML_SHOW_MOSD, DefaultSettings::ShowOSD);
+}
+
+void Settings::ShowMicrophoneOSD(bool enable) {
+    SetEnabled(XML_SHOW_MOSD, enable);
+}
+
+bool Settings::ShowVolumeOSD() {
+    return GetEnabled(XML_SHOW_VOSD, DefaultSettings::ShowOSD);
+}
+
+void Settings::ShowVolumeOSD(bool enable) {
+    SetEnabled(XML_SHOW_VOSD, enable);
+}
+
 AnimationTypes::HideAnimation Settings::HideAnim() {
     std::wstring anim = GetText(XML_HIDEANIM);
     const wchar_t *animStr = anim.c_str();
@@ -702,6 +742,22 @@ void Settings::ScrollLockEnabled(bool enable) {
     SetEnabled(XML_SCROLLLOCK, enable);
 }
 
+bool Settings::MediaKeysEnabled() {
+    return GetEnabled(XML_MEDIAKEYS, DefaultSettings::MediaKeys);
+}
+
+void Settings::MediaKeysEnabled(bool enable) {
+    SetEnabled(XML_MEDIAKEYS, enable);
+}
+
+bool Settings::ShowRunHotkey() {
+    return GetEnabled(XML_SHOWRUN, DefaultSettings::ShowRun);
+}
+
+void Settings::ShowRunHotkey(bool enable) {
+    SetEnabled(XML_SHOWRUN, enable);
+}
+
 bool Settings::BrightnessIconEnabled() {
     return GetEnabled(XML_BRIGHTNESSICON, DefaultSettings::BrightnessIcon);
 }
@@ -709,7 +765,6 @@ bool Settings::BrightnessIconEnabled() {
 void Settings::BrightnessIconEnabled(bool enable) {
     SetEnabled(XML_BRIGHTNESSICON, enable);
 }
-
 
 bool Settings::HasSetting(std::string elementName) {
     tinyxml2::XMLElement *el = _root->FirstChildElement(elementName.c_str());
