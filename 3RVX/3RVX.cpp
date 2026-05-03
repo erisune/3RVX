@@ -134,22 +134,27 @@ void _3RVX::Initialize() {
     _osds.clear();
     if (settings->VolumeOSDEnabled()) {
         _vOSD = new VolumeOSD();
+        _vOSD->Enabled(settings->ShowVolumeOSD());
         _osds.push_back(_vOSD);
     }
     if (settings->MicrophoneOSDEnabled()) {
         _mOSD = new MicrophoneOSD();
+        _mOSD->Enabled(settings->ShowMicrophoneOSD());
         _osds.push_back(_mOSD);
     }
     if (settings->KeyboardOSDEnabled()) {
         _kOSD = new KeyboardOSD();
+        _kOSD->Enabled(settings->ShowKeyboardOSD());
         _osds.push_back(_kOSD);
     }
     if (settings->EjectOSDEnabled()) {
         _eOSD = new EjectOSD();
+        _eOSD->Enabled(settings->ShowEjectOSD());
         _osds.push_back(_eOSD);
     }
     if (settings->BrightnessOSDEnabled()) {
         _bOSD = new BrightnessOSD();
+        _bOSD->Enabled(settings->ShowBrightnessOSD());
         _osds.push_back(_bOSD);
     }
 
@@ -251,8 +256,32 @@ void _3RVX::ProcessHotkeys(HotkeyInfo &hki) {
 }
 
 void _3RVX::ToggleOSDs() {
-    for (OSD *osd : _osds) {
-        osd->Enabled(!(osd->Enabled()));
+    /* Honor user settings and never show a hidden OSD */
+    Settings *settings = Settings::Instance();
+    if(_vOSD) {
+        if (settings->ShowVolumeOSD()) {
+            _vOSD->Enabled(!_vOSD->Enabled());
+        }
+    }
+    if(_eOSD) {
+        if (settings->ShowEjectOSD()) {
+            _vOSD->Enabled(!_vOSD->Enabled());
+        }
+    }
+    if(_mOSD) {
+        if (settings->ShowMicrophoneOSD()) {
+            _mOSD->Enabled(!_mOSD->Enabled());
+        }
+    }
+    if(_bOSD) {
+        if (settings->ShowBrightnessOSD()) {
+            _bOSD->Enabled(!_bOSD->Enabled());
+        }
+    }
+    if(_kOSD) {
+        if (settings->ShowKeyboardOSD()) {
+            _kOSD->Enabled(!_kOSD->Enabled());
+        }
     }
 }
 
