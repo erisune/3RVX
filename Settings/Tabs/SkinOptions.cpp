@@ -30,12 +30,12 @@ void SkinOptions::Initialize() {
     _opacity = new EditBox(ED_OPACITY, *this);
     _opacitySpinner = new Spinner(SP_OPACITY, *this);
     _opacitySpinner->Buddy(ED_OPACITY);
-    _opacitySpinner->Range(0, 255);
+    _opacitySpinner->Range(MIN_OPACITY, MAX_OPACITY);
     _sizeLabel = new Label(LBL_SIZE, *this);
     _size = new EditBox(ED_SIZE, *this);
     _sizeSpinner = new Spinner(SP_SIZE, *this);
     _sizeSpinner->Buddy(ED_SIZE);
-    _sizeSpinner->Range(25, 400);
+    _sizeSpinner->Range(MIN_SIZE, MAX_SIZE);
 
     _ok = new Button(BTN_OPTSOK, *this, true);
     _ok->OnClick = [this]() {
@@ -63,20 +63,20 @@ void SkinOptions::LoadSettings() {
         _variant->Select(variant);
     }
 
-    int opacity = min(max(0, settings->Opacity()), 255);
+    int opacity = min(max(MIN_OPACITY, settings->Opacity()), MAX_OPACITY);
     _opacity->Text(opacity);
 
-    int size = min(max(25, settings->Size()), 400);
+    int size = min(max(MIN_SIZE, settings->Size()), MAX_SIZE);
     _size->Text(size);
 }
 
 void SkinOptions::SaveSettings() {
     Settings *settings = Settings::Instance();
 
-    int opacity = min(max(0, _opacity->TextAsInt()), 255);
+    int opacity = min(max(MIN_OPACITY, _opacity->TextAsInt()), MAX_OPACITY);
     settings->Opacity(opacity);
 
-    int size = min(max(25, _size->TextAsInt()), 400);
+    int size = min(max(MIN_SIZE, _size->TextAsInt()), MAX_SIZE);
     settings->Size(size);
     
     settings->CurrentSkin(_skinName);

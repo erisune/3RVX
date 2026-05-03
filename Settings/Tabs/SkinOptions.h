@@ -41,4 +41,9 @@ private:
     bool LoadVariants(std::wstring skinName);
     void LoadVariantInfo(std::wstring variantName);
     std::list<std::wstring> FindVariants(std::wstring dir);
+
+    const int MIN_OPACITY = 0;
+    const int MAX_OPACITY = 255;
+    const int MIN_SIZE = 50;
+    const int MAX_SIZE = 250;
 };
