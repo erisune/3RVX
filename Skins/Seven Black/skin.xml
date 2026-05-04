@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<skin>
+  <info>
+    <author>erisune</author>
+    <website>https://github.com/erisune</website>
+  </info>
+
+  <osds>
+    <volume background="OSD\canvas.png" mask="OSD\glass.png" defaultUnits="57">
+      <meter type="Image" image="OSD\Images\volume.png" x="20" y="16"/>
+      <meter type="Image" image="OSD\bar.png" x="63" y="30"/>
+      <meter type="HorizontalBar" image="OSD\meter.png"
+             x="65" y="32" units="57"
+             colorTransform="01D428"
+             colorTransformMatrix="true"/>
+      <meter type="Text" width="48" height="24" x="246" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="left"
+             transparency="255" format="[[PERC]]%" glow="11"/>
+      <iconset location="Icons\Volume"/>
+      <sound file="sound.wav"/>
+    </volume>
+
+    <mute background="OSD\canvas.png" mask="OSD\glass.png" defaultUnits="57">
+      <meter type="Image" image="OSD\Images\mute.png" x="20" y="16"/>
+      <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Audio Muted" glow="11"/>
+    </mute>
+
+    <mic background="OSD\canvas.png" mask="OSD\glass.png" defaultUnits="57">`
+      <meter type="Image" image="OSD\Images\microphone.png" x="20" y="16"/>
+      <meter type="Image" image="OSD\bar.png" x="63" y="30"/>
+      <meter type="HorizontalBar" image="OSD\meter.png"
+             x="65" y="32" units="57"
+             colorTransform="01D428"
+             colorTransformMatrix="true"/>
+      <meter type="Text" width="48" height="24" x="246" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="left"
+             transparency="255" format="[[PERC]]%" glow="11"/>
+      <iconset location="Icons\Microphone"/>
+      <sound file="sound.wav"/>
+    </mic>
+
+    <micmute background="OSD\canvas.png" mask="OSD\glass.png" defaultUnits="57">
+      <meter type="Image" image="OSD\Images\micmute.png" x="20" y="16"/>
+      <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Microphone Muted" glow="11"/>
+    </micmute>
+
+    <brightness background="OSD\canvas.png" mask="OSD\glass.png" defaultUnits="57">
+      <meter type="Image" image="OSD\Images\brightness.png" x="20" y="16"/>
+      <meter type="Image" image="OSD\bar.png" x="63" y="30"/>
+      <meter type="HorizontalBar" image="OSD\meter.png"
+             x="65" y="32" units="57"
+             colorTransform="01D428"
+             colorTransformMatrix="true"/>
+      <meter type="Text" width="48" height="24" x="246" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="left"
+             transparency="255" format="[[PERC]]%" glow="11"/>
+      <iconset location="Icons\Brightness"/>
+      <sound file="sound.wav"/>
+    </brightness>
+
+    <eject background="OSD\canvas.png" mask="OSD\glass.png">
+      <meter type="Image" image="OSD\Images\eject.png" x="20" y="16"/>
+      <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Device Eject" glow="11"/>
+      <icon file="Icons\Eject.ico"/>
+    </eject>
+
+    <keyboard background="OSD\canvas.png" mask="OSD\glass.png">
+      <capsLock>
+        <meter type="Image" image="OSD\Images\keyboard.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Caps Lock ON" glow="11"/>
+        <icon file="Icons\Keyboard\Caps.ico"/>
+      </capsLock>
+      <numLock>
+        <meter type="Image" image="OSD\Images\keyboard.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Num Lock ON" glow="11"/>
+        <icon file="Icons\Keyboard\Num.ico"/>
+      </numLock>
+      <scrollLock>
+        <meter type="Image" image="OSD\Images\keyboard.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Scroll Lock ON" glow="11"/>
+        <icon file="Icons\Keyboard\Scroll.ico"/>
+      </scrollLock>
+      <capsUnlock>
+        <meter type="Image" image="OSD\Images\keyboard.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Caps Lock OFF" glow="11"/>
+      </capsUnlock>
+      <numUnlock>
+        <meter type="Image" image="OSD\Images\keyboard.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Num Lock OFF" glow="11"/>
+      </numUnlock>
+      <scrollUnlock>
+        <meter type="Image" image="OSD\Images\keyboard.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Scroll Lock OFF" glow="11"/>
+      </scrollUnlock>
+      <playPause>
+        <meter type="Image" image="OSD\Images\playpause.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Play/Pause" glow="11"/>
+      </playPause>
+      <play>
+        <meter type="Image" image="OSD\Images\play.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Play" glow="11"/>
+      </play>
+      <pause>
+        <meter type="Image" image="OSD\Images\pause.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Pause" glow="11"/>
+      </pause>
+      <stop>
+        <meter type="Image" image="OSD\Images\stop.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Stop" glow="11"/>
+      </stop>
+      <next>
+        <meter type="Image" image="OSD\Images\fastforward.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Next Track" glow="11"/>
+      </next>
+      <previous>
+        <meter type="Image" image="OSD\Images\rewind.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Previous Track" glow="11"/>
+      </previous>
+      <run>
+        <meter type="Image" image="OSD\Images\run.png" x="20" y="16"/>
+        <meter type="Text" width="240" height="24" x="48" y="26"
+             color="000000" font="Segoe UI" size="10.5" align="center"
+             transparency="255" format="Run program" glow="11"/>
+      </run>
+    </keyboard>
+  </osds>
+
+  <sliders>
+    <volume background="Slider\slider.png" mask="Slider\glass.png">
+      <slider type="horizontal" image="Slider\knob.png"
+              x="10" y="8" width="76" height="13"/>
+    </volume>
+    <brightness background="Slider\slider.png" mask="Slider\glass.png">
+      <slider type="horizontal" image="Slider\knob.png"
+              x="10" y="8" width="76" height="13"/>
+    </brightness>
+  </sliders>
+</skin>
