@@ -40,6 +40,12 @@ std::wstring Spinner::Text() {
     return std::wstring(text);
 }
 
+int Spinner::TextAsInt() {
+    std::wstring text = Text();
+    text.erase(std::remove_if(text.begin(), text.end(), std::ispunct), text.end());
+    return std::stoi(text);
+}
+
 BOOL CALLBACK Spinner::Notification(NMHDR *nHdr) {
     switch (nHdr->code) {
     case UDN_DELTAPOS:

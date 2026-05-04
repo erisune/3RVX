@@ -41,6 +41,9 @@ public:
     /// <summary>Sets the buddy text.</summary>
     bool Text(int value);
 
+    /// <summary>Gets the buddy text as an integer.</summary>
+    int TextAsInt();
+
     virtual BOOL CALLBACK Notification(NMHDR *nHdr);
 
 public:
