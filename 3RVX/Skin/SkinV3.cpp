@@ -12,6 +12,7 @@
 #include "../CommCtl.h"
 #include "../Error.h"
 #include "../MeterWnd/Meters/MeterTypes.h"
+#include "../Settings.h"
 #include "../StringUtils.h"
 #include "../SoundPlayer.h"
 #include "AccentColor.h"
@@ -477,7 +478,7 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
     }
 
     const char *colorTransform = meterXMLElement->Attribute("colorTransform");
-    if (colorTransform != NULL) {
+    if (colorTransform != NULL && Settings::Instance()->UseAccentColor()) {
         unsigned long searchColor = strtoul(colorTransform, NULL, 16);
         /* Always use alpha of 255 for the search color */
         searchColor |= 0xFF000000;

@@ -550,6 +550,14 @@ void Settings::Size(int size) {
     SetElementValue(XML_SIZE, size);
 }
 
+bool Settings::UseAccentColor() {
+    return GetEnabled(XML_ACCENTCOLOR, DefaultSettings::UseAccentColor);
+}
+
+void Settings::UseAccentColor(bool enable) {
+    SetEnabled(XML_ACCENTCOLOR, enable);
+}
+
 std::unordered_map<int, HotkeyInfo> Settings::Hotkeys() {
     std::unordered_map<int, HotkeyInfo> keyMappings;
 

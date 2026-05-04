@@ -9,6 +9,7 @@
 #include <string>
 
 class Button;
+class Checkbox;
 class ComboBox;
 class EditBox;
 class GroupBox;
@@ -33,6 +34,7 @@ private:
     Label *_sizeLabel;
     EditBox *_size;
     Spinner *_sizeSpinner;
+    Checkbox *_useAccentColor;
 
     Button *_ok;
     Button *_cancel;

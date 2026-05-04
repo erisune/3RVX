@@ -65,4 +65,5 @@ public:
     static const bool MuteLock = false;
     static const int Opacity = 255;
     static const int Size = 100;
+    static const bool UseAccentColor = true;
 };

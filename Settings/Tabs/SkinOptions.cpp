@@ -39,6 +39,16 @@ void SkinOptions::Initialize() {
     _sizeSpinner = new Spinner(SP_SIZE, *this);
     _sizeSpinner->Buddy(ED_SIZE);
     _sizeSpinner->Range(MIN_SIZE, MAX_SIZE);
+    _useAccentColor = new Checkbox(CHK_ACCENT, *this);
+    _propertiesGroup->AddChildren({
+        _opacityLabel,
+        _opacity,
+        _opacitySpinner,
+        _sizeLabel,
+        _size,
+        _sizeSpinner,
+        _useAccentColor
+    });
 
     _ok = new Button(BTN_OPTSOK, *this, true);
     _ok->OnClick = [this]() {
@@ -71,6 +81,8 @@ void SkinOptions::LoadSettings() {
 
     int size = min(max(MIN_SIZE, settings->Size()), MAX_SIZE);
     _size->Text(size);
+
+    _useAccentColor->Checked(settings->UseAccentColor());
 }
 
 void SkinOptions::SaveSettings() {
@@ -88,6 +100,8 @@ void SkinOptions::SaveSettings() {
     } else {
         settings->CurrentVariant(_variant->Selection());
     }
+
+    settings->UseAccentColor(_useAccentColor->Checked());
 
     Settings::Instance()->Save();
 

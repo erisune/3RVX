@@ -59,6 +59,8 @@ public:
     void Opacity(int opacity);
     int Size();
     void Size(int size);
+    bool UseAccentColor();
+    void UseAccentColor(bool enable);
 
     /* Language */
     LanguageTranslator *Translator();
@@ -250,6 +252,7 @@ private:
 
 private:
     /* XML tag names */
+    static constexpr const char *XML_ACCENTCOLOR = "useAccentColor";
     static constexpr const char *XML_AUDIODEV = "audioDeviceID";
     static constexpr const char *XML_BRIGHTNESSICON = "brightnessIcon";
     static constexpr const char *XML_CAPSLOCK = "capsLock";

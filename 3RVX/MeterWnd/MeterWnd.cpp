@@ -130,9 +130,14 @@ bool MeterWnd::DrawBackdrop(Gdiplus::Bitmap *mask) {
     Gdiplus::Graphics g(backdrop);
     g.Clear(Gdiplus::Color::Transparent);
 
-    /* Get accent color for backdrop */
-    AccentColor::Instance()->Refresh();
-    UINT32 accentColor = AccentColor::Instance()->Color();
+    UINT32 accentColor;
+    if (_settings->UseAccentColor()) {
+        /* Get accent color for backdrop */
+        AccentColor::Instance()->Refresh();
+        accentColor = AccentColor::Instance()->Color();
+    } else {
+        accentColor = 0xFF0A0A0A;
+    }
     UINT8 alpha = _settings->Opacity();
 
     /* Modify alpha based on user settings */
@@ -313,18 +318,20 @@ LRESULT MeterWnd::WndProc(
             break;
         }
     } else if (message == WM_DWMCOLORIZATIONCOLORCHANGED) {
-        CLOG(L"updating meter color maps");
-        AccentColor::Instance()->Refresh();
-        UINT32 color = AccentColor::Instance()->Color();
-        if (!_settings->GlassEffectsEnabled()) {
-            DrawBackdrop(_glassMask);
-        }
-        for (Meter *m : _meters) {
-            if (m->HasColorTransformMatrix()) {
-                m->UpdateColorTransformMatrix(color);
+        if (_settings->UseAccentColor()) {
+            CLOG(L"updating meter color maps");
+            AccentColor::Instance()->Refresh();
+            UINT32 color = AccentColor::Instance()->Color();
+            if (!_settings->GlassEffectsEnabled()) {
+                DrawBackdrop(_glassMask);
             }
-            else if (m->HasColorTransform()) {
-                m->UpdateColorTransform(color);
+            for (Meter *m : _meters) {
+                if (m->HasColorTransformMatrix()) {
+                    m->UpdateColorTransformMatrix(color);
+                }
+                else if (m->HasColorTransform()) {
+                    m->UpdateColorTransform(color);
+                }
             }
         }
     }
