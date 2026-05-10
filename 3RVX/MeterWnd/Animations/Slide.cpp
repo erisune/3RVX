@@ -1,3 +1,6 @@
+// Copyright (c) 2026, erisune.
+// Distributed under the GPL-3.0 License (see COPYING for details)
+
 #include "Slide.h"
 
 #include "..\MeterWnd.h"
@@ -9,6 +12,9 @@ Slide::Slide(int speed) :
 }
 
 bool Slide::Animate(MeterWnd* meterWnd) {
+    if (meterWnd->Bitmap() == nullptr) {
+        return false;
+    }
     switch (_direction) {
         int newPos;
     case SlideToBottom:
@@ -41,10 +47,18 @@ bool Slide::Animate(MeterWnd* meterWnd) {
         break;
     }
     meterWnd->Update();
+    _ticks++;
+    if (_ticks >= _speed / _distance) {
+        _step++;
+        _ticks = 0;
+    }
     return false;
 }
 
 void Slide::Init(MeterWnd* meterWnd) {
+    if (meterWnd->Bitmap() == nullptr) {
+        return;
+    }
     _point = { meterWnd->X(), meterWnd->Y() };
     HMONITOR monitor = MonitorFromPoint(_point, MONITOR_DEFAULTTONEAREST);
     MONITORINFO mInfo = {};
@@ -58,26 +72,26 @@ void Slide::Init(MeterWnd* meterWnd) {
     int iBottom = _rect.bottom - meterWnd->Y();
     int iTop = _rect.top + meterWnd->Y() + meterWnd->Height();
 
-    int iMin = iBottom;
+    _distance = iBottom;
     _direction = SlideToBottom;
-    if (iTop < iMin) {
-        iMin = iTop;
+    if (iTop < _distance) {
+        _distance = iTop;
         _direction = SlideToTop;
     }
-    if (iRight < iMin) {
-        iMin = iRight;
+    if (iRight < _distance) {
+        _distance = iRight;
         _direction = SlideToRight;
     }
-    if (iLeft < iMin) {
-        iMin = iLeft;
+    if (iLeft < _distance) {
+        _distance = iLeft;
         _direction = SlideToLeft;
     }
 
-    int bestError = iMin;
-    int bestInterval = 10;
-    for (int i = 10; i <= 20; ++i) {
+    int bestError = _distance;
+    int bestInterval = 8;
+    for (int i = 8; i <= 12; ++i) {
         int si = max(_speed / i, 1);
-        int error = iMin - iMin / si * si;
+        int error = _distance - _distance / si * si;
         if (error < bestError) {
             bestError = error;
             bestInterval = i;
@@ -85,14 +99,20 @@ void Slide::Init(MeterWnd* meterWnd) {
     }
 
     _interval = bestInterval;
-    _step = iMin / max(_speed / _interval, 1);
+    _step = max(_distance / (2 * max(_speed / _interval, 1)), 1);
     _initialized = true;
 }
 
 void Slide::Reset(MeterWnd* meterWnd) {
+    if (meterWnd->Bitmap() == nullptr) {
+        return;
+    }
     if (!_initialized) {
         Slide::Init(meterWnd);
+    } else {
+        _step = max(_distance / (2 * max(_speed / _interval, 1)), 1);
     }
+    _ticks = 0;
     meterWnd->X(_point.x);
     meterWnd->Y(_point.y);
     meterWnd->Update();
