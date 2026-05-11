@@ -4,6 +4,7 @@
 
 #include "KeyboardOSD.h"
 #include "../HotkeyInfo.h"
+#include "../LanguageTranslator.h"
 #include "../NotifyIcon.h"
 #include "../Skin/OSDComponent.h"
 #include "../Skin/Skin.h"
@@ -130,13 +131,15 @@ void KeyboardOSD::ShowIcon() {
 void KeyboardOSD::ShowIcon(KeyType key) {
     if (_settings->KeyboardIconsEnabled()) {
         SkinManager* skin = SkinManager::Instance();
+        LanguageTranslator *translator = _settings->Translator();
         switch (key) {
         case KeyType::CapsLock:
             if (_settings->CapsLockEnabled()) {
                 if (_capsIcon == NULL) {
                     _capsIconImage = skin->CapsLockIcon();
                     if (_capsIconImage != nullptr) {
-                        _capsIcon = new NotifyIcon(Window::Handle(), L"Caps Lock", _capsIconImage);
+                        std::wstring capsLockStr = translator->Translate(L"Caps Lock");
+                        _capsIcon = new NotifyIcon(Window::Handle(), capsLockStr, _capsIconImage);
                     }
                 }
             }
@@ -146,7 +149,8 @@ void KeyboardOSD::ShowIcon(KeyType key) {
                 if (_numIcon == NULL) {
                     _numIconImage = skin->NumLockIcon();
                     if (_numIconImage != nullptr) {
-                        _numIcon = new NotifyIcon(Window::Handle(), L"Num Lock", _numIconImage);
+                        std::wstring numLockStr = translator->Translate(L"Num Lock");
+                        _numIcon = new NotifyIcon(Window::Handle(), numLockStr, _numIconImage);
                     }
                 }
             }
@@ -156,7 +160,8 @@ void KeyboardOSD::ShowIcon(KeyType key) {
                 if (_scrollIcon == NULL) {
                     _scrollIconImage = skin->ScrollLockIcon();
                     if (_scrollIconImage != nullptr) {
-                        _scrollIcon = new NotifyIcon(Window::Handle(), L"Scroll Lock", _scrollIconImage);
+                        std::wstring scrollLockStr = translator->Translate(L"Num Lock");
+                        _scrollIcon = new NotifyIcon(Window::Handle(), scrollLockStr, _scrollIconImage);
                     }
                 }
             }

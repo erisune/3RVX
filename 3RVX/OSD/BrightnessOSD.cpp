@@ -65,7 +65,9 @@ _mWnd(L"3RVX-BrightnessOSD", L"3RVX Brightness OSD") {
     if (_settings->BrightnessIconEnabled()) {
         _iconImages = skin->BrightnessIconset();
         if (_iconImages.size() > 0) {
-            _icon = new NotifyIcon(Window::Handle(), L"Brightness", _iconImages[0]);
+            LanguageTranslator *translator = _settings->Translator();
+            _brightnessStr = translator->Translate(_brightnessStr);
+            _icon = new NotifyIcon(Window::Handle(), _brightnessStr, _iconImages[0]);
         }
 
         LanguageTranslator *translator = _settings->Translator();
@@ -164,7 +166,7 @@ void BrightnessOSD::UpdateIconTip() {
 
     float b = _brightnessCtrl->Brightness();
     std::wstring perc = std::to_wstring(static_cast<int>(b * 100.0f));
-    std::wstring level = L"Brightness: " + perc + L"%";
+    std::wstring level = _brightnessStr + L": " + perc + L"%";
     _icon->UpdateToolTip(level);
 }
 

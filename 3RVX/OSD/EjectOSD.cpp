@@ -8,6 +8,7 @@
 
 #include "../DriveInfo.h"
 #include "../HotkeyInfo.h"
+#include "../LanguageTranslator.h"
 #include "../Monitor.h"
 #include "../NotifyIcon.h"
 #include "../Skin/OSDComponent.h"
@@ -35,7 +36,9 @@ _mWnd(L"3RVX-EjectOSD", L"3RVX Eject OSD") {
     if (_settings->EjectIconEnabled()) {
         _iconImage = skin->EjectIcon();
         if (_iconImage != nullptr) {
-            _icon = new NotifyIcon(Window::Handle(), L"Eject", _iconImage);
+            LanguageTranslator *translator = _settings->Translator();
+            std::wstring ejectStr = translator->Translate(L"Eject");
+            _icon = new NotifyIcon(Window::Handle(), ejectStr, _iconImage);
         }
     }
 

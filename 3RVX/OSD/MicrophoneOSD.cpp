@@ -43,6 +43,7 @@ MicrophoneOSD::MicrophoneOSD() :
         _menuSetStr = translator->Translate(_menuSetStr);
         _menuRecStr = translator->Translate(_menuRecStr);
         _menuDevStr = translator->Translate(_menuDevStr);
+        _menuMixerStr = translator->Translate(_menuMixerStr);
         _menuExitStr = translator->Translate(_menuExitStr);
         _iconMuteStr = translator->Translate(_iconMuteStr);
 

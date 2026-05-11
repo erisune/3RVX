@@ -66,6 +66,7 @@ private:
     std::wstring _menuDisplayStr = L"Display settings";
     std::wstring _menuTurnStr = L"Turn off display";
     std::wstring _menuExitStr = L"Exit 3RVX";
+    std::wstring _brightnessStr = L"Brightness";
 
     static const int MENU_SETTINGS = 0;
     static const int MENU_DISPLAY = 1;
