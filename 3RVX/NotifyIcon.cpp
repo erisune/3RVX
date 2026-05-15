@@ -32,11 +32,14 @@ _tip(tip) {
     _nii.uID = _id;
 }
 
-void NotifyIcon::Balloon(std::wstring title, std::wstring text, HICON icon) {
+void NotifyIcon::Balloon(std::wstring title, std::wstring text, HICON icon, bool smallIcon) {
     _nid.uFlags = _nid.uFlags | NIF_INFO;
     _nid.dwInfoFlags = NIIF_RESPECT_QUIET_TIME;
     if (icon != nullptr) {
-        _nid.dwInfoFlags = _nid.dwInfoFlags | NIIF_USER | NIIF_LARGE_ICON;
+        _nid.dwInfoFlags |= NIIF_USER;
+        if (!smallIcon) {
+            _nid.dwInfoFlags |= NIIF_LARGE_ICON;
+        }
         _nid.hBalloonIcon = icon;
     }
 
