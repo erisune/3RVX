@@ -71,9 +71,15 @@ void EjectOSD::UpdateDriveMenu() {
     DWORD drives = GetLogicalDrives();
     /* Get the most significant bit of the drive bitset */
     DWORD msb = (DWORD) log2(drives);
-    for (DWORD i = 0; i < msb; ++i, drives >>= 1) {
+    for (DWORD i = 0; i <= msb; ++i, drives >>= 1) {
         if (drives & 0x1) {
             wchar_t letter = (wchar_t) i + 65;
+
+            DWORD mask = DriveLetterToMask(letter);
+            if (mask & _ignoreDrives) {
+                continue;
+            }
+
             wchar_t drivePath[] = L" :\\";
             DriveInfo di(letter);
             if (di.IsHotPluggable() || di.HasRemovableMedia()) {
@@ -147,6 +153,9 @@ void EjectOSD::EjectDrive(const std::wstring &driveLetter) {
             _ignoreDrives |= driveBit;
             CLOG(L"Added drive bit %d to ignore list", driveBit);
         }
+
+        UpdateDriveMenu();
+
         if (OSD::Enabled()) {
             HideOthers(Eject);
             _mWnd.Show();
