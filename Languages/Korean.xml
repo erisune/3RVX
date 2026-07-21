@@ -1,111 +1,111 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <translation version="1">
 
-  <language name="Português (Brasil)" id="pt" regions="BR"/>
-  <author name="LeanZo" website="https://twitter.com/Lean_Zo"/>
+  <language name="한국어" id="ko" regions="KR"/>
+  <author name="VenusGirl" email="https://venusgirls.tistory.com"/>
 
   <!-- General Strings -->
   <string>
     <original>3RVX Settings</original>
-    <translation>3RVX - Configurações</translation>
+    <translation>3RVX 설정</translation>
   </string>
   <string>
     <original>OK</original>
-    <translation>OK</translation>
+    <translation>확인</translation>
   </string>
   <string>
     <original>Cancel</original>
-    <translation>Cancelar</translation>
+    <translation>취소</translation>
   </string>
   <string>
     <original>Apply</original>
-    <translation>Aplicar</translation>
+    <translation>적용</translation>
   </string>
 
   <!-- Notification Icon Menu Strings -->
   <string>
     <original>Settings</original>
-    <translation>Configurações</translation>
+    <translation>설정</translation>
   </string>
   <string>
     <original>Audio Device</original>
-    <translation>Dispositivo de Áudio</translation>
+    <translation>오디오 장치</translation>
   </string>
   <string>
     <original>Playback devices</original>
-    <translation>Dispositivos de reprodução</translation>
+    <translation>재생 장치</translation>
   </string>
   <string>
     <original>Recording devices</original>
-    <translation>Dispositivos de gravação</translation>
+    <translation>녹음 장치</translation>
   </string>
   <string>
     <original>Selected device</original>
-    <translation>Dispositivo selecionado</translation>
+    <translation>선택된 장치</translation>
   </string>
   <string>
     <original>Mixer</original>
-    <translation>Mixer</translation>
+    <translation>믹서</translation>
   </string>
   <string>
     <original>Open Volume Mixer</original>
-    <translation>Abrir o Mixer de Volume</translation>
+    <translation>볼륨 믹서 열기</translation>
   </string>
   <string>
     <original>Exit</original>
-    <translation>Sair</translation>
+    <translation>종료</translation>
   </string>
   <string>
     <original>Muted</original>
-    <translation>Mudo</translation>
+    <translation>음소거</translation>
   </string>
   <string>
     <original>Display settings</original>
-    <translation>Configurações de exibição</translation>
+    <translation>디스플레이 설정</translation>
   </string>
   <string>
     <original>Turn off display</original>
-    <translation>Desligar a tela</translation>
+    <translation>디스플레이 끄기</translation>
   </string>
 
   <!-- Skin Options -->
   <string>
     <original>Options</original>
-    <translation>Opções</translation>
+    <translation>옵션</translation>
   </string>
   <string>
     <original>Skin options</original>
-    <translation>Opções de tema</translation>
+    <translation>스킨 옵션</translation>
   </string>
   <string>
     <original>Variant</original>
-    <translation>Variante</translation>
+    <translation>변형</translation>
   </string>
   <string>
     <original>Properties</original>
-    <translation>Propriedades</translation>
+    <translation>속성</translation>
   </string>
   <string>
     <original>Opacity:</original>
-    <translation>Opacidade:</translation>
+    <translation>불투명도:</translation>
   </string>
   <string>
     <original>Size (%):</original>
-    <translation>Tamanho (%):</translation>
+    <translation>크기 (%):</translation>
   </string>
   <string>
     <original>Use accent color if possible</original>
-    <translation>Usar cor de destaque, se possível</translation>
+    <translation>가능하면 강조색 사용</translation>
   </string>
 
   <!-- Tab Names -->
   <string>
     <original>General</original>
-    <translation>Geral</translation>
+    <translation>일반</translation>
   </string>
   <string>
     <original>Display</original>
-    <translation>Exibição</translation>
+    <translation>표시</translation>
   </string>
   <string>
     <original>OSD</original>
@@ -113,230 +113,230 @@
   </string>
   <string>
     <original>Hotkeys</original>
-    <translation>Atalhos</translation>
+    <translation>단축키</translation>
   </string>
   <string>
     <original>About</original>
-    <translation>Sobre</translation>
+    <translation>정보</translation>
   </string>
 
   <!-- General Tab -->
   <string>
     <original>Behavior</original>
-    <translation>Funcionamento</translation>
+    <translation>동작</translation>
   </string>
   <string>
     <original>Run on Windows startup</original>
-    <translation>Executar ao iniciar o Windows</translation>
+    <translation>Windows 시작 시 실행</translation>
   </string>
   <string>
     <original>Show volume OSD on startup</original>
-    <translation>Mostrar volume ao iniciar</translation>
+    <translation>시작 시 볼륨 OSD 표시</translation>
   </string>
   <string>
     <original>Enable sound effects</original>
-    <translation>Habilitar efeitos sonoros</translation>
+    <translation>사운드 효과 사용</translation>
   </string>
   <string>
     <original>Enable Aero Glass effects</original>
-    <translation>Habilitar efeitos Aero Glass</translation>
+    <translation>Aero Glass 효과 사용</translation>
   </string>
   <string>
     <original>Automatic updates</original>
-    <translation>Atualizações Automaticas</translation>
+    <translation>자동 업데이트</translation>
   </string>
   <string>
     <original>Check Now</original>
-    <translation>Verificar</translation>
+    <translation>지금 확인</translation>
   </string>
 
   <string>
     <original>Skin</original>
-    <translation>Tema</translation>
+    <translation>스킨</translation>
   </string>
   <string>
     <original>Author: {1}</original>
-    <translation>Autor: {1}</translation>
+    <translation>제작자: {1}</translation>
   </string>
   <string>
     <original>Website</original>
-    <translation>Website</translation>
+    <translation>웹사이트</translation>
   </string>
 
   <string>
     <original>Language</original>
-    <translation>Idioma</translation>
+    <translation>언어</translation>
   </string>
   <string>
     <original>Translator: {1}</original>
-    <translation>Tradutor: {1}</translation>
+    <translation>번역기: {1}</translation>
   </string>
 
   <!-- Display Tab -->
   <string>
     <original>Visibility</original>
-    <translation>Visibilidade</translation>
+    <translation>가시성</translation>
   </string>
   <string>
     <original>Keep on top of other windows</original>
-    <translation>Manter sobre outras janelas</translation>
+    <translation>다른 창 위에 유지</translation>
   </string>
   <string>
     <original>Hide when other programs are fullscreen</original>
-    <translation>Esconder quando outros programas estiverem em tela cheia</translation>
+    <translation>다른 프로그램이 전체 화면일 때 숨기기</translation>
   </string>
   <string>
     <original>Hide when DirectX applications are fullscreen</original>
-    <translation>Esconder quando aplicações DirectX estiverem em tela cheia</translation>
+    <translation>DirectX 응용프로그램 전체 화면일 때 숨기기</translation>
   </string>
 
   <string>
     <original>Position</original>
-    <translation>Posição</translation>
+    <translation>위치</translation>
   </string>
   <string>
     <original>Top</original>
-    <translation>Cima</translation>
+    <translation>위쪽</translation>
   </string>
   <string>
     <original>Left</original>
-    <translation>Esquerda</translation>
+    <translation>왼쪽</translation>
   </string>
   <string>
     <original>Right</original>
-    <translation>Direita</translation>
+    <translation>오른쪽</translation>
   </string>
   <string>
     <original>Bottom</original>
-    <translation>Baixo</translation>
+    <translation>아래쪽</translation>
   </string>
   <string>
     <original>Center</original>
-    <translation>Centro</translation>
+    <translation>가운데</translation>
   </string>
   <string>
     <original>Top-left</original>
-    <translation>Superior esquerdo</translation>
+    <translation>왼쪽 위</translation>
   </string>
   <string>
     <original>Top-right</original>
-    <translation>Superior direito</translation>
+    <translation>오른쪽 위</translation>
   </string>
   <string>
     <original>Bottom-left</original>
-    <translation>Inferior esquerdo</translation>
+    <translation>왼쪽 아래</translation>
   </string>
   <string>
     <original>Bottom-right</original>
-    <translation>Inferior direito</translation>
+    <translation>오른쪽 아래</translation>
   </string>
   <string>
     <original>Custom</original>
-    <translation>Customizado</translation>
+    <translation>사용자 지정</translation>
   </string>
   <string>
     <original>Custom distance from screen edge (px):</original>
-    <translation>Distância da borda da tela (px):</translation>
+    <translation>화면 가장자리로부터 사용자 지정 거리(픽셀):</translation>
   </string>
   <string>
     <original>Display Device:</original>
-    <translation>Dispositivo de Exibição:</translation>
+    <translation>디스플레이 장치:</translation>
   </string>
   <string>
     <original>Primary Monitor</original>
-    <translation>Monitor Primário</translation>
+    <translation>기본 모니터</translation>
   </string>
   <string>
     <original>All Monitors</original>
-    <translation>Todos Monitores</translation>
+    <translation>모든 모니터</translation>
   </string>
 
   <string>
     <original>Animation</original>
-    <translation>Animação</translation>
+    <translation>애니메이션</translation>
   </string>
   <string>
     <original>None</original>
-    <translation>Nenhuma</translation>
+    <translation>없음</translation>
   </string>
   <string>
     <original>Fade</original>
-    <translation>Desaparecer</translation>
+    <translation>페이드</translation>
   </string>
   <string>
     <original>Slide</original>
-    <translation>Deslizar</translation>
+    <translation>슬라이드</translation>
   </string>
   <string>
     <original>Hide Delay (ms):</original>
-    <translation>Atraso de esconder (ms):</translation>
+    <translation>숨기기 지연 (밀리초):</translation>
   </string>
   <string>
     <original>Speed (ms):</original>
-    <translation>Velocidade (ms):</translation>
+    <translation>속도 (밀리초):</translation>
   </string>
 
   <!-- OSD Tab -->
   <string>
     <original>Volume</original>
-    <translation>Volume</translation>
+    <translation>볼륨</translation>
   </string>
   <string>
     <original>Microphone</original>
-    <translation>Microfone</translation>
+    <translation>마이크</translation>
   </string>
   <string>
     <original>Brightness</original>
-    <translation>Brilho</translation>
+    <translation>밝기</translation>
   </string>
   <string>
     <original>Eject</original>
-    <translation>Ejetar</translation>
+    <translation>꺼내기</translation>
   </string>
   <string>
     <original>Keyboard</original>
-    <translation>Teclado</translation>
+    <translation>키보드</translation>
   </string>
   <string>
     <original>Enable notification icon</original>
-    <translation>Habilitar icone de notificações</translation>
+    <translation>알림 아이콘 사용</translation>
   </string>
   <string>
     <original>Enable on-screen display</original>
-    <translation>Habilitar exibição na tela</translation>
+    <translation>화면 표시 기능 활성화</translation>
   </string>
   <string>
     <original>Subscribe to system volume events</original>
-    <translation>Ingressar nos eventos de volume do sistema</translation>
+    <translation>시스템 볼륨 이벤트 구독</translation>
   </string>
   <string>
     <original>Device:</original>
-    <translation>Dispositivo:</translation>
+    <translation>장치</translation>
   </string>
   <!-- Translate this as 'Adjust volume curve' if your language doesn't use this term -->
   <string>
     <original>Audio Taper:</original>
-    <translation>Alterar a curva de volume:</translation>
+    <translation>볼륨 곡선 조정:</translation>
   </string>
   <string>
     <original>Volume Limiter:</original>
-    <translation>Limitador de Volume:</translation>
+    <translation>볼륨 제한:</translation>
   </string>
   <string>
     <original>Force volume limit</original>
-    <translation>Forçar limitador de volume</translation>
+    <translation>볼륨 제한 강제 적용</translation>
   </string>
   <string>
     <original>Mute volume during session lock</original>
-    <translation>Silenciar o volume enquanto estiver bloqueado</translation>
+    <translation>세션 잠금 중 음소거 볼륨</translation>
   </string>
   <string>
     <original>Subscribe to system eject events</original>
-    <translation>Ingressar nos eventos de ejeção do sistema</translation>
+    <translation>시스템에서 추방 이벤트 구독</translation>
   </string>
   <string>
     <original>Enable notification icons</original>
-    <translation>Habilitar icones de notificações</translation>
+    <translation>알림 아이콘 사용</translation>
   </string>
   <string>
     <original>Caps Lock</original>
@@ -352,293 +352,293 @@
   </string>
   <string>
     <original>Media Keys</original>
-    <translation>Teclas de Mídia</translation>
+    <translation>미디어 키</translation>
   </string>
   <string>
     <original>Run Hotkey</original>
-    <translation>Atalho Iniciar</translation>
+    <translation>단축키 '실행'</translation>
   </string>
 
   <!-- Device Settings -->
   <string>
     <original>Default</original>
-    <translation>Padrão</translation>
+    <translation>기본값</translation>
   </string>
 
   <!-- Audio Taper Settings -->
   <string>
     <original>Disabled</original>
-    <translation>Desabilitado</translation>
+    <translation>사용 안 함</translation>
   </string>
   <string>
     <original>Low</original>
-    <translation>Baixo</translation>
+    <translation>낮음</translation>
   </string>
   <string>
     <original>Medium</original>
-    <translation>Médio</translation>
+    <translation>중간</translation>
   </string>
   <string>
     <original>High</original>
-    <translation>Alto</translation>
+    <translation>높음</translation>
   </string>
 
   <!-- Hotkeys Tab -->
   <string>
     <original>Action</original>
-    <translation>Ação</translation>
+    <translation>작업</translation>
   </string>
   <string>
     <original>Hotkey Editor</original>
-    <translation>Editor de atalho</translation>
+    <translation>단축키 편집기</translation>
   </string>
   <string>
     <original>Keys:</original>
-    <translation>Teclas:</translation>
+    <translation>키:</translation>
   </string>
   <string>
     <original>Hotkey Input</original>
-    <translation>Definir Atalho</translation>
+    <translation>단축키 입력</translation>
   </string>
   <string>
     <original>Enter hotkeys now...</original>
-    <translation>Digite as teclas de atalho...</translation>
+    <translation>지금 단축키 입력...</translation>
   </string>
   <string>
     <original>Action:</original>
-    <translation>Ação:</translation>
+    <translation>작업:</translation>
   </string>
   <string>
     <original>Amount:</original>
-    <translation>Quantidade:</translation>
+    <translation>양:</translation>
   </string>
   <string>
     <original>Volume Units</original>
-    <translation>Unidades de Volume</translation>
+    <translation>볼륨 단위</translation>
   </string>
   <string>
     <original>Units</original>
-    <translation>Unidades</translation>
+    <translation>단위</translation>
   </string>
   <string>
     <original>Percent</original>
-    <translation>Porcento</translation>
+    <translation>퍼센트</translation>
   </string>
   <string>
     <original>Drive:</original>
-    <translation>Disco:</translation>
+    <translation>드라이브:</translation>
   </string>
   <string>
     <original>Key:</original>
-    <translation>Função:</translation>
+    <translation>키:</translation>
   </string>
   <string>
     <original>Play/Pause</original>
-    <translation>Play/Pausar</translation>
+    <translation>재생/일시중지</translation>
   </string>
   <string>
     <original>Stop</original>
-    <translation>Parar</translation>
+    <translation>중지</translation>
   </string>
   <string>
     <original>Next</original>
-    <translation>Próximo</translation>
+    <translation>다음</translation>
   </string>
   <string>
     <original>Previous</original>
-    <translation>Anterior</translation>
+    <translation>이전</translation>
   </string>
   <string>
     <original>VK Code (Hex):</original>
-    <translation>Código VK (Hex):</translation>
+    <translation>VK 코드 (16진수):</translation>
   </string>
   <string>
     <original>Path:</original>
-    <translation>Diretório:</translation>
+    <translation>경로:</translation>
   </string>
 
   <!-- Hotkey Actions -->
   <string>
     <original>Increase Volume</original>
-    <translation>Aumentar Volume</translation>
+    <translation>볼륨 증가</translation>
   </string>
   <string>
     <original>Increase Volume {1}%</original>
-    <translation>Aumentar Volume {1}%</translation>
+    <translation>볼륨 {1}% 증가</translation>
   </string>
   <string>
     <original>Increase Volume {1} units</original>
-    <translation>Aumentar Volume {1}</translation>
+    <translation>볼륨 {1} 증가</translation>
   </string>
   <string>
     <original>Decrease Volume</original>
-    <translation>Diminuir Volume</translation>
+    <translation>볼륨 감소</translation>
   </string>
   <string>
     <original>Decrease Volume {1}%</original>
-    <translation>Diminuir Volume {1}%</translation>
+    <translation>볼륨 {1}% 감소</translation>
   </string>
   <string>
     <original>Decrease Volume {1} units</original>
-    <translation>Diminuir Volume {1}</translation>
+    <translation>볼륨 {1} 감소</translation>
   </string>
   <string>
     <original>Set Volume</original>
-    <translation>Definir Volume</translation>
+    <translation>볼륨 설정</translation>
   </string>
   <string>
     <original>Set Volume: {1}%</original>
-    <translation>Definir Volume: {1}%</translation>
+    <translation>볼륨 설정: {1}%</translation>
   </string>
   <string>
     <original>Set Volume: {1} units</original>
-    <translation>Definir Volume: {1}</translation>
+    <translation>볼륨 설정: {1} 단위</translation>
   </string>
   <string>
     <original>Mute</original>
-    <translation>Silenciar</translation>
+    <translation>음소거</translation>
   </string>
   <string>
     <original>Show Volume Slider</original>
-    <translation>Mostrar Barra de Volume</translation>
+    <translation>볼륨 슬라이더 표시</translation>
   </string>
   <string>
     <original>Increase Microphone Volume</original>
-    <translation>Aumentar Volume do Microfone</translation>
+    <translation>마이크 볼륨 증가</translation>
   </string>
   <string>
     <original>Increase Microphone Volume {1}%</original>
-    <translation>Aumentar Volume do Microfone {1}%</translation>
+    <translation>마이크 볼륨 {1}% 증가</translation>
   </string>
   <string>
     <original>Increase Microphone Volume {1} units</original>
-    <translation>Aumentar Volume do Microfone {1} unidades</translation>
+    <translation>마이크 볼륨 {1} 증가</translation>
   </string>
   <string>
     <original>Decrease Microphone Volume</original>
-    <translation>Diminuir Volume do Microfone</translation>
+    <translation>마이크 볼륨 감소</translation>
   </string>
   <string>
     <original>Decrease Microphone Volume {1}%</original>
-    <translation>Diminuir Volume do Microfone {1}%</translation>
+    <translation>마이크 볼륨 {1}% 감소</translation>
   </string>
   <string>
     <original>Decrease Microphone Volume {1} units</original>
-    <translation>Diminuir Volume do Microfone {1} unidades</translation>
+    <translation>마이크 볼륨 {1} 감소</translation>
   </string>
   <string>
     <original>Set Microphone Volume</original>
-    <translation>Definir Volume do Microfone</translation>
+    <translation>마이크 볼륨 설정</translation>
   </string>
   <string>
     <original>Set Microphone Volume: {1}%</original>
-    <translation>Definir Volume do Microfone: {1}%</translation>
+    <translation>마이크 볼륨 설정: {1}%</translation>
   </string>
   <string>
     <original>Set Microphone Volume: {1} units</original>
-    <translation>Definir Volume do Microfone: {1} unidades</translation>
+    <translation>마이크 볼륨 설정: {1} 단위</translation>
   </string>
   <string>
     <original>Mute Microphone</original>
-    <translation>Silenciar Microfone</translation>
+    <translation>마이크 음소거</translation>
   </string>
   <string>
     <original>Eject Drive</original>
-    <translation>Ejetar Disco</translation>
+    <translation>드라이브 꺼내기</translation>
   </string>
   <string>
     <original>Eject Drive: {1}</original>
-    <translation>Ejetar Disco: {1}</translation>
+    <translation>드라이브 꺼내기: {1}</translation>
   </string>
   <string>
     <original>Eject Last Disk</original>
-    <translation>Ejetar Último Disco</translation>
+    <translation>마지막 드라이브 꺼내기</translation>
   </string>
   <string>
     <original>Increase Brightness</original>
-    <translation>Aumentar Brilho</translation>
+    <translation>밝기 증가</translation>
   </string>
   <string>
     <original>Increase Brightness {1}%</original>
-    <translation>Aumentar Brilho {1}%</translation>
+    <translation>밝기 {1}% 증가</translation>
   </string>
   <string>
     <original>Increase Brightness {1} units</original>
-    <translation>Aumentar Brilho {1} unidades</translation>
+    <translation>밝기 {1} 증가</translation>
   </string>
   <string>
     <original>Decrease Brightness</original>
-    <translation>Diminuir Brilho</translation>
+    <translation>밝기 감소</translation>
   </string>
   <string>
     <original>Decrease Brightness {1}%</original>
-    <translation>Diminuir Brilho {1}%</translation>
+    <translation>밝기 {1}% 감소</translation>
   </string>
   <string>
     <original>Decrease Brightness {1} units</original>
-    <translation>Diminuir Brilho {1} unidades</translation>
+    <translation>밝기 {1} 감소</translation>
   </string>
   <string>
     <original>Set Brightness</original>
-    <translation>Definir Brilho</translation>
+    <translation>밝기 설정</translation>
   </string>
   <string>
     <original>Set Brightness: {1}%</original>
-    <translation>Definir Brilho: {1}%</translation>
+    <translation>밝기 설정: {1}%</translation>
   </string>
   <string>
     <original>Set Brightness: {1} units</original>
-    <translation>Definir Brilho: {1} unidades</translation>
+    <translation>밝기 설정: {1} 단위</translation>
   </string>
   <string>
     <original>Show Brightness Slider</original>
-    <translation>Mostrar Barra de Brilho</translation>
+    <translation>밝기 조절 바 표시</translation>
   </string>
   <string>
     <original>Turn Off Display</original>
-    <translation>Desligar a Tela</translation>
+    <translation>디스플레이 끄기</translation>
   </string>
   <string>
     <original>Media Key</original>
-    <translation>Tecla de Mídia</translation>
+    <translation>미디어 키</translation>
   </string>
   <string>
     <original>Media Key: {1}</original>
-    <translation>Tecla de Mídia: {1}</translation>
+    <translation>미디어 키: {1}</translation>
   </string>
   <string>
     <original>Virtual Key</original>
-    <translation>Tecla Virtual</translation>
+    <translation>가상 키</translation>
   </string>
   <string>
     <original>Virtual Key: 0x{1}</original>
-    <translation>Tecla Virtual: 0x{1}</translation>
+    <translation>가상 키: 0x{1}</translation>
   </string>
   <string>
     <original>Run</original>
-    <translation>Iniciar</translation>
+    <translation>실행</translation>
   </string>
   <string>
     <original>Run: {1}</original>
-    <translation>Iniciar: {1}</translation>
+    <translation>실행: {1}</translation>
   </string>
   <string>
     <original>Enable/Disable OSD</original>
-    <translation>Ativar/Desativar OSD</translation>
+    <translation>OSD 사용/사용 안 함</translation>
   </string>
   <string>
     <original>Open Settings Dialog</original>
-    <translation>Abrir Configurações</translation>
+    <translation>설정 대화상자 열기</translation>
   </string>
   <string>
     <original>Exit 3RVX</original>
-    <translation>Sair do 3RVX</translation>
+    <translation>3RVX 종료</translation>
   </string>
 
   <!-- Update Strings -->
   <string>
     <original>Update Available</original>
-    <translation>Atualização Disponível</translation>
+    <translation>업데이트 가능</translation>
   </string>
   <string>
     <original>3RVX {1}</original>
@@ -646,32 +646,32 @@
   </string>
   <string>
     <original>Install</original>
-    <translation>Instalar</translation>
+    <translation>설치</translation>
   </string>
   <string>
     <original>Ignore version</original>
-    <translation>Ignorar atualização</translation>
+    <translation>버전 무시</translation>
   </string>
   <string>
     <original>Remind me later</original>
-    <translation>Lembre-me depois</translation>
+    <translation>나중에 알림</translation>
   </string>
   <string>
     <original>Downloading...</original>
-    <translation>Baixando...</translation>
+    <translation>다운로드 중...</translation>
   </string>
 
 <!-- Error Messages -->
   <string>
     <original>File not found:\n{1}</original>
-    <translation>Arquivo não encontrado:\n{1}</translation>
+    <translation>파일을 찾을 수 없습니다:\n{1}</translation>
   </string>
   <string>
     <original>Could not locate XML tag: {1}</original>
-    <translation>Não foi possível localizar a tag XML: {1}</translation>
+    <translation>XML 태그를 찾을 수 없습니다: {1}</translation>
   </string>
   <string>
     <original>An unknown error occurred: ID #{1}</original>
-    <translation>Ocorreu um erro desconhecido: ID #{1}</translation>
+    <translation>알 수 없는 오류가 발생했습니다: ID #{1}</translation>
   </string>
 </translation>

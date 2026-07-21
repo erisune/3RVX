@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <translation version="1">
 
-  <language name="English" id="en" regions="us,uk,in"/>
-  <author name="Jane Doe" website="http://3RVX.com/"/>
+  <language name="English" id="en" regions="US,GB,AU,IN"/>
+  <author name="Jane Doe" website="https://3RVX.com/"/>
 
   <!--
     This file is simply a placeholder for the default language settings,
     so there are no translations here. For examples, please see:
-      Deutsch.xml,
-      Français.xml,
+      German.xml,
+      French.xml,
     etc.
   -->
 

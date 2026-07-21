@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<translation author="OiCkilL" version="1">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<translation version="1">
 
-  <language name="Chinese Simplified" id="zh" regions="cn"/>
+  <language name="简体中文" id="zh" regions="CN"/>
   <author name="OiCkilL" website="http://twitter.com/OiCkilL"/>
 
   <!-- General Strings -->
@@ -32,8 +32,24 @@
     <translation>音频设备</translation>
   </string>
   <string>
+    <original>Playback devices</original>
+    <translation>播放设备</translation>
+  </string>
+  <string>
+    <original>Recording devices</original>
+    <translation>录制设备</translation>
+  </string>
+  <string>
+    <original>Selected device</original>
+    <translation>已选设备</translation>
+  </string>
+  <string>
     <original>Mixer</original>
     <translation>合成器</translation>
+  </string>
+  <string>
+    <original>Open Volume Mixer</original>
+    <translation>打开音量混音器</translation>
   </string>
   <string>
     <original>Exit</original>
@@ -43,7 +59,44 @@
     <original>Muted</original>
     <translation>已静音</translation>
   </string>
+  <string>
+    <original>Display settings</original>
+    <translation>显示设置</translation>
+  </string>
+  <string>
+    <original>Turn off display</original>
+    <translation>关闭显示</translation>
+  </string>
 
+  <!-- Skin Options -->
+  <string>
+    <original>Options</original>
+    <translation>选项</translation>
+  </string>
+  <string>
+    <original>Skin options</original>
+    <translation>皮肤选项</translation>
+  </string>
+  <string>
+    <original>Variant</original>
+    <translation>变体</translation>
+  </string>
+  <string>
+    <original>Properties</original>
+    <translation>属性</translation>
+  </string>
+  <string>
+    <original>Opacity:</original>
+    <translation>不透明度:</translation>
+  </string>
+  <string>
+    <original>Size (%):</original>
+    <translation>大小 (%):</translation>
+  </string>
+  <string>
+    <original>Use accent color if possible</original>
+    <translation>如果可能，使用强调色</translation>
+  </string>
 
   <!-- Tab Names -->
   <string>
@@ -54,7 +107,7 @@
     <original>Display</original>
     <translation>显示</translation>
   </string>
-    <string>
+  <string>
     <original>OSD</original>
     <translation>OSD</translation>
   </string>
@@ -70,25 +123,25 @@
   <!-- General Tab -->
   <string>
     <original>Behavior</original>
-		<translation>行为</translation>
+    <translation>行为</translation>
   </string>
   <string>
     <original>Run on Windows startup</original>
     <translation>启动 Windows 时自动运行</translation>
   </string>
-    <string>
+  <string>
     <original>Show volume OSD on startup</original>
     <translation>启动时显示音量 OSD</translation>
-  </string>
-  <string>
-    <original>Enable volume notification icon</original>
-    <translation>在通知区域显示音量图标</translation>
   </string>
   <string>
     <original>Enable sound effects</original>
     <translation>声音效果</translation>
   </string>
-    <string>
+  <string>
+    <original>Enable Aero Glass effects</original>
+    <translation>启用 Aero Glass 效果</translation>
+  </string>
+  <string>
     <original>Automatic updates</original>
     <translation>自动更新</translation>
   </string>
@@ -99,23 +152,26 @@
 
   <string>
     <original>Skin</original>
-		<translation>皮肤</translation>
+    <translation>皮肤</translation>
   </string>
   <string>
     <original>Author: {1}</original>
-		<translation>作者: {1}</translation>
+    <translation>作者: {1}</translation>
   </string>
   <string>
     <original>Website</original>
-		<translation>网站</translation>
+    <translation>网站</translation>
   </string>
 
   <string>
     <original>Language</original>
-		<translation>语言</translation>
+    <translation>语言</translation>
+  </string>
+  <string>
+    <original>Translator: {1}</original>
+    <translation>翻译器: {1}</translation>
   </string>
 
-  
   <!-- Display Tab -->
   <string>
     <original>Visibility</original>
@@ -129,11 +185,10 @@
     <original>Hide when other programs are fullscreen</original>
     <translation>在其它程序全屏的情况下隐藏</translation>
   </string>
-    <string>
+  <string>
     <original>Hide when DirectX applications are fullscreen</original>
     <translation>在 DirectX 程序全屏的情况下隐藏</translation>
   </string>
-
 
   <string>
     <original>Position</original>
@@ -209,6 +264,10 @@
     <translation>淡出</translation>
   </string>
   <string>
+    <original>Slide</original>
+    <translation>滑动</translation>
+  </string>
+  <string>
     <original>Hide Delay (ms):</original>
     <translation>隐藏延迟 (ms):</translation>
   </string>
@@ -217,29 +276,113 @@
     <translation>速度 (ms):</translation>
   </string>
 
-
   <!-- OSD Tab -->
   <string>
-      <original>Volume</original>
-      <translation>音量</translation>
+    <original>Volume</original>
+    <translation>音量</translation>
   </string>
   <string>
-      <original>Brightness</original>
-      <translation>亮度</translation>
+    <original>Microphone</original>
+    <translation>麦克风</translation>
   </string>
   <string>
-      <original>Eject</original>
-      <translation>弹出</translation>
+    <original>Brightness</original>
+    <translation>亮度</translation>
   </string>
   <string>
-      <original>Keyboard</original>
-      <translation>键盘</translation>
+    <original>Eject</original>
+    <translation>弹出</translation>
+  </string>
+  <string>
+    <original>Keyboard</original>
+    <translation>键盘</translation>
   </string>
   <string>
     <original>Enable notification icon</original>
-    <translation>显示通知图标</translation>
+    <translation>在通知区域显示图标</translation>
   </string>
-  
+  <string>
+    <original>Enable on-screen display</original>
+    <translation>启用屏幕显示</translation>
+  </string>
+  <string>
+    <original>Subscribe to system volume events</original>
+    <translation>订阅系统音量事件</translation>
+  </string>
+  <string>
+    <original>Device:</original>
+    <translation>设备:</translation>
+  </string>
+  <!-- Translate this as 'Adjust volume curve' if your language doesn't use this term -->
+  <string>
+    <original>Audio Taper:</original>
+    <translation>调整音量曲线:</translation>
+  </string>
+  <string>
+    <original>Volume Limiter:</original>
+    <translation>音量限制器:</translation>
+  </string>
+  <string>
+    <original>Force volume limit</original>
+    <translation>强制音量限制</translation>
+  </string>
+  <string>
+    <original>Mute volume during session lock</original>
+    <translation>会话锁定时静音</translation>
+  </string>
+  <string>
+    <original>Subscribe to system eject events</original>
+    <translation>订阅系统弹出事件</translation>
+  </string>
+  <string>
+    <original>Enable notification icons</original>
+    <translation>在通知区域显示图标</translation>
+  </string>
+  <string>
+    <original>Caps Lock</original>
+    <translation>大写锁定</translation>
+  </string>
+  <string>
+    <original>Num Lock</original>
+    <translation>数字锁定</translation>
+  </string>
+  <string>
+    <original>Scroll Lock</original>
+    <translation>滚动锁定</translation>
+  </string>
+  <string>
+    <original>Media Keys</original>
+    <translation>多媒体键</translation>
+  </string>
+  <string>
+    <original>Run Hotkey</original>
+    <translation>“运行”快捷键</translation>
+  </string>
+
+  <!-- Device Settings -->
+  <string>
+    <original>Default</original>
+    <translation>默认</translation>
+  </string>
+
+  <!-- Audio Taper Settings -->
+  <string>
+    <original>Disabled</original>
+    <translation>已禁用</translation>
+  </string>
+  <string>
+    <original>Low</original>
+    <translation>低</translation>
+  </string>
+  <string>
+    <original>Medium</original>
+    <translation>中</translation>
+  </string>
+  <string>
+    <original>High</original>
+    <translation>高</translation>
+  </string>
+
   <!-- Hotkeys Tab -->
   <string>
     <original>Action</original>
@@ -272,6 +415,10 @@
   <string>
     <original>Volume Units</original>
     <translation>音量单位</translation>
+  </string>
+  <string>
+    <original>Units</original>
+    <translation>单位</translation>
   </string>
   <string>
     <original>Percent</original>
@@ -356,6 +503,46 @@
     <translation>显示音量滑块</translation>
   </string>
   <string>
+    <original>Increase Microphone Volume</original>
+    <translation>将麦克风音量调高</translation>
+  </string>
+  <string>
+    <original>Increase Microphone Volume {1}%</original>
+    <translation>将麦克风音量调高 {1}%</translation>
+  </string>
+  <string>
+    <original>Increase Microphone Volume {1} units</original>
+    <translation>将麦克风音量调高单位 {1}</translation>
+  </string>
+  <string>
+    <original>Decrease Microphone Volume</original>
+    <translation>将麦克风音量调低</translation>
+  </string>
+  <string>
+    <original>Decrease Microphone Volume {1}%</original>
+    <translation>将麦克风音量调低 {1}%</translation>
+  </string>
+  <string>
+    <original>Decrease Microphone Volume {1} units</original>
+    <translation>将麦克风音量调低单位 {1}</translation>
+  </string>
+  <string>
+    <original>Set Microphone Volume</original>
+    <translation>设置麦克风音量</translation>
+  </string>
+  <string>
+    <original>Set Microphone Volume: {1}%</original>
+    <translation>设置麦克风音量: {1}%</translation>
+  </string>
+  <string>
+    <original>Set Microphone Volume: {1} units</original>
+    <translation>设置麦克风音量单位: {1}</translation>
+  </string>
+  <string>
+    <original>Mute Microphone</original>
+    <translation>静音麦克风</translation>
+  </string>
+  <string>
     <original>Eject Drive</original>
     <translation>弹出驱动器</translation>
   </string>
@@ -366,6 +553,50 @@
   <string>
     <original>Eject Last Disk</original>
     <translation>弹出最后一个驱动器</translation>
+  </string>
+  <string>
+    <original>Increase Brightness</original>
+    <translation>调高亮度</translation>
+  </string>
+  <string>
+    <original>Increase Brightness {1}%</original>
+    <translation>调高亮度 {1}%</translation>
+  </string>
+  <string>
+    <original>Increase Brightness {1} units</original>
+    <translation>调高亮度单位 {1}</translation>
+  </string>
+  <string>
+    <original>Decrease Brightness</original>
+    <translation>调低亮度</translation>
+  </string>
+  <string>
+    <original>Decrease Brightness {1}%</original>
+    <translation>调低亮度 {1}%</translation>
+  </string>
+  <string>
+    <original>Decrease Brightness {1} units</original>
+    <translation>调低亮度单位 {1}</translation>
+  </string>
+  <string>
+    <original>Set Brightness</original>
+    <translation>设置亮度</translation>
+  </string>
+  <string>
+    <original>Set Brightness: {1}%</original>
+    <translation>设置亮度: {1}%</translation>
+  </string>
+  <string>
+    <original>Set Brightness: {1} units</original>
+    <translation>设置亮度单位: {1}</translation>
+  </string>
+  <string>
+    <original>Show Brightness Slider</original>
+    <translation>显示亮度滑块</translation>
+  </string>
+  <string>
+    <original>Turn Off Display</original>
+    <translation>关闭显示</translation>
   </string>
   <string>
     <original>Media Key</original>
@@ -432,12 +663,15 @@
 
 <!-- Error Messages -->
   <string>
-    <original>找不到相关文件:\n{1}</original>
+    <original>File not found:\n{1}</original>
+    <translation>找不到相关文件:\n{1}</translation>
   </string>
   <string>
-    <original>无法定位 XML 标签: {1}</original>
+    <original>Could not locate XML tag: {1}</original>
+    <translation>无法定位 XML 标签: {1}</translation>
   </string>
   <string>
-    <original>发生了一个未知错误: ID #{1}</original>
+    <original>An unknown error occurred: ID #{1}</original>
+    <translation>发生了一个未知错误: ID #{1}</translation>
   </string>
 </translation>

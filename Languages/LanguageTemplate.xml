@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <translation version="1">
 
-  <language name="Template" id="en" regions="us,uk,in"/>
+  <language name="Template" id="en" regions="US,GB"/>
   <author name="Jane Doe" website=""/>
 
   <!-- General Strings -->
@@ -93,6 +93,10 @@
     <original>Size (%):</original>
     <translation>XXXX (%):</translation>
   </string>
+  <string>
+    <original>Use accent color if possible</original>
+    <translation>XXX XXXXXX XXXXX XX XXXXXXXX</translation>
+  </string>
 
   <!-- Tab Names -->
   <string>
@@ -168,7 +172,6 @@
     <translation>XXXXXXXXXX: {1}</translation>
   </string>
 
-
   <!-- Display Tab -->
   <string>
     <original>Visibility</original>
@@ -186,7 +189,6 @@
     <original>Hide when DirectX applications are fullscreen</original>
     <translation>XXXX XXXX XXXXXXX XXXXXXXXXXXX XXX XXXXXXXXXX</translation>
   </string>
-
 
   <string>
     <original>Position</original>
@@ -274,27 +276,26 @@
     <translation>XXXXX XXXX:</translation>
   </string>
 
-
   <!-- OSD Tab -->
   <string>
-      <original>Volume</original>
-      <translation>XXXXXX</translation>
+    <original>Volume</original>
+    <translation>XXXXXX</translation>
   </string>
   <string>
-      <original>Microphone</original>
-      <translation>XXXXXXXXXX</translation>
+    <original>Microphone</original>
+    <translation>XXXXXXXXXX</translation>
   </string>
   <string>
-      <original>Brightness</original>
-      <translation>XXXXXXXXXX</translation>
+    <original>Brightness</original>
+    <translation>XXXXXXXXXX</translation>
   </string>
   <string>
-      <original>Eject</original>
-      <translation>XXXXX</translation>
+    <original>Eject</original>
+    <translation>XXXXX</translation>
   </string>
   <string>
-      <original>Keyboard</original>
-      <translation>XXXXXXXX</translation>
+    <original>Keyboard</original>
+    <translation>XXXXXXXX</translation>
   </string>
   <string>
     <original>Enable notification icon</original>
@@ -414,6 +415,10 @@
   <string>
     <original>Volume Units</original>
     <translation>XXXXXX XXXXX</translation>
+  </string>
+  <string>
+    <original>Units</original>
+    <translation>XXXXX</translation>
   </string>
   <string>
     <original>Percent</original>
@@ -554,12 +559,36 @@
     <translation>XXXXXXXX XXXXXXXXXX</translation>
   </string>
   <string>
+    <original>Increase Brightness {1}%</original>
+    <translation>XXXXXXXX XXXXXXXXXX {1}%</translation>
+  </string>
+  <string>
+    <original>Increase Brightness {1} units</original>
+    <translation>XXXXXXXX XXXXXXXXXX {1} XXXXX</translation>
+  </string>
+  <string>
     <original>Decrease Brightness</original>
     <translation>XXXXXXXX XXXXXXXXXX</translation>
   </string>
   <string>
+    <original>Decrease Brightness {1}%</original>
+    <translation>XXXXXXX XXXXXXXXXX {1}%</translation>
+  </string>
+  <string>
+    <original>Decrease Brightness {1} units</original>
+    <translation>XXXXXXX XXXXXXXXXX {1} XXXXX</translation>
+  </string>
+  <string>
     <original>Set Brightness</original>
     <translation>XXX XXXXXXXXXX</translation>
+  </string>
+  <string>
+    <original>Set Brightness: {1}%</original>
+    <translation>XXX XXXXXXXXXX: {1}%</translation>
+  </string>
+  <string>
+    <original>Set Brightness: {1} units</original>
+    <translation>XXX XXXXXXXXXX: {1} XXXXX</translation>
   </string>
   <string>
     <original>Show Brightness Slider</original>

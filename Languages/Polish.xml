@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <translation version="1">
 
-  <language name="Português (Brasil)" id="pt" regions="BR"/>
-  <author name="LeanZo" website="https://twitter.com/Lean_Zo"/>
+  <language name="Polski" id="pl" regions="PL"/>
+  <author name="erisune" website="https://github.com/erisune"/>
 
   <!-- General Strings -->
   <string>
     <original>3RVX Settings</original>
-    <translation>3RVX - Configurações</translation>
+    <translation>3RVX Ustawienia</translation>
   </string>
   <string>
     <original>OK</original>
@@ -15,97 +15,97 @@
   </string>
   <string>
     <original>Cancel</original>
-    <translation>Cancelar</translation>
+    <translation>Anuluj</translation>
   </string>
   <string>
     <original>Apply</original>
-    <translation>Aplicar</translation>
+    <translation>Zastosuj</translation>
   </string>
 
   <!-- Notification Icon Menu Strings -->
   <string>
     <original>Settings</original>
-    <translation>Configurações</translation>
+    <translation>Ustawienia</translation>
   </string>
   <string>
     <original>Audio Device</original>
-    <translation>Dispositivo de Áudio</translation>
+    <translation>Urządzenie audio</translation>
   </string>
   <string>
     <original>Playback devices</original>
-    <translation>Dispositivos de reprodução</translation>
+    <translation>Urządzenia odtwarzające</translation>
   </string>
   <string>
     <original>Recording devices</original>
-    <translation>Dispositivos de gravação</translation>
+    <translation>Urządzenia nagrywające</translation>
   </string>
   <string>
     <original>Selected device</original>
-    <translation>Dispositivo selecionado</translation>
+    <translation>Wybrane urządzenie</translation>
   </string>
   <string>
     <original>Mixer</original>
-    <translation>Mixer</translation>
+    <translation>Mikser</translation>
   </string>
   <string>
     <original>Open Volume Mixer</original>
-    <translation>Abrir o Mixer de Volume</translation>
+    <translation>Otwórz mikser głośności</translation>
   </string>
   <string>
     <original>Exit</original>
-    <translation>Sair</translation>
+    <translation>Wyjście</translation>
   </string>
   <string>
     <original>Muted</original>
-    <translation>Mudo</translation>
+    <translation>Wyciszone</translation>
   </string>
   <string>
     <original>Display settings</original>
-    <translation>Configurações de exibição</translation>
+    <translation>Ustawienia wyświetlania</translation>
   </string>
   <string>
     <original>Turn off display</original>
-    <translation>Desligar a tela</translation>
+    <translation>Wyłącz wyświetlacz</translation>
   </string>
 
   <!-- Skin Options -->
   <string>
     <original>Options</original>
-    <translation>Opções</translation>
+    <translation>Opcje</translation>
   </string>
   <string>
     <original>Skin options</original>
-    <translation>Opções de tema</translation>
+    <translation>Opcje skórek</translation>
   </string>
   <string>
     <original>Variant</original>
-    <translation>Variante</translation>
+    <translation>Wariant</translation>
   </string>
   <string>
     <original>Properties</original>
-    <translation>Propriedades</translation>
+    <translation>Właściwości</translation>
   </string>
   <string>
     <original>Opacity:</original>
-    <translation>Opacidade:</translation>
+    <translation>Naprzezroczystość:</translation>
   </string>
   <string>
     <original>Size (%):</original>
-    <translation>Tamanho (%):</translation>
+    <translation>Rozmiar (%):</translation>
   </string>
   <string>
     <original>Use accent color if possible</original>
-    <translation>Usar cor de destaque, se possível</translation>
+    <translation>Użyj kolor akcentujący, jeśli to możliwe</translation>
   </string>
 
   <!-- Tab Names -->
   <string>
     <original>General</original>
-    <translation>Geral</translation>
+    <translation>Główne</translation>
   </string>
   <string>
     <original>Display</original>
-    <translation>Exibição</translation>
+    <translation>Wyświetlanie</translation>
   </string>
   <string>
     <original>OSD</original>
@@ -113,46 +113,46 @@
   </string>
   <string>
     <original>Hotkeys</original>
-    <translation>Atalhos</translation>
+    <translation>Skróty klawiszowe</translation>
   </string>
   <string>
     <original>About</original>
-    <translation>Sobre</translation>
+    <translation>Informacje</translation>
   </string>
 
   <!-- General Tab -->
   <string>
     <original>Behavior</original>
-    <translation>Funcionamento</translation>
+    <translation>Zachowanie</translation>
   </string>
   <string>
     <original>Run on Windows startup</original>
-    <translation>Executar ao iniciar o Windows</translation>
+    <translation>Uruchom razem z Windows</translation>
   </string>
   <string>
     <original>Show volume OSD on startup</original>
-    <translation>Mostrar volume ao iniciar</translation>
+    <translation>Wyświetl okno OSD przy uruchomieniu</translation>
   </string>
   <string>
     <original>Enable sound effects</original>
-    <translation>Habilitar efeitos sonoros</translation>
+    <translation>Włącz efekty dźwiękowe</translation>
   </string>
   <string>
     <original>Enable Aero Glass effects</original>
-    <translation>Habilitar efeitos Aero Glass</translation>
+    <translation>Włącz efekty Aero Glass</translation>
   </string>
   <string>
     <original>Automatic updates</original>
-    <translation>Atualizações Automaticas</translation>
+    <translation>Automatyczne aktualizacje</translation>
   </string>
   <string>
     <original>Check Now</original>
-    <translation>Verificar</translation>
+    <translation>Sprawdź teraz</translation>
   </string>
 
   <string>
     <original>Skin</original>
-    <translation>Tema</translation>
+    <translation>Skórki</translation>
   </string>
   <string>
     <original>Author: {1}</original>
@@ -160,183 +160,183 @@
   </string>
   <string>
     <original>Website</original>
-    <translation>Website</translation>
+    <translation>Strona internetowa</translation>
   </string>
 
   <string>
     <original>Language</original>
-    <translation>Idioma</translation>
+    <translation>Język</translation>
   </string>
   <string>
     <original>Translator: {1}</original>
-    <translation>Tradutor: {1}</translation>
+    <translation>Tłumacz: {1}</translation>
   </string>
 
   <!-- Display Tab -->
   <string>
     <original>Visibility</original>
-    <translation>Visibilidade</translation>
+    <translation>Widzialność</translation>
   </string>
   <string>
     <original>Keep on top of other windows</original>
-    <translation>Manter sobre outras janelas</translation>
+    <translation>Zawsze na wierzchu</translation>
   </string>
   <string>
     <original>Hide when other programs are fullscreen</original>
-    <translation>Esconder quando outros programas estiverem em tela cheia</translation>
+    <translation>Ukryj, gdy inne programy działają w trybie pełnoekranowym</translation>
   </string>
   <string>
     <original>Hide when DirectX applications are fullscreen</original>
-    <translation>Esconder quando aplicações DirectX estiverem em tela cheia</translation>
+    <translation>Ukryj, gdy aplikacje DirectX działają w trybie pełnoekranowym</translation>
   </string>
 
   <string>
     <original>Position</original>
-    <translation>Posição</translation>
+    <translation>Pozycja</translation>
   </string>
   <string>
     <original>Top</original>
-    <translation>Cima</translation>
+    <translation>U góry</translation>
   </string>
   <string>
     <original>Left</original>
-    <translation>Esquerda</translation>
+    <translation>Po lewej</translation>
   </string>
   <string>
     <original>Right</original>
-    <translation>Direita</translation>
+    <translation>Po prawej</translation>
   </string>
   <string>
     <original>Bottom</original>
-    <translation>Baixo</translation>
+    <translation>U dołu</translation>
   </string>
   <string>
     <original>Center</original>
-    <translation>Centro</translation>
+    <translation>Na środku</translation>
   </string>
   <string>
     <original>Top-left</original>
-    <translation>Superior esquerdo</translation>
+    <translation>W lewym górnym</translation>
   </string>
   <string>
     <original>Top-right</original>
-    <translation>Superior direito</translation>
+    <translation>W prawym górnym</translation>
   </string>
   <string>
     <original>Bottom-left</original>
-    <translation>Inferior esquerdo</translation>
+    <translation>W lewym dolnym</translation>
   </string>
   <string>
     <original>Bottom-right</original>
-    <translation>Inferior direito</translation>
+    <translation>W prawym dolnym</translation>
   </string>
   <string>
     <original>Custom</original>
-    <translation>Customizado</translation>
+    <translation>Niestandardowa</translation>
   </string>
   <string>
     <original>Custom distance from screen edge (px):</original>
-    <translation>Distância da borda da tela (px):</translation>
+    <translation>Niestandardowa odległość od krawędzi ekranu (px):</translation>
   </string>
   <string>
     <original>Display Device:</original>
-    <translation>Dispositivo de Exibição:</translation>
+    <translation>Urządzenie wyświetlające:</translation>
   </string>
   <string>
     <original>Primary Monitor</original>
-    <translation>Monitor Primário</translation>
+    <translation>Główny monitor</translation>
   </string>
   <string>
     <original>All Monitors</original>
-    <translation>Todos Monitores</translation>
+    <translation>Wszystkie monitory</translation>
   </string>
 
   <string>
     <original>Animation</original>
-    <translation>Animação</translation>
+    <translation>Animacja</translation>
   </string>
   <string>
     <original>None</original>
-    <translation>Nenhuma</translation>
+    <translation>Żadne</translation>
   </string>
   <string>
     <original>Fade</original>
-    <translation>Desaparecer</translation>
+    <translation>Zanikanie</translation>
   </string>
   <string>
     <original>Slide</original>
-    <translation>Deslizar</translation>
+    <translation>Przesunięcie</translation>
   </string>
   <string>
     <original>Hide Delay (ms):</original>
-    <translation>Atraso de esconder (ms):</translation>
+    <translation>Opóźnienie ukrycia (ms):</translation>
   </string>
   <string>
     <original>Speed (ms):</original>
-    <translation>Velocidade (ms):</translation>
+    <translation>Prędkość (ms):</translation>
   </string>
 
   <!-- OSD Tab -->
   <string>
     <original>Volume</original>
-    <translation>Volume</translation>
+    <translation>Głośność</translation>
   </string>
   <string>
     <original>Microphone</original>
-    <translation>Microfone</translation>
+    <translation>Mikrofon</translation>
   </string>
   <string>
     <original>Brightness</original>
-    <translation>Brilho</translation>
+    <translation>Jasność</translation>
   </string>
   <string>
     <original>Eject</original>
-    <translation>Ejetar</translation>
+    <translation>Wysuń</translation>
   </string>
   <string>
     <original>Keyboard</original>
-    <translation>Teclado</translation>
+    <translation>Klawiatura</translation>
   </string>
   <string>
     <original>Enable notification icon</original>
-    <translation>Habilitar icone de notificações</translation>
+    <translation>Ikonka w zasobniku systemowym</translation>
   </string>
   <string>
     <original>Enable on-screen display</original>
-    <translation>Habilitar exibição na tela</translation>
+    <translation>Włącz wyświetlanie na ekranie</translation>
   </string>
   <string>
     <original>Subscribe to system volume events</original>
-    <translation>Ingressar nos eventos de volume do sistema</translation>
+    <translation>Subskrybowanie zdarzeń dotyczących głośności systemu</translation>
   </string>
   <string>
     <original>Device:</original>
-    <translation>Dispositivo:</translation>
+    <translation>Urządzenie:</translation>
   </string>
   <!-- Translate this as 'Adjust volume curve' if your language doesn't use this term -->
   <string>
     <original>Audio Taper:</original>
-    <translation>Alterar a curva de volume:</translation>
+    <translation>Dostosowanie krzywej głośności:</translation>
   </string>
   <string>
     <original>Volume Limiter:</original>
-    <translation>Limitador de Volume:</translation>
+    <translation>Ogranicznik głośności:</translation>
   </string>
   <string>
     <original>Force volume limit</original>
-    <translation>Forçar limitador de volume</translation>
+    <translation>Wymuś limit głośności</translation>
   </string>
   <string>
     <original>Mute volume during session lock</original>
-    <translation>Silenciar o volume enquanto estiver bloqueado</translation>
+    <translation>Wyciszanie dźwięku podczas blokady sesji</translation>
   </string>
   <string>
     <original>Subscribe to system eject events</original>
-    <translation>Ingressar nos eventos de ejeção do sistema</translation>
+    <translation>Subskrybowanie zdarzeń dotyczących wysuwania nośników z systemu</translation>
   </string>
   <string>
     <original>Enable notification icons</original>
-    <translation>Habilitar icones de notificações</translation>
+    <translation>Ikony w zasobniku systemowym</translation>
   </string>
   <string>
     <original>Caps Lock</original>
@@ -352,293 +352,293 @@
   </string>
   <string>
     <original>Media Keys</original>
-    <translation>Teclas de Mídia</translation>
+    <translation>Klawisze multimedialne</translation>
   </string>
   <string>
     <original>Run Hotkey</original>
-    <translation>Atalho Iniciar</translation>
+    <translation>Skrót klawiszowy „Uruchom”</translation>
   </string>
 
   <!-- Device Settings -->
   <string>
     <original>Default</original>
-    <translation>Padrão</translation>
+    <translation>Domyślne</translation>
   </string>
 
   <!-- Audio Taper Settings -->
   <string>
     <original>Disabled</original>
-    <translation>Desabilitado</translation>
+    <translation>Wyłączone</translation>
   </string>
   <string>
     <original>Low</original>
-    <translation>Baixo</translation>
+    <translation>Mała</translation>
   </string>
   <string>
     <original>Medium</original>
-    <translation>Médio</translation>
+    <translation>Średnia</translation>
   </string>
   <string>
     <original>High</original>
-    <translation>Alto</translation>
+    <translation>Wysoka</translation>
   </string>
 
   <!-- Hotkeys Tab -->
   <string>
     <original>Action</original>
-    <translation>Ação</translation>
+    <translation>Akcja</translation>
   </string>
   <string>
     <original>Hotkey Editor</original>
-    <translation>Editor de atalho</translation>
+    <translation>Edytor skrótów klawiszowych</translation>
   </string>
   <string>
     <original>Keys:</original>
-    <translation>Teclas:</translation>
+    <translation>Klawisze:</translation>
   </string>
   <string>
     <original>Hotkey Input</original>
-    <translation>Definir Atalho</translation>
+    <translation>Wprowadzanie skrótów klawiszowych</translation>
   </string>
   <string>
     <original>Enter hotkeys now...</original>
-    <translation>Digite as teclas de atalho...</translation>
+    <translation>Wprowadź teraz skróty klawiszowe...</translation>
   </string>
   <string>
     <original>Action:</original>
-    <translation>Ação:</translation>
+    <translation>Akcja:</translation>
   </string>
   <string>
     <original>Amount:</original>
-    <translation>Quantidade:</translation>
+    <translation>Ilość:</translation>
   </string>
   <string>
     <original>Volume Units</original>
-    <translation>Unidades de Volume</translation>
+    <translation>Jednostki głośności</translation>
   </string>
   <string>
     <original>Units</original>
-    <translation>Unidades</translation>
+    <translation>Jednostki</translation>
   </string>
   <string>
     <original>Percent</original>
-    <translation>Porcento</translation>
+    <translation>Procent</translation>
   </string>
   <string>
     <original>Drive:</original>
-    <translation>Disco:</translation>
+    <translation>Napęd:</translation>
   </string>
   <string>
     <original>Key:</original>
-    <translation>Função:</translation>
+    <translation>Klawisz:</translation>
   </string>
   <string>
     <original>Play/Pause</original>
-    <translation>Play/Pausar</translation>
+    <translation>Odtwarzaj/Wstrzymaj</translation>
   </string>
   <string>
     <original>Stop</original>
-    <translation>Parar</translation>
+    <translation>Zatrzymaj</translation>
   </string>
   <string>
     <original>Next</original>
-    <translation>Próximo</translation>
+    <translation>Dalej</translation>
   </string>
   <string>
     <original>Previous</original>
-    <translation>Anterior</translation>
+    <translation>Wstecz</translation>
   </string>
   <string>
     <original>VK Code (Hex):</original>
-    <translation>Código VK (Hex):</translation>
+    <translation>Kod VK (Hex):</translation>
   </string>
   <string>
     <original>Path:</original>
-    <translation>Diretório:</translation>
+    <translation>Ścieżka:</translation>
   </string>
 
   <!-- Hotkey Actions -->
   <string>
     <original>Increase Volume</original>
-    <translation>Aumentar Volume</translation>
+    <translation>Zwiększ głośność</translation>
   </string>
   <string>
     <original>Increase Volume {1}%</original>
-    <translation>Aumentar Volume {1}%</translation>
+    <translation>Zwiększ głośność o {1}%</translation>
   </string>
   <string>
     <original>Increase Volume {1} units</original>
-    <translation>Aumentar Volume {1}</translation>
+    <translation>Zwiększ głośność o {1} jednostki</translation>
   </string>
   <string>
     <original>Decrease Volume</original>
-    <translation>Diminuir Volume</translation>
+    <translation>Zmniejsz głośność</translation>
   </string>
   <string>
     <original>Decrease Volume {1}%</original>
-    <translation>Diminuir Volume {1}%</translation>
+    <translation>Zmniejsz głośność o {1}%</translation>
   </string>
   <string>
     <original>Decrease Volume {1} units</original>
-    <translation>Diminuir Volume {1}</translation>
+    <translation>Zmniejsz głośność o {1} jednostki</translation>
   </string>
   <string>
     <original>Set Volume</original>
-    <translation>Definir Volume</translation>
+    <translation>Ustaw głośność</translation>
   </string>
   <string>
     <original>Set Volume: {1}%</original>
-    <translation>Definir Volume: {1}%</translation>
+    <translation>Ustaw głośność: {1}%</translation>
   </string>
   <string>
     <original>Set Volume: {1} units</original>
-    <translation>Definir Volume: {1}</translation>
+    <translation>Ustaw głośność: {1} jednostki</translation>
   </string>
   <string>
     <original>Mute</original>
-    <translation>Silenciar</translation>
+    <translation>Wycisz</translation>
   </string>
   <string>
     <original>Show Volume Slider</original>
-    <translation>Mostrar Barra de Volume</translation>
+    <translation>Pokaż suwak głośności</translation>
   </string>
   <string>
     <original>Increase Microphone Volume</original>
-    <translation>Aumentar Volume do Microfone</translation>
+    <translation>Zwiększ głośność mikrofonu</translation>
   </string>
   <string>
     <original>Increase Microphone Volume {1}%</original>
-    <translation>Aumentar Volume do Microfone {1}%</translation>
+    <translation>Zwiększ głośność mikrofonu o {1}%</translation>
   </string>
   <string>
     <original>Increase Microphone Volume {1} units</original>
-    <translation>Aumentar Volume do Microfone {1} unidades</translation>
+    <translation>Zwiększ głośność mikrofonu o {1} jednostki</translation>
   </string>
   <string>
     <original>Decrease Microphone Volume</original>
-    <translation>Diminuir Volume do Microfone</translation>
+    <translation>Zmniejsz głośność mikrofonu</translation>
   </string>
   <string>
     <original>Decrease Microphone Volume {1}%</original>
-    <translation>Diminuir Volume do Microfone {1}%</translation>
+    <translation>Zmniejsz głośność mikrofonu o {1}%</translation>
   </string>
   <string>
     <original>Decrease Microphone Volume {1} units</original>
-    <translation>Diminuir Volume do Microfone {1} unidades</translation>
+    <translation>Zmniejsz głośność mikrofonu o {1} jednostki</translation>
   </string>
   <string>
     <original>Set Microphone Volume</original>
-    <translation>Definir Volume do Microfone</translation>
+    <translation>Ustaw głośność mikrofonu</translation>
   </string>
   <string>
     <original>Set Microphone Volume: {1}%</original>
-    <translation>Definir Volume do Microfone: {1}%</translation>
+    <translation>Ustaw głośność mikrofonu: {1}%</translation>
   </string>
   <string>
     <original>Set Microphone Volume: {1} units</original>
-    <translation>Definir Volume do Microfone: {1} unidades</translation>
+    <translation>Ustaw głośność mikrofonu: {1} jednostki</translation>
   </string>
   <string>
     <original>Mute Microphone</original>
-    <translation>Silenciar Microfone</translation>
+    <translation>Wycisz mikrofon</translation>
   </string>
   <string>
     <original>Eject Drive</original>
-    <translation>Ejetar Disco</translation>
+    <translation>Wysuń dysk</translation>
   </string>
   <string>
     <original>Eject Drive: {1}</original>
-    <translation>Ejetar Disco: {1}</translation>
+    <translation>Wysuń dysk: {1}</translation>
   </string>
   <string>
     <original>Eject Last Disk</original>
-    <translation>Ejetar Último Disco</translation>
+    <translation>Wysuń ostatni dysk</translation>
   </string>
   <string>
     <original>Increase Brightness</original>
-    <translation>Aumentar Brilho</translation>
+    <translation>Zwiększ jasność</translation>
   </string>
   <string>
     <original>Increase Brightness {1}%</original>
-    <translation>Aumentar Brilho {1}%</translation>
+    <translation>Zwiększ jasność o {1}%</translation>
   </string>
   <string>
     <original>Increase Brightness {1} units</original>
-    <translation>Aumentar Brilho {1} unidades</translation>
+    <translation>Zwiększ jasność o {1} jednostki</translation>
   </string>
   <string>
     <original>Decrease Brightness</original>
-    <translation>Diminuir Brilho</translation>
+    <translation>Zmniejsz jasność</translation>
   </string>
   <string>
     <original>Decrease Brightness {1}%</original>
-    <translation>Diminuir Brilho {1}%</translation>
+    <translation>Zmniejsz jasność o {1}%</translation>
   </string>
   <string>
     <original>Decrease Brightness {1} units</original>
-    <translation>Diminuir Brilho {1} unidades</translation>
+    <translation>Zmniejsz jasność o {1} jednostki</translation>
   </string>
   <string>
     <original>Set Brightness</original>
-    <translation>Definir Brilho</translation>
+    <translation>Ustaw jasność</translation>
   </string>
   <string>
     <original>Set Brightness: {1}%</original>
-    <translation>Definir Brilho: {1}%</translation>
+    <translation>Ustaw jasność: {1}%</translation>
   </string>
   <string>
     <original>Set Brightness: {1} units</original>
-    <translation>Definir Brilho: {1} unidades</translation>
+    <translation>Ustaw jasność: {1} jednostki</translation>
   </string>
   <string>
     <original>Show Brightness Slider</original>
-    <translation>Mostrar Barra de Brilho</translation>
+    <translation>Pokaż suwak jasności</translation>
   </string>
   <string>
     <original>Turn Off Display</original>
-    <translation>Desligar a Tela</translation>
+    <translation>Wyłącz wyświetlacz</translation>
   </string>
   <string>
     <original>Media Key</original>
-    <translation>Tecla de Mídia</translation>
+    <translation>Klawisz multimedialny</translation>
   </string>
   <string>
     <original>Media Key: {1}</original>
-    <translation>Tecla de Mídia: {1}</translation>
+    <translation>Klawisz multimedialny: {1}</translation>
   </string>
   <string>
     <original>Virtual Key</original>
-    <translation>Tecla Virtual</translation>
+    <translation>Klawisz wirtualny</translation>
   </string>
   <string>
     <original>Virtual Key: 0x{1}</original>
-    <translation>Tecla Virtual: 0x{1}</translation>
+    <translation>Klawisz wirtualny: 0x{1}</translation>
   </string>
   <string>
     <original>Run</original>
-    <translation>Iniciar</translation>
+    <translation>Uruchom</translation>
   </string>
   <string>
     <original>Run: {1}</original>
-    <translation>Iniciar: {1}</translation>
+    <translation>Uruchom: {1}</translation>
   </string>
   <string>
     <original>Enable/Disable OSD</original>
-    <translation>Ativar/Desativar OSD</translation>
+    <translation>Włącz/Wyłącz OSD</translation>
   </string>
   <string>
     <original>Open Settings Dialog</original>
-    <translation>Abrir Configurações</translation>
+    <translation>Otwórz okno dialogowe Ustawienia</translation>
   </string>
   <string>
     <original>Exit 3RVX</original>
-    <translation>Sair do 3RVX</translation>
+    <translation>Wyjście 3RVX</translation>
   </string>
 
   <!-- Update Strings -->
   <string>
     <original>Update Available</original>
-    <translation>Atualização Disponível</translation>
+    <translation>Dostępna aktualizacja</translation>
   </string>
   <string>
     <original>3RVX {1}</original>
@@ -646,32 +646,32 @@
   </string>
   <string>
     <original>Install</original>
-    <translation>Instalar</translation>
+    <translation>Zainstaluj</translation>
   </string>
   <string>
     <original>Ignore version</original>
-    <translation>Ignorar atualização</translation>
+    <translation>Zignoruj wersję</translation>
   </string>
   <string>
     <original>Remind me later</original>
-    <translation>Lembre-me depois</translation>
+    <translation>Przypomnij mi o tym później</translation>
   </string>
   <string>
     <original>Downloading...</original>
-    <translation>Baixando...</translation>
+    <translation>Pobieranie...</translation>
   </string>
 
 <!-- Error Messages -->
   <string>
     <original>File not found:\n{1}</original>
-    <translation>Arquivo não encontrado:\n{1}</translation>
+    <translation>Nie znaleziono pliku:\n{1}</translation>
   </string>
   <string>
     <original>Could not locate XML tag: {1}</original>
-    <translation>Não foi possível localizar a tag XML: {1}</translation>
+    <translation>Nie udało się znaleźć tagu XML: {1}</translation>
   </string>
   <string>
     <original>An unknown error occurred: ID #{1}</original>
-    <translation>Ocorreu um erro desconhecido: ID #{1}</translation>
+    <translation>Wystąpił nieznany błąd: ID #{1}</translation>
   </string>
 </translation>
