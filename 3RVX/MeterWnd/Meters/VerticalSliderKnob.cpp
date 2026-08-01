@@ -9,8 +9,8 @@ SliderKnob(bitmapName, x, y, width, height) {
 
 void VerticalSliderKnob::Draw(
         Gdiplus::Bitmap *buffer, Gdiplus::Graphics *graphics) {
-    graphics->DrawImage(_bitmap, _rect,
-        0, 0, _rect.Width, _rect.Height, Gdiplus::UnitPixel);
+    graphics->DrawImage(_bitmap, _rect, 0, 0, _rect.Width, _rect.Height,
+        Gdiplus::UnitPixel, &_imageAttributes, NULL, NULL);
 }
 
 float VerticalSliderKnob::Value() const {
