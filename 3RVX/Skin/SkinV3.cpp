@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <sstream>
 #include <vector>
 #include <Shlwapi.h>
 
@@ -398,7 +399,7 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
     if (units > 100) {
         units = 100;
     }
-    if (units < 1) {
+    else if (units < 1) {
         units = 1;
     }
 
@@ -416,6 +417,9 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
             Error::ErrorMessageDie(Error::GENERR_NOTFOUND, img);
         }
     }
+
+    bool sysScheme = false;
+    meterXMLElement->QueryBoolAttribute("useSystemScheme", &sysScheme);
 
     Meter *m = NULL;
     if (type == "bitstrip") {
@@ -444,7 +448,13 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
 
         const char *fontColor = meterXMLElement->Attribute("color");
         std::wstring color(L"FFFFFF");
-        if (fontColor != NULL) {
+        if (sysScheme) {
+            std::wstringstream ss;
+            COLORREF crSysColor = GetSysColor(COLOR_WINDOWTEXT);
+            ss << std::hex << RGB(crSysColor >> 16, crSysColor >> 8, crSysColor >> 0);
+            color = ss.str();
+        }
+        else if (fontColor != NULL) {
             color = std::wstring(StringUtils::Widen(fontColor));
         }
         int itrans = 255;
@@ -477,8 +487,49 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
         return NULL;
     }
 
+    if (sysScheme) {
+        /* System colors (some of them) */
+        const char *sysColorAppWorkspace = meterXMLElement->Attribute("sysColorAppWorkspace");
+        if (sysColorAppWorkspace != NULL) {
+            m->UseSystemColor(sysColorAppWorkspace, COLOR_APPWORKSPACE);
+        }
+        const char *sysColor3DFace = meterXMLElement->Attribute("sysColor3DFace");
+        if (sysColor3DFace != NULL) {
+            m->UseSystemColor(sysColor3DFace, COLOR_3DFACE);
+        }
+        const char *sysColor3DLight = meterXMLElement->Attribute("sysColor3DLight");
+        if (sysColor3DLight != NULL) {
+            m->UseSystemColor(sysColor3DLight, COLOR_3DSHADOW);
+        }
+        const char *sysColor3DHighlight = meterXMLElement->Attribute("sysColor3DHighlight");
+        if (sysColor3DHighlight != NULL) {
+            m->UseSystemColor(sysColor3DHighlight, COLOR_3DHIGHLIGHT);
+        }
+        const char *sysColor3DShadow = meterXMLElement->Attribute("sysColor3DShadow");
+        if (sysColor3DShadow != NULL) {
+            m->UseSystemColor(sysColor3DShadow, COLOR_3DSHADOW);
+        }
+        const char *sysColor3DDkShadow = meterXMLElement->Attribute("sysColor3DDkShadow");
+        if (sysColor3DDkShadow != NULL) {
+            m->UseSystemColor(sysColor3DDkShadow, COLOR_3DDKSHADOW);
+        }
+        const char *sysColorHighlight = meterXMLElement->Attribute("sysColorHighlight");
+        if (sysColorHighlight != NULL) {
+            m->UseSystemColor(sysColorHighlight, COLOR_HIGHLIGHT);
+        }
+        const char *sysColorWindow = meterXMLElement->Attribute("sysColorWindow");
+        if (sysColorWindow != NULL) {
+            m->UseSystemColor(sysColorWindow, COLOR_WINDOW);
+        }
+        const char *sysColorWindowFrame = meterXMLElement->Attribute("sysColorWindowFrame");
+        if (sysColorWindowFrame != NULL) {
+            m->UseSystemColor(sysColorWindowFrame, COLOR_WINDOWFRAME);
+        }
+        m->ApplySystemColors();
+    }
+
     const char *colorTransform = meterXMLElement->Attribute("colorTransform");
-    if (colorTransform != NULL && Settings::Instance()->UseAccentColor()) {
+    if (colorTransform != NULL && Settings::Instance()->UseAccentColor() && !sysScheme) {
         unsigned long searchColor = strtoul(colorTransform, NULL, 16);
         /* Always use alpha of 255 for the search color */
         searchColor |= 0xFF000000;
@@ -510,8 +561,19 @@ Meter *SkinV3::LoadMeter(XMLElement *meterXMLElement) {
 
 Gdiplus::Font *SkinV3::Font(XMLElement *meterXMLElement) {
     const char *fontName = meterXMLElement->Attribute("font");
+
+    bool sysScheme = false;
+    meterXMLElement->QueryBoolAttribute("useSystemScheme", &sysScheme);
+
     std::wstring name(L"Arial");
-    if (fontName != NULL) {
+    if (sysScheme) {
+        HDC hDC = GetDC(NULL);
+        NONCLIENTMETRICS ncm = {};
+        ncm.cbSize = sizeof(NONCLIENTMETRICS);
+        if (SystemParametersInfo(SPI_GETNONCLIENTMETRICS, ncm.cbSize, &ncm, NULL)) {
+            name = ncm.lfMessageFont.lfFaceName;
+        }
+    } else if (fontName != NULL) {
         name = std::wstring(StringUtils::Widen(fontName));
     }
 

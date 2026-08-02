@@ -8,6 +8,7 @@
 #include <gdiplus.h>
 #pragma comment(lib, "gdiplus.lib")
 #include <string>
+#include <vector>
 
 #include "../Logger.h"
 
@@ -63,6 +64,18 @@ public:
     /// Updates an existing color transformation with a new replacement color.
     /// </summary>
     void UpdateColorTransform(UINT32 to);
+
+    /// <summary>
+    /// Replaces a specified color with a system color
+    /// </summary>
+    /// <param name="attribute">The attribute with the color to replace</param>
+    /// <param name="nColor">The system color value to replace it with</param>
+    void UseSystemColor(const char *attribute, int nColor);
+
+    /// <summary>
+    /// Applies the system color remap table.
+    /// </summary>
+    void ApplySystemColors();
 
     /// <summary>
     /// Applies a color transformation on this meter using a color matrix.
@@ -121,6 +134,7 @@ protected:
     Gdiplus::ColorMap _colorMap;
     Gdiplus::ImageAttributes _imageAttributes;
     Gdiplus::Rect _rect;
+    std::vector<Gdiplus::ColorMap> _sysColorMap;
     bool _transformAlpha;
     bool _transformMatrix;
 

@@ -45,7 +45,7 @@ float Meter::Value() const {
 
 void Meter::Value(float value) {
     if (value > 1.0) { value = 1.0; }
-    if (value < 0) { value = 0; }
+    else if (value < 0) { value = 0; }
 
     _value = value;
 }
@@ -129,6 +129,22 @@ void Meter::ApplyColorTransformMatrix(UINT32 from, UINT32 to, UINT8 alphaOverrid
     _colorMap.oldColor = Gdiplus::Color(from);
     _colorMap.newColor = Gdiplus::Color(to);
     _imageAttributes.SetColorMatrix(&colorMatrix);
+}
+
+void Meter::UseSystemColor(const char *attribute, int nColor) {
+    COLORREF crSysColor = GetSysColor(nColor);
+    UINT32 from = strtoul(attribute, NULL, 16) | 0xFF000000;
+    UINT32 to = RGB(crSysColor >> 16, crSysColor >> 8, crSysColor >> 0) | 0xFF000000;
+    Gdiplus::ColorMap colorMap = {};
+    colorMap.oldColor = from;
+    colorMap.newColor = to;
+    CLOG(L"Use sys color: %x -> %x", from, to);
+    _sysColorMap.push_back(colorMap);
+}
+
+void Meter::ApplySystemColors() {
+    CLOG(L"Applying sys colors, setting remap table");
+    _imageAttributes.SetRemapTable(_sysColorMap.size(), _sysColorMap.data());
 }
 
 void Meter::ClearColorTransform() {
