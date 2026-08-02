@@ -1,6 +1,39 @@
 3RVX Changelog
 ==============
 
+Beta 12 (2.9.4)
+---------------
+* Microphone OSD (Mic volume control, hotkeys, tray icon)
+* Get the Brightness and Keyboard OSDs working
+* Customizable OSD opacity and size
+* Support for Variant skins
+* Hide built-in OSD on Windows 8 and newer
+* Allow enabling/disabling OSDs individually or fully disabling them and their controls
+* 'Run' hotkey action now supports command line arguments
+* Improved Skin and Language selectors
+* Eject OSD now supports meters
+* Skins can now use text with glow
+* Skin color transformations using a color matrix (for multiple colors)
+* Toggle for glass effects (for compatibility with tools like OpenGlass)
+* Updated Classic skin resources
+* New skins and variants
+* New hide animation: Slide
+* Full 64 bit support
+* New German translation by pemue88
+* New Hungarian translation by harsanyiz
+* New Japanese translation by freesoft100
+* New Korean translation by VenusGirl
+* New Russian translation by Roman Tamm
+* Updated other translations
+* Bugfix: Old (v2) skins without sounds work once again
+* Bugfix: Don't show sliders again when clicked if they're already active
+* Bugfix: Device name now updates correctly after changing it from the tray icon
+* Bugfix: Virtual keys are now saved correctly
+* Bugfix: Low animation speeds don't crash the app anymore
+* Bugfix: Setting a volume percent through hotkeys now works correctly
+* Bugfix: Eject context menu doesn't skip the last eligible drive anymore
+* Bugfix: Spinners won't mess up formatting for large values
+
 Beta 11 (2.9.3)
 ---------------
 * Brightness OSD
@@ -39,7 +72,7 @@ Beta 10 (2.9.2)
 Beta 9 (2.9.1)
 ------
 * Automatic updates
-* Compatiblity mode for the old (v2) skin format
+* Compatibility mode for the old (v2) skin format
 * Skin fallback: resources that aren't found will be loaded from the default skin
 * Hotkey to disable/enable the OSD 
 * Option to disable the OSD when another application is full screen
