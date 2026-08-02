@@ -59,4 +59,5 @@ private:
 private:
     static const wchar_t REGKEY_NAME[];
     static const wchar_t REGKEY_RUN[];
+    static constexpr int LANG_GROUPBOX_HEIGHT = 88;
 };

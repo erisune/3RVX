@@ -287,8 +287,12 @@ void General::LoadSkinInfo(std::wstring skinName) {
 void General::LoadLanguageInfo(std::wstring languageName) {
     if (languageName == DefaultSettings::Language) {
         _translator->Text(L"");
+        _translator->Visible(false);
+        _languageGroup->Resize(_languageGroup->Width(), LANG_GROUPBOX_HEIGHT - 28);
         return;
     }
+    _translator->Visible(true);
+    _languageGroup->Resize(_languageGroup->Width(), LANG_GROUPBOX_HEIGHT);
     std::wstring langFileName = languageName + L".xml";
     std::wstring langTranslator = GetLanguageName(langFileName, true);
     std::wstring translator = Settings::Instance()->Translator()->TranslateAndReplace(
