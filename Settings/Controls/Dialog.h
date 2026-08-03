@@ -18,6 +18,7 @@ public:
     void AddControl(Control *control);
     HWND DialogHandle();
     HWND ParentHandle();
+    void Center();
 
     virtual INT_PTR Show();
     virtual void Close(INT_PTR result = 0);

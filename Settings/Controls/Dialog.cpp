@@ -43,6 +43,22 @@ HWND Dialog::ParentHandle() {
     return _parent;
 }
 
+void Dialog::Center() {
+    RECT rcParent;
+    GetClientRect(ParentHandle(), &rcParent);
+    RECT rcDialog;
+    GetWindowRect(DialogHandle(), &rcDialog);
+
+    POINT pParent = { rcParent.left, rcParent.top };
+    ClientToScreen(ParentHandle(), &pParent);
+
+    LONG cx = (rcParent.right - rcParent.left) - (rcDialog.right - rcDialog.left);
+    LONG cy = (rcParent.bottom - rcParent.top) - (rcDialog.bottom - rcDialog.top);
+
+    SetWindowPos(DialogHandle(), NULL, pParent.x + cx / 2,
+        pParent.y + cy / 2, NULL, NULL, SWP_NOSIZE);
+}
+
 INT_PTR Dialog::StaticDialogProc(
         HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     Dialog *dlg;
