@@ -14,3 +14,4 @@
 #include "Text.h"
 #include "VerticalBar.h"
 #include "VerticalSliderKnob.h"
+#include "VerticalTile.h"
