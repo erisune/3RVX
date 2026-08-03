@@ -19,6 +19,7 @@ Dialog(parent, MAKEINTRESOURCE(IDD_SKINOPTS)) {
 }
 
 void SkinOptions::Initialize() {
+    Center();
     UITranslator::TranslateWindowText(DialogHandle());
     _variantGroup = new GroupBox(GRP_VARIANT, *this);
     _variant = new ComboBox(CMB_VARIANT, *this);
