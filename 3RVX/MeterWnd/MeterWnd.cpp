@@ -106,7 +106,7 @@ bool MeterWnd::EnableGlass(Gdiplus::Bitmap *mask) {
     bool result = LayeredWnd::EnableGlass(mask);
     ApplyClonesGlass();
     if (!_settings->GlassEffectsEnabled()) {
-        result = DrawBackdrop(_glassMask);
+        result = DrawBackdrop(mask);
     }
     return result;
 }

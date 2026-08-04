@@ -135,28 +135,25 @@ bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
     if (mask == NULL) {
         return false;
     }
-    _glassMask = mask;
 
     if (!_settings->GlassEffectsEnabled()) {
         return false;
     }
 
-    if (_glassMask == NULL) {
-        if (_glassMask) {
-            delete _glassMask;
-        }
+    if (_glassMask) {
+        delete _glassMask;
+    }
 
-        Gdiplus::Rect maskRect(0, 0, mask->GetWidth(), mask->GetHeight());
-        _glassMask = mask->Clone(maskRect, PixelFormat32bppARGB);
+    Gdiplus::Rect maskRect(0, 0, mask->GetWidth(), mask->GetHeight());
+    _glassMask = mask->Clone(maskRect, PixelFormat32bppARGB);
 
-        float size = static_cast<float>(_settings->Size()) / 100.0f;
-        if (size != 1.0f) {
-            unsigned int width = static_cast<UINT>(_glassMask->GetWidth() * size);
-            unsigned int height = static_cast<UINT>(_glassMask->GetHeight() * size);
-            Gdiplus::Bitmap *resized = static_cast<Gdiplus::Bitmap*>(_glassMask->GetThumbnailImage(width, height));
-            delete _glassMask;
-            _glassMask = resized;
-        }
+    float size = static_cast<float>(_settings->Size()) / 100.0f;
+    if (size != 1.0f) {
+        unsigned int width = static_cast<UINT>(_glassMask->GetWidth() * size);
+        unsigned int height = static_cast<UINT>(_glassMask->GetHeight() * size);
+        Gdiplus::Bitmap *resized = static_cast<Gdiplus::Bitmap*>(_glassMask->GetThumbnailImage(width, height));
+        delete _glassMask;
+        _glassMask = resized;
     }
 
     DWM_BLURBEHIND blurBehind = { 0 };
