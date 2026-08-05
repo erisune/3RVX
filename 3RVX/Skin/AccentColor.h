@@ -62,7 +62,7 @@ private:
     /// Whether or not to use undocumented DWM APIs to retrieve the accurate
     /// theme colorization color.
     /// </summary>
-    bool _useUndocumented = false;
+    bool _useUndocumented = true;
 
     /// <summary>
     /// If undocumented DWM functions are used, the module handle is cached
@@ -86,4 +86,9 @@ private:
     /// An integer representing the DWM accent color, or -1 if a failure occurs.
     /// </returns>
     INT64 ColorizationParamColor();
+
+    /// <summary>
+    /// Returns a colorization value from the DWM registry key
+    /// </summary>
+    bool LoadColorizationParameter(LPCWSTR lpValueName, DWORD &lpValue);
 };

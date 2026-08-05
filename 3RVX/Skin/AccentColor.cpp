@@ -46,8 +46,8 @@ void AccentColor::Refresh() {
         return;
     }
 
-    if (IsWindows7OrGreater()) {
-        if (_useUndocumented == true) {
+    if (IsWindowsVistaOrGreater()) {
+        if (IsWindows7OrGreater() && _useUndocumented == true) {
             INT64 color = ColorizationParamColor();
             if (color >= 0) {
                 _color = (UINT32) color;
@@ -58,6 +58,7 @@ void AccentColor::Refresh() {
 
         DWORD color;
         BOOL opaque;
+        /* pfOpaqueBlend always returns true in modern Windows versions */
         HRESULT hr = DwmGetColorizationColor(&color, &opaque);
         if (SUCCEEDED(hr)) {
             _color = color;
@@ -66,8 +67,26 @@ void AccentColor::Refresh() {
     }
 
     /* Our last hope if both methods above failed: */
-    DWORD caption = GetSysColor(COLOR_ACTIVECAPTION);
+    COLORREF crCaption = GetSysColor(COLOR_ACTIVECAPTION);
+    DWORD caption = 0xFF000000 | GetRValue(crCaption) << 16 | GetGValue(crCaption) << 8 | GetBValue(crCaption) << 0;
     _color = caption;
+}
+
+bool AccentColor::LoadColorizationParameter(LPCWSTR lpValueName, DWORD &lpValue) {
+    const wchar_t REGKEY_DWM[] = L"Software\\Microsoft\\Windows\\DWM";
+    HKEY hKey = NULL;
+    LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, REGKEY_DWM, NULL, KEY_READ, &hKey);
+    DWORD cbSize = sizeof(DWORD);
+    DWORD dwValue = 0;
+    if (result == ERROR_SUCCESS) {
+        result = RegQueryValueEx(hKey, lpValueName, NULL, NULL,
+            reinterpret_cast<LPBYTE>(&dwValue), &cbSize);
+        if (result == ERROR_SUCCESS) {
+            lpValue = dwValue;
+        }
+        RegCloseKey(hKey);
+    }
+    return result;
 }
 
 /* WARNING: This method uses an undocumented API. May crash in the future. */
@@ -78,8 +97,13 @@ INT64 AccentColor::ColorizationParamColor() {
         UINT ColorizationColorBalance;
         UINT ColorizationAfterglowBalance;
         UINT ColorizationBlurBalance;
-        UINT ColorizationGlassReflectionIntensity;
-        UINT ColorizationOpaqueBlend;
+        /* 
+         * DwmpReadColorizationParameters doesn't read these
+         * in modern Windows versions, so let's not depend on them
+         *
+         * UINT ColorizationGlassReflectionIntensity;
+         * UINT ColorizationOpaqueBlend;
+         */
     };
 
     if (_dwmLib == NULL) {
@@ -91,8 +115,7 @@ INT64 AccentColor::ColorizationParamColor() {
         }
     }
 
-    HRESULT(WINAPI *DwmGetColorizationParameters)
-        (DwmColorizationParams *colorParams);
+    HRESULT(WINAPI *DwmGetColorizationParameters)(DwmColorizationParams *colorParams) = nullptr;
     constexpr unsigned short ColorizationParamOrd = 127;
 
     *(FARPROC *) &DwmGetColorizationParameters
@@ -109,5 +132,37 @@ INT64 AccentColor::ColorizationParamColor() {
         return -1;
     }
 
-    return (INT64) params.ColorizationColor;
+    /* Load DWM overrides if present (OpenGlass) */
+    DWORD dwColorizationColorBalance = params.ColorizationColorBalance;
+    DWORD dwColorizationBlurBalance = params.ColorizationBlurBalance;
+    DWORD dwColorizationAfterglowBalance = params.ColorizationAfterglowBalance;
+    LoadColorizationParameter(L"ColorizationColorBalanceOverride", dwColorizationColorBalance);
+    LoadColorizationParameter(L"ColorizationBlurBalanceOverride", dwColorizationBlurBalance);
+    LoadColorizationParameter(L"ColorizationAfterglowBalanceOverride", dwColorizationAfterglowBalance);
+
+    /* Check opaque blend */
+    DWORD dwOpaqueBlend = 0;
+    LoadColorizationParameter(L"ColorizationOpaqueBlend", dwOpaqueBlend);
+
+    /* Convert colorization parameters to ARGB */
+    UINT uBalance = 0;
+    if (dwOpaqueBlend) {
+        uBalance = dwColorizationColorBalance;
+    }
+    else if (dwColorizationBlurBalance < 50) {
+        if (dwColorizationBlurBalance <= 23) {
+            uBalance = dwColorizationColorBalance + 25;
+        }
+        else {
+            uBalance = 95 - dwColorizationAfterglowBalance;
+        }
+    }
+    else {
+        uBalance = 100 - dwColorizationBlurBalance;
+    }
+
+    DWORD dwColor = params.ColorizationColor & 0xFFFFFF |
+        (static_cast<int>((static_cast<float>(uBalance - 10) * 0.75 / 100.0 + 0.1) * 255.0 + 0.5) << 24);
+
+    return (INT64) dwColor;
 }
