@@ -15,35 +15,91 @@ bool Slide::Animate(MeterWnd* meterWnd) {
     if (meterWnd->Bitmap() == nullptr) {
         return false;
     }
+    HMONITOR hMonitor = MonitorFromPoint(_point, MONITOR_DEFAULTTOPRIMARY);
     switch (_direction) {
-        int newPos;
     case SlideToBottom:
-        newPos = meterWnd->Y() + _step;
-        if (newPos > _rect.bottom + meterWnd->Height()) {
-            return true;
+        {
+            long nPos = meterWnd->Y() + _step;
+            long nLimit = _rect.bottom;
+            POINT p1 = { 0, nLimit };
+            POINT p2 = { 0, _rect.top };
+            HMONITOR hAux1 = MonitorFromPoint(p1, MONITOR_DEFAULTTONEAREST);
+            HMONITOR hAux2 = MonitorFromPoint(p2, MONITOR_DEFAULTTONEAREST);
+            if (hMonitor != hAux1 || hMonitor != hAux2) {
+                nLimit = _rect.bottom - meterWnd->Height();
+            }
+            if (nPos > nLimit) {
+                return true;
+            }
+            meterWnd->Y(nPos);
+            for (LayeredWnd *clone : meterWnd->Clones()) {
+                long nClonePos = clone->Y() + _step;
+                clone->Y(nClonePos);
+            }
         }
-        meterWnd->Y(newPos);
         break;
     case SlideToTop:
-        newPos = meterWnd->Y() - _step;
-        if (newPos < _rect.top - meterWnd->Height()) {
-            return true;
+        {
+            long nPos = meterWnd->Y() - _step;
+            long nLimit = _rect.top - meterWnd->Height();
+            POINT p1 = { 0, nLimit };
+            POINT p2 = { 0, _rect.bottom };
+            HMONITOR hAux1 = MonitorFromPoint(p1, MONITOR_DEFAULTTONEAREST);
+            HMONITOR hAux2 = MonitorFromPoint(p2, MONITOR_DEFAULTTONEAREST);
+            if (hMonitor != hAux1 || hMonitor != hAux2) {
+                nLimit = _rect.top;
+            }
+            if (nPos < nLimit) {
+                return true;
+            }
+            meterWnd->Y(nPos);
+            for (LayeredWnd *clone : meterWnd->Clones()) {
+                long nClonePos = clone->Y() - _step;
+                clone->Y(nClonePos);
+            }
         }
-        meterWnd->Y(newPos);
         break;
     case SlideToRight:
-        newPos = meterWnd->X() + _step;
-        if (newPos > _rect.right + meterWnd->Width()) {
-            return true;
+        {
+            long nPos = meterWnd->X() + _step;
+            long nLimit = _rect.right;
+            POINT p1 = { nLimit, 0 };
+            POINT p2 = { _rect.left, 0 };
+            HMONITOR hAux1 = MonitorFromPoint(p1, MONITOR_DEFAULTTONEAREST);
+            HMONITOR hAux2 = MonitorFromPoint(p2, MONITOR_DEFAULTTONEAREST);
+            if (hMonitor != hAux1 || hMonitor != hAux2) {
+                nLimit = _rect.right - meterWnd->Width();
+            }
+            if (nPos > nLimit) {
+                return true;
+            }
+            meterWnd->X(nPos);
+            for (LayeredWnd *clone : meterWnd->Clones()) {
+                long nClonePos = clone->X() + _step;
+                clone->X(nClonePos);
+            }
         }
-        meterWnd->X(newPos);
         break;
-    case SlideToLeft:        
-        newPos = meterWnd->X() - _step;
-        if (newPos < _rect.left - meterWnd->Width()) {
-            return true;
+    case SlideToLeft:
+        {
+            long nPos = meterWnd->X() - _step;
+            long nLimit = _rect.left - meterWnd->Width();
+            POINT p1 = { nLimit, 0 };
+            POINT p2 = { _rect.right, 0 };
+            HMONITOR hAux1 = MonitorFromPoint(p1, MONITOR_DEFAULTTONEAREST);
+            HMONITOR hAux2 = MonitorFromPoint(p2, MONITOR_DEFAULTTONEAREST);
+            if (hMonitor != hAux1 || hMonitor != hAux2) {
+                nLimit = _rect.left;
+            }
+            if (nPos < nLimit) {
+                return true;
+            }
+            meterWnd->X(nPos);
+            for (LayeredWnd *clone : meterWnd->Clones()) {
+                long nClonePos = clone->X() - _step;
+                clone->X(nClonePos);
+            }
         }
-        meterWnd->X(newPos);
         break;
     }
     meterWnd->Update();
@@ -60,32 +116,42 @@ void Slide::Init(MeterWnd* meterWnd) {
         return;
     }
     _point = { meterWnd->X(), meterWnd->Y() };
-    HMONITOR monitor = MonitorFromPoint(_point, MONITOR_DEFAULTTONEAREST);
+    _clonePoints.clear();
+    for (LayeredWnd *clone : meterWnd->Clones()) {
+        POINT p = { clone->X(), clone->Y() };
+        _clonePoints.push_back(p);
+    }
+    HMONITOR monitor = MonitorFromPoint(_point, MONITOR_DEFAULTTOPRIMARY);
     MONITORINFO mInfo = {};
     mInfo.cbSize = sizeof(mInfo);
     GetMonitorInfo(monitor, &mInfo);
-    _rect = mInfo.rcWork;
+    RECT rcWork = mInfo.rcWork;
+    _rect = mInfo.rcMonitor;
 
     /* Get closest edge */
-    int iRight = _rect.right - meterWnd->X() - meterWnd->Width();
-    int iLeft = _rect.left + meterWnd->X();
-    int iBottom = _rect.bottom - meterWnd->Y();
-    int iTop = _rect.top + meterWnd->Y() + meterWnd->Height();
+    long sides[] = {
+        rcWork.bottom - meterWnd->Y(),
+        rcWork.top + meterWnd->Y() + meterWnd->Height(),
+        rcWork.right - meterWnd->X() - meterWnd->Width(),
+        rcWork.left + meterWnd->X()
+    };
 
-    _distance = iBottom;
-    _direction = SlideToBottom;
-    if (iTop < _distance) {
-        _distance = iTop;
-        _direction = SlideToTop;
+    long distances[] = {
+        _rect.bottom - meterWnd->Y(),
+        _rect.top + meterWnd->Y() + meterWnd->Height(),
+        _rect.right - meterWnd->X() - meterWnd->Width(),
+        _rect.left + meterWnd->X()
+    };
+
+    long nSide = sides[0];
+    for (int i = 1; i < 4; i++) {
+        if (sides[i] < nSide) {
+            nSide = sides[i];
+            _direction = static_cast<SlideDirection>(i);
+        }
     }
-    if (iRight < _distance) {
-        _distance = iRight;
-        _direction = SlideToRight;
-    }
-    if (iLeft < _distance) {
-        _distance = iLeft;
-        _direction = SlideToLeft;
-    }
+
+    _distance = distances[_direction];
 
     int bestError = _distance;
     int bestInterval = 8;
@@ -115,6 +181,12 @@ void Slide::Reset(MeterWnd* meterWnd) {
     _ticks = 0;
     meterWnd->X(_point.x);
     meterWnd->Y(_point.y);
+    int nIndex = 0;
+    for (LayeredWnd *clone : meterWnd->Clones()) {
+        clone->X(_clonePoints.at(nIndex).x);
+        clone->Y(_clonePoints.at(nIndex).y);
+        nIndex++;
+    }
     meterWnd->Update();
 }
 

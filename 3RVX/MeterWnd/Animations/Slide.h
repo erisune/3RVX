@@ -4,6 +4,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <vector>
 
 #include "../Animation.h"
 
@@ -25,6 +26,7 @@ private:
     };
     SlideDirection _direction;
     POINT _point;
+    std::vector<POINT> _clonePoints;
     RECT _rect;
     int _distance;
     int _interval;
