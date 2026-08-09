@@ -24,7 +24,8 @@ Monitor DisplayManager::Primary() {
     const POINT p = { 0, 0 };
     HMONITOR monitor = MonitorFromPoint(p, MONITOR_DEFAULTTOPRIMARY);
     MONITORINFO mInfo = Info(monitor);
-    return Monitor(monitor, L"Primary", mInfo.rcMonitor);
+    DEVICEINFO dInfo = DeviceInfo(monitor);
+    return Monitor(monitor, L"Primary", dInfo.friendlyName, dInfo.devicePath, mInfo.rcMonitor);
 }
 
 Monitor DisplayManager::MonitorAtPoint(POINT &pt, bool workingArea) {
@@ -32,10 +33,11 @@ Monitor DisplayManager::MonitorAtPoint(POINT &pt, bool workingArea) {
     HMONITOR monitor = MonitorFromPoint(pt, MONITOR_DEFAULTTONULL);
     if (monitor != NULL) {
         MONITORINFO mInfo = Info(monitor);
+        DEVICEINFO dInfo = DeviceInfo(monitor);
         if (workingArea) {
-            return Monitor(monitor, L"Monitor@Point", mInfo.rcWork);
+            return Monitor(monitor, L"Monitor@Point", dInfo.friendlyName, dInfo.devicePath, mInfo.rcWork);
         } else {
-            return Monitor(monitor, L"Monitor@Point", mInfo.rcMonitor);
+            return Monitor(monitor, L"Monitor@Point", dInfo.friendlyName, dInfo.devicePath, mInfo.rcMonitor);
         }
     }
 
@@ -47,10 +49,11 @@ Monitor DisplayManager::MonitorAtWindow(HWND hWnd, bool workingArea) {
     HMONITOR monitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONULL);
     if (monitor != NULL) {
         MONITORINFO mInfo = Info(monitor);
+        DEVICEINFO dInfo = DeviceInfo(monitor);
         if (workingArea) {
-            return Monitor(monitor, L"Monitor@Window", mInfo.rcWork);
+            return Monitor(monitor, L"Monitor@Window", dInfo.friendlyName, dInfo.devicePath, mInfo.rcWork);
         } else {
-            return Monitor(monitor, L"Monitor@Window", mInfo.rcMonitor);
+            return Monitor(monitor, L"Monitor@Window", dInfo.friendlyName, dInfo.devicePath, mInfo.rcMonitor);
         }
     }
 
@@ -133,6 +136,61 @@ MONITORINFO DisplayManager::Info(HMONITOR monitor) {
     return mInfo;
 }
 
+DisplayManager::DEVICEINFO DisplayManager::DeviceInfo(HMONITOR hMonitor) {
+    DEVICEINFO dInfo = {};
+    MONITORINFOEXW mInfo = {};
+    mInfo.cbSize = sizeof(mInfo);
+    GetMonitorInfo(hMonitor, &mInfo);
+
+    UINT32 nPaths;
+    UINT32 nModes;
+    GetDisplayConfigBufferSizes(QDC_ONLY_ACTIVE_PATHS, &nPaths, &nModes);
+    std::vector<DISPLAYCONFIG_PATH_INFO> paths(nPaths);
+    std::vector<DISPLAYCONFIG_MODE_INFO> modes(nModes);
+    QueryDisplayConfig(QDC_ONLY_ACTIVE_PATHS, &nPaths, paths.data(), &nModes, modes.data(), NULL);
+
+    for (DISPLAYCONFIG_PATH_INFO &path : paths) {
+        DISPLAYCONFIG_SOURCE_DEVICE_NAME dcSource = {};
+        dcSource.header.type = DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME;
+        dcSource.header.size = sizeof(DISPLAYCONFIG_SOURCE_DEVICE_NAME);
+        dcSource.header.adapterId = path.sourceInfo.adapterId;
+        dcSource.header.id = path.sourceInfo.id;
+
+        if (DisplayConfigGetDeviceInfo(&dcSource.header) == ERROR_SUCCESS) {
+            if (wcscmp(mInfo.szDevice, dcSource.viewGdiDeviceName) == 0) {
+                DISPLAYCONFIG_TARGET_DEVICE_NAME dcTarget = {};
+                dcTarget.header.type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME;
+                dcTarget.header.size = sizeof(DISPLAYCONFIG_TARGET_DEVICE_NAME);
+                dcTarget.header.adapterId = path.sourceInfo.adapterId;
+                dcTarget.header.id = path.targetInfo.id;
+
+                if (DisplayConfigGetDeviceInfo(&dcTarget.header) == ERROR_SUCCESS) {
+                    dInfo.devicePath = dcTarget.monitorDevicePath;
+                    std::wstring friendlyName = dcTarget.monitorFriendlyDeviceName;
+                    if (!friendlyName.empty()) {
+                        std::wstring deviceName = mInfo.szDevice;
+                        dInfo.friendlyName = friendlyName + L" (#" + deviceName.substr(11, -1) + L")";
+                        return dInfo;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Fallback, get generic name */
+    DISPLAY_DEVICE dd = {};
+    dd.cb = sizeof(DISPLAY_DEVICE);
+    if (EnumDisplayDevices(mInfo.szDevice, 0, &dd, NULL)) {
+        std::wstring deviceString = dd.DeviceString;
+        std::wstring deviceName = mInfo.szDevice;
+        dInfo.friendlyName = deviceString + L" (#" + deviceName.substr(11, -1) + L")";
+        return dInfo;
+    }
+
+    dInfo.friendlyName = mInfo.szDevice;
+    return dInfo;
+}
+
 std::list<DISPLAY_DEVICE> DisplayManager::ListAllDevices() {
     std::list<DISPLAY_DEVICE> devs;
     DISPLAY_DEVICE dev = {};
@@ -153,7 +211,8 @@ BOOL CALLBACK DisplayManager::MonitorEnumProc(
     GetMonitorInfo(hMonitor, &mInfo);
 
     std::wstring monitorName = std::wstring(mInfo.szDevice);
-    Monitor mon(hMonitor, monitorName, mInfo.rcMonitor);
+    DEVICEINFO dInfo = DeviceInfo(hMonitor);
+    Monitor mon(hMonitor, monitorName, dInfo.friendlyName, dInfo.devicePath, mInfo.rcMonitor);
     monitorMap[monitorName] = mon;
 
     return TRUE;

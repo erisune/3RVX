@@ -81,12 +81,14 @@ void Display::LoadSettings() {
     _edgeSpinner->Range(MIN_EDGE, MAX_EDGE);
 
     /* Display Devices */
+    DisplayManager::UpdateMonitorMap();
     _displayDevice->AddItem(_primaryMonitorStr);
     _displayDevice->AddItem(_allMonitorStr);
     std::list<DISPLAY_DEVICE> devices = DisplayManager::ListAllDevices();
     for (DISPLAY_DEVICE dev : devices) {
         std::wstring devString(dev.DeviceName);
-        _displayDevice->AddItem(devString);
+        Monitor monitor = DisplayManager::MonitorMap().at(devString);
+        _displayDevice->AddItem(monitor.FriendlyName());
     }
     std::wstring monitorName = settings->Monitor();
     if (monitorName == L"") {
@@ -94,7 +96,9 @@ void Display::LoadSettings() {
     } else if (monitorName == L"*") {
         monitorName = _allMonitorStr;
     }
-    _displayDevice->Select(monitorName);
+    if (_displayDevice->Select(monitorName) == CB_ERR) {
+        _displayDevice->Select(1);
+    }
 
     /* Animation Settings */
     for (std::wstring anim : AnimationTypes::HideAnimationNames) {

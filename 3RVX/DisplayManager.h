@@ -23,7 +23,12 @@ public:
     static bool IsFullscreen(HWND hWnd);
     static bool Direct3DOccluded(HWND hWnd);
 private:
+    struct DEVICEINFO {
+        std::wstring friendlyName;
+        std::wstring devicePath;
+    };
     static MONITORINFO Info(HMONITOR monitor);
+    static DEVICEINFO DeviceInfo(HMONITOR hMonitor);
     static const int Width(HMONITOR monitor);
     static const int Height(HMONITOR monitor);
     static RECT Rect(HMONITOR monitor);

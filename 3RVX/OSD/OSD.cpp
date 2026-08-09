@@ -76,10 +76,19 @@ std::vector<Monitor> OSD::ActiveMonitors() {
             = DisplayManager::MonitorMap();
 
         for (auto it = map.begin(); it != map.end(); ++it) {
-            if (monitorStr == it->first) {
+            /* Kept for compatibility with older configs */
+            if (monitorStr == it->second.FriendlyName() || monitorStr == it->first) {
                 CLOG(L"Monitor: %s", it->first.c_str());
                 monitors.push_back(it->second);
                 break;
+            }
+        }
+
+        /* Fallback */
+        if (monitors.empty()) {
+            for (auto it = map.begin(); it != map.end(); ++it) {
+                CLOG(L"Monitor: %s", it->first.c_str());
+                monitors.push_back(it->second);
             }
         }
     }

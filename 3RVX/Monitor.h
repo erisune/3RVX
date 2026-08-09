@@ -16,9 +16,12 @@ public:
     }
 
     Monitor(HMONITOR handle, std::wstring name,
+        std::wstring friendlyName, std::wstring devicePath,
         int x, int y, int width, int height) :
     _handle(handle),
     _name(name),
+    _friendlyName(friendlyName),
+    _devicePath(devicePath),
     _x(x),
     _y(y),
     _width(width),
@@ -26,9 +29,13 @@ public:
 
     }
 
-    Monitor(HMONITOR handle, std::wstring name, RECT rect) :
+    Monitor(HMONITOR handle, std::wstring name,
+        std::wstring friendlyName, std::wstring devicePath,
+        RECT rect) :
     _handle(handle),
     _name(name),
+    _friendlyName(friendlyName),
+    _devicePath(devicePath),
     _x(rect.left),
     _y(rect.top),
     _width(rect.right - rect.left),
@@ -60,9 +67,19 @@ public:
         return _name;
     }
 
+    std::wstring FriendlyName() {
+        return _friendlyName;
+    }
+
+    std::wstring DevicePath() {
+        return _devicePath;
+    }
+
 private:
     HMONITOR _handle;
     std::wstring _name;
+    std::wstring _friendlyName;
+    std::wstring _devicePath;
     int _x;
     int _y;
     int _width;
