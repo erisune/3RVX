@@ -56,6 +56,7 @@ public:
     static const int HideSpeed = 765;
     static const int HideTime = 800;
     static constexpr const float VolumeLimit = 1.0f;
+    static const bool ForceVolumeLimit = false;
     static const bool ShowOnStartup = true;
     static const bool SoundsEnabled = true;
     static const bool GlassEnabled = true;

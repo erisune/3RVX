@@ -226,6 +226,14 @@ void Settings::VolumeLimiter(float limit) {
     SetElementValue(XML_VOLUME_LIMITER, limit);
 }
 
+bool Settings::ForceVolumeLimit() {
+    return GetEnabled(XML_FORCELIMIT, DefaultSettings::ForceVolumeLimit);
+}
+
+void Settings::ForceVolumeLimit(bool enable) {
+    SetEnabled(XML_FORCELIMIT, enable);
+}
+
 bool Settings::MuteOnLock() {
     return GetEnabled(XML_MUTELOCK, DefaultSettings::MuteLock);
 }

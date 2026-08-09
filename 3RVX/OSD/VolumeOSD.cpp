@@ -515,6 +515,15 @@ void VolumeOSD::OnVolumeChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
     float v = _volumeCtrl->Volume();
     bool muteState = _volumeCtrl->Muted();
 
+    if (_settings->ForceVolumeLimit()) {
+        float rv = VolumeTransformation::ApplyTransformations(_volumeTransformations, v);
+        float lim = _settings->VolumeLimiter();
+        if (rv >= lim) {
+            /* Any transformations here will be applied by the volume controller */
+            _volumeCtrl->Volume(1.0f);
+        }
+    }
+
     if (_validSlider) {
         _volumeSlider->MeterLevels(v);
     }

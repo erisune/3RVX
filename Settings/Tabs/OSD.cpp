@@ -203,6 +203,7 @@ void OSD::LoadSettings() {
     _volumeShow->Checked(settings->ShowVolumeOSD());
     _subscribeVolEvents->Checked(settings->SubscribeVolumeEvents());
     _limitSlider->Position((int) (settings->VolumeLimiter() * 100.0f));
+    _forceLimit->Checked(settings->ForceVolumeLimit());
     _muteLock->Checked(settings->MuteOnLock());
 
     _microphoneIcon->Checked(settings->MicrophoneIconEnabled());
@@ -254,6 +255,7 @@ void OSD::SaveSettings() {
         settings->VolumeCurveAdjustment(_audioTaper->SelectionIndex() * 2);
     }
     settings->VolumeLimiter(((float) _limitSlider->Position()) / 100.0f);
+    settings->ForceVolumeLimit(_forceLimit->Checked());
     settings->MuteOnLock(_muteLock->Checked());
 
     settings->MicrophoneIconEnabled(_microphoneIcon->Checked());

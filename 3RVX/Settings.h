@@ -127,6 +127,8 @@ public:
     void VolumeCurveAdjustment(int value);
     float VolumeLimiter();
     void VolumeLimiter(float limit);
+    bool ForceVolumeLimit();
+    void ForceVolumeLimit(bool enable);
     bool VolumeIconEnabled();
     void VolumeIconEnabled(bool enable);
 
@@ -264,6 +266,7 @@ private:
     static constexpr const char *XML_ENABLE_KOSD = "keyboardOSDEnabled";
     static constexpr const char *XML_ENABLE_MOSD = "micOSDEnabled";
     static constexpr const char *XML_ENABLE_VOSD = "volumeOSDEnabled";
+    static constexpr const char *XML_FORCELIMIT = "forceVolumeLimit";
     static constexpr const char *XML_HIDE_WHENFULL = "hideFullscreen";
     static constexpr const char *XML_HIDE_DIRECTX = "hideDirectX";
     static constexpr const char *XML_HIDEANIM = "hideAnimation";
