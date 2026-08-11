@@ -140,10 +140,6 @@ bool LayeredWnd::EnableGlass(Gdiplus::Bitmap *mask) {
         return false;
     }
 
-    if (_glassMask) {
-        delete _glassMask;
-    }
-
     Gdiplus::Rect maskRect(0, 0, mask->GetWidth(), mask->GetHeight());
     _glassMask = mask->Clone(maskRect, PixelFormat32bppARGB);
 

@@ -21,6 +21,9 @@ LayeredWnd(className, title, hInstance, NULL, WINDOW_STYLES) {
 MeterWnd::~MeterWnd() {
     delete _hideAnimation;
     delete _composite;
+    if (_backdrop) {
+        delete _backdrop;
+    }
     DeleteClones();
 }
 
@@ -49,7 +52,16 @@ void MeterWnd::Update(bool forceUpdate) {
         }
 
         Rect bgRect(0, 0, _background->GetWidth(), _background->GetHeight());
-        _composite = _background->Clone(bgRect, PixelFormat32bppARGB);
+
+        if (!_settings->GlassEffectsEnabled()) {
+            _composite = _backdrop->Clone(bgRect, PixelFormat32bppARGB);
+        } else {
+            if (_backdrop) {
+                delete _backdrop;
+            }
+            _composite = _background->Clone(bgRect, PixelFormat32bppARGB);
+        }
+
         Graphics graphics(_composite);
 
         for (Meter *meter : _meters) {
@@ -115,25 +127,21 @@ bool MeterWnd::DrawBackdrop(Gdiplus::Bitmap *mask) {
     if (mask == NULL) {
         return false;
     }
-    /* Saving in case of accent color updates */
-    if (_buffer == NULL) {
-        _buffer = _background;
-    } else {
-        delete _background;
-        _background = _buffer;
+
+    if (_backdrop) {
+        delete _backdrop;
     }
-    HRGN maskRegion = GetMaskRegion(mask);
-    Gdiplus::Region region(maskRegion);
-    DeleteObject(maskRegion);
+
+    /* Saving in case of accent color updates */
     Gdiplus::Rect rect(0, 0, mask->GetWidth(), mask->GetHeight());
-    Gdiplus::Bitmap *backdrop = mask->Clone(rect, PixelFormat32bppARGB);
-    Gdiplus::Graphics g(backdrop);
-    g.Clear(Gdiplus::Color::Transparent);
+    if (!_glassMask) {
+        _glassMask = mask->Clone(rect, PixelFormat32bppARGB);
+    }
+    _backdrop = mask->Clone(rect, PixelFormat32bppARGB);
 
     UINT32 accentColor;
     if (_settings->UseAccentColor()) {
         /* Get accent color for backdrop */
-        AccentColor::Instance()->Refresh();
         accentColor = AccentColor::Instance()->Color();
     } else {
         accentColor = 0xFF0A0A0A;
@@ -143,13 +151,23 @@ bool MeterWnd::DrawBackdrop(Gdiplus::Bitmap *mask) {
     /* Modify alpha based on user settings */
     alpha &= 0x80;
     accentColor = (accentColor & 0x00FFFFFF) | (alpha << 24);
-        
-    Gdiplus::Color color = Gdiplus::ARGB(accentColor);
-    Gdiplus::SolidBrush brush(accentColor);
-    g.FillRegion(&brush, &region);
-    g.DrawImage(_background, rect);
-    _background = backdrop->Clone(rect, PixelFormat32bppARGB);
-    delete backdrop;
+
+    /* Faster than calculating region */
+    Gdiplus::ColorMap remapTable[2];
+    remapTable[0].oldColor = 0xFF000000;
+    remapTable[0].newColor = accentColor;
+    remapTable[1].oldColor = 0xFFFFFFFF;
+    remapTable[1].newColor = 0x00FFFFFF;
+
+    Gdiplus::ImageAttributes imageAttribs;
+    imageAttribs.SetRemapTable(2, remapTable);
+
+    Gdiplus::Graphics graphics(_backdrop);
+    graphics.Clear(0x00FFFFFF);
+    graphics.DrawImage(mask, rect, 0, 0, mask->GetWidth(), mask->GetHeight(), 
+        Gdiplus::UnitPixel, &imageAttribs, NULL, NULL);
+    graphics.DrawImage(_background, rect);
+
     return true;
 }
 

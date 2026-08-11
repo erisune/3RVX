@@ -52,7 +52,7 @@ protected:
 
     Gdiplus::Bitmap *_background;
 
-    Gdiplus::Bitmap *_buffer;
+    Gdiplus::Bitmap *_backdrop;
 
     RECT *_dirtyRect;
 
