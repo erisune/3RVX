@@ -252,6 +252,9 @@ void BrightnessOSD::ProcessBrightnessHotkeys(HotkeyInfo &hki) {
 void BrightnessOSD::UpdateBrightnessState() {
     float b = _brightnessCtrl->Brightness();
     MeterLevels(b);
+    if (_validSlider) {
+        _brightnessSlider->MeterLevels(b);
+    }
     UpdateIcon();
 }
 
@@ -320,7 +323,7 @@ void BrightnessOSD::OnBrightnessChange(HWND hWnd, WPARAM wParam, LPARAM lParam) 
 
     UpdateIcon();
 
-    if (!_brightnessSlider->Visible()) {
+    if (!_validSlider || (_validSlider && !_brightnessSlider->Visible())) {
         MeterLevels(b);
         Show();
 

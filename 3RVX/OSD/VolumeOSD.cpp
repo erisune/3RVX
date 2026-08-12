@@ -552,7 +552,7 @@ void VolumeOSD::OnVolumeChange(HWND hWnd, WPARAM wParam, LPARAM lParam) {
     _lastVolume = v;
     _muted = muteState;
 
-    if (_volumeSlider->Visible() == false) {
+    if (!_validSlider || (_validSlider && !_volumeSlider->Visible())) {
         if (_volumeCtrl->Muted() || v == 0.0f) {
             Show(true);
         } else {
