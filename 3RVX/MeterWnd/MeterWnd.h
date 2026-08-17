@@ -36,7 +36,7 @@ public:
     void MeterLevels(float value);
     float MeterLevels();
 
-    void HideAnimation(AnimationTypes::HideAnimation anim, int speed);
+    void HideAnimation(AnimationTypes::HideAnimation anim, int speed, int opacity);
     void VisibleDuration(int duration);
 
     void BackgroundImage(Gdiplus::Bitmap *background);

@@ -101,9 +101,9 @@ void MeterWnd::MeterLevels(float value) {
     }
 }
 
-void MeterWnd::HideAnimation(AnimationTypes::HideAnimation anim, int speed) {
+void MeterWnd::HideAnimation(AnimationTypes::HideAnimation anim, int speed, int opacity) {
     delete _hideAnimation;
-    _hideAnimation = AnimationFactory::Create(anim, speed);
+    _hideAnimation = AnimationFactory::Create(anim, speed, opacity);
 }
 
 void MeterWnd::VisibleDuration(int duration) {

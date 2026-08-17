@@ -7,12 +7,16 @@
 #include "..\MeterWnd.h"
 #include "..\..\Logger.h"
 
-FadeOut::FadeOut(int speed) :
-Animation(speed) {
+FadeOut::FadeOut(int speed, int opacity) :
+Animation(speed, opacity) {
     _initialized = false;
+    _opacity = opacity;
 }
 
 bool FadeOut::Animate(MeterWnd *meterWnd) {
+    if (!_initialized) {
+        Init(meterWnd);
+    }
     byte current = meterWnd->Transparency();
     int newTrans = current - _step;
     if (newTrans < 0) {
@@ -25,7 +29,6 @@ bool FadeOut::Animate(MeterWnd *meterWnd) {
 }
 
 void FadeOut::Init(MeterWnd* meterWnd) {
-    _opacity = meterWnd->Transparency();
     /* Determine the best step/interval combination that gets us a nice linear
      * animation without being excessively early or late (based on the speed) */
     int bestError = _opacity;
@@ -46,7 +49,7 @@ void FadeOut::Init(MeterWnd* meterWnd) {
 
 void FadeOut::Reset(MeterWnd *meterWnd) {
     if (!_initialized) {
-        FadeOut::Init(meterWnd);
+        Init(meterWnd);
     }
     meterWnd->Transparency(_opacity);
 }

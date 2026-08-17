@@ -5,13 +5,13 @@
 #include "AnimationFactory.h"
 
 Animation *AnimationFactory::Create(
-        AnimationTypes::HideAnimation anim, int speed) {
+        AnimationTypes::HideAnimation anim, int speed, int opacity) {
 
     Animation *animation;
 
     switch (anim) {
     case AnimationTypes::Fade:
-        animation = new FadeOut(speed);
+        animation = new FadeOut(speed, opacity);
         break;
 
     case AnimationTypes::Slide:

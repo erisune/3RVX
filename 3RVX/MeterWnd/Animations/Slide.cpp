@@ -7,7 +7,7 @@
 #include "..\..\Logger.h"
 
 Slide::Slide(int speed) :
-    Animation(speed) {
+    Animation(speed, 0) {
     _initialized = false;
 }
 
@@ -174,7 +174,7 @@ void Slide::Reset(MeterWnd* meterWnd) {
         return;
     }
     if (!_initialized) {
-        Slide::Init(meterWnd);
+        Init(meterWnd);
     } else {
         _step = max(_distance / (2 * max(_speed / _interval, 1)), 1);
     }

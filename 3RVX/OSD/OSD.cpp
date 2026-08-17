@@ -33,7 +33,7 @@ void OSD::HideOthers(OSDType except = All) {
 
 void OSD::InitMeterWnd(MeterWnd &mWnd) {
     mWnd.AlwaysOnTop(_settings->AlwaysOnTop());
-    mWnd.HideAnimation(_settings->HideAnim(), _settings->HideSpeed());
+    mWnd.HideAnimation(_settings->HideAnim(), _settings->HideSpeed(), _settings->Opacity());
     mWnd.VisibleDuration(_settings->HideDelay());
 
     mWnd.NoShowFullscreen(_settings->HideFullscreen());

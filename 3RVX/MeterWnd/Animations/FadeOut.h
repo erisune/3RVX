@@ -10,7 +10,7 @@
 
 class FadeOut : public Animation {
 public:
-    FadeOut(int speed);
+    FadeOut(int speed, int opacity);
 
     virtual bool Animate(MeterWnd *meterWnd);
     virtual void Reset(MeterWnd *meterWnd);

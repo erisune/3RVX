@@ -8,8 +8,9 @@ class MeterWnd;
 
 class Animation {
 public:
-    Animation(int speed) :
-        _speed(speed) {
+    Animation(int speed, int opacity) :
+        _speed(speed),
+        _opacity(opacity) {
 
     }
 
@@ -20,4 +21,5 @@ public:
 
 protected:
     int _speed;
+    int _opacity;
 };
