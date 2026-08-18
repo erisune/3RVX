@@ -7,66 +7,93 @@
 #include "../../Monitor.h"
 #include "../../Logger.h"
 
-DDCBrightnessController::DDCBrightnessController(HWND hWnd, HMONITOR monitor) {
-    BOOL result;
-    DWORD numPhysicalMonitors = 0;
-    result = GetNumberOfPhysicalMonitorsFromHMONITOR(
-        monitor, &numPhysicalMonitors);
-
-    if (result == FALSE || numPhysicalMonitors <= 0) {
-        CLOG(L"Could not get physical monitors");
-        _useBrightnessAPI = false;
-        return;
-    }
-
-    CLOG(L"Number of physical monitors detected: %d", numPhysicalMonitors);
-    PHYSICAL_MONITOR *monitors = new PHYSICAL_MONITOR[numPhysicalMonitors];
-    result = GetPhysicalMonitorsFromHMONITOR(
-        monitor, numPhysicalMonitors, monitors);
-    for (unsigned int i = 0; i < numPhysicalMonitors; ++i) {
-        CLOG(L"Monitor: %s", monitors[i].szPhysicalMonitorDescription);
-        _useBrightnessAPI = SupportsBrightnessAPI(monitors[i]);
-        QCLOG(L"Supports *MonitorBrightness APIs: %s",
-            _useBrightnessAPI ? L"YES" : L"NO");
-        if (_useBrightnessAPI) {
-            /* For now, we use the first compatible monitor found. */
-            _monitorHandle = monitors[i].hPhysicalMonitor;
-            break;
-        }
-    }
-    delete[] monitors;
+DDCBrightnessController::DDCBrightnessController(HWND hWnd) {
+    DetectCapableMonitors();
 
     if (_useBrightnessAPI) {
         _notifyHwnd = hWnd;
-        InitializeBrightnessValues();
     }
 }
 
 DDCBrightnessController::DDCBrightnessController(HWND hWnd, Monitor &monitor) :
-DDCBrightnessController(hWnd, monitor.Handle()) {
-
+DDCBrightnessController(hWnd) {
+    /* TODO: Rework this for specific monitors */
 }
 
 DDCBrightnessController::~DDCBrightnessController() {
-    DestroyPhysicalMonitor(_monitorHandle);
+    for (CapableMonitor monitor : _capableMonitors) {
+        DestroyPhysicalMonitor(monitor.hPhysicalMonitor);
+    }
+    _capableMonitors.clear();
 }
 
-void DDCBrightnessController::InitializeBrightnessValues() {
+void DDCBrightnessController::DetectCapableMonitors() {
+    BOOL result = FALSE;
+    /* Assuming that the monitor map is already initialized by now */
+    for (std::pair<const std::wstring, Monitor> &pair : DisplayManager::MonitorMap()) {
+        Monitor monitor = pair.second;
+        DWORD numPhysicalMonitors = 0;
+        result = GetNumberOfPhysicalMonitorsFromHMONITOR(
+            monitor.Handle(), &numPhysicalMonitors);
+
+        if (result == FALSE || numPhysicalMonitors <= 0) {
+            CLOG(L"Could not get physical monitors");
+            continue; /* Next! */
+        }
+
+        CLOG(L"Number of physical monitors detected: %d", numPhysicalMonitors);
+        PHYSICAL_MONITOR *monitors = new PHYSICAL_MONITOR[numPhysicalMonitors];
+        result = GetPhysicalMonitorsFromHMONITOR(
+            monitor.Handle(), numPhysicalMonitors, monitors);
+        for (unsigned int i = 0; i < numPhysicalMonitors; ++i) {
+            CLOG(L"Monitor: %s", monitors[i].szPhysicalMonitorDescription);
+            bool bUseBrightnessAPI = SupportsBrightnessAPI(monitors[i]);
+            QCLOG(L"Supports *MonitorBrightness APIs: %s",
+                bUseBrightnessAPI ? L"YES" : L"NO");
+            if (bUseBrightnessAPI) {
+                CapableMonitor mon = { 0 };
+                /* Before, we used the first compatible monitor found. */
+                /* And now, we use every compatible monitor handle available */
+                mon.hPhysicalMonitor = monitors[i].hPhysicalMonitor;
+                InitializeBrightnessValues(mon);
+                _capableMonitors.push_back(mon);
+                break;
+            }
+        }
+        delete[] monitors;
+    }
+
+    _useBrightnessAPI = !_capableMonitors.empty();
+
+    ReadMinimumBrightnessFromCapableMonitors();
+}
+
+void DDCBrightnessController::InitializeBrightnessValues(CapableMonitor &monitor) {
     DWORD dwMin, dwCur, dwMax;
-    BOOL result = GetMonitorBrightness(_monitorHandle, &dwMin, &dwCur, &dwMax);
+    BOOL result = GetMonitorBrightness(monitor.hPhysicalMonitor, &dwMin, &dwCur, &dwMax);
     if (result == FALSE) {
         Logger::LogLastError();
     }
     /* I'm using a variable to store the current brightness value
      * because GetMonitorBrightness is a little slow. */
-    _minBrightness = dwMin;
-    _curBrightness = dwCur;
-    _maxBrightness = dwMax;
+    monitor.dwMinBrightness = dwMin;
+    monitor.dwCurBrightness = dwCur;
+    monitor.dwMaxBrightness = dwMax;
     CLOG(L"Got brightness: [%d, %d] %d", dwMin, dwMax, dwCur);
 }
 
+void DDCBrightnessController::ReadMinimumBrightnessFromCapableMonitors() {
+    /* Should only be called when initializing the controller */
+    float fBrightness = 1.0f;
+    for (CapableMonitor &m : _capableMonitors) {
+        float fMonitorBrightness = static_cast<float>((m.dwCurBrightness - m.dwMinBrightness)) / (m.dwMaxBrightness - m.dwMinBrightness);
+        fBrightness = min(fBrightness, fMonitorBrightness);
+    }
+    _brightness = fBrightness;
+}
+
 float DDCBrightnessController::Brightness() {
-    return static_cast<float>((_curBrightness - _minBrightness)) / (_maxBrightness - _minBrightness);
+    return _brightness;
 }
 
 void DDCBrightnessController::Brightness(float level) {
@@ -77,16 +104,23 @@ void DDCBrightnessController::Brightness(float level) {
         level = 0.0f;
     }
 
+    if (_capableMonitors.empty()) {
+        DetectCapableMonitors();
+    }
+
     if (level == Brightness()) {
         /* No change, don't send DDC command. */
         return;
     }
 
-    DWORD setLevel = static_cast<DWORD>(round((_maxBrightness - _minBrightness) * level));
-    CLOG("Setting brightness level to %d", setLevel);
-    BOOL result = SetMonitorBrightness(_monitorHandle, setLevel);
+    BOOL result = false;
+    for (CapableMonitor &m : _capableMonitors) {
+        DWORD setLevel = static_cast<DWORD>(round((m.dwMaxBrightness - m.dwMinBrightness) * level));
+        CLOG("Setting brightness level to %d", setLevel);
+        result = SetMonitorBrightness(m.hPhysicalMonitor, setLevel);
+    }
     if (result) {
-        _curBrightness = setLevel;
+        _brightness = level;
         PostMessage(_notifyHwnd, MSG_BRI_CHNG, static_cast<WPARAM>(1), 0);
     }
 }

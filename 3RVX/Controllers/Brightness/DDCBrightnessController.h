@@ -9,12 +9,13 @@
 #include <Windows.h>
 #include <HighLevelMonitorConfigurationAPI.h>
 #include "BrightnessController.h"
+#include "../../DisplayManager.h"
 
 class Monitor;
 
 class DDCBrightnessController : public BrightnessController {
 public:
-    DDCBrightnessController(HWND hWnd, HMONITOR monitor);
+    DDCBrightnessController(HWND hWnd);
     DDCBrightnessController(HWND hWnd, Monitor &monitor);
     ~DDCBrightnessController();
 
@@ -24,12 +25,18 @@ public:
 
 private:
     HWND _notifyHwnd;
-    HANDLE _monitorHandle;
-    DWORD _minBrightness;
-    DWORD _maxBrightness;
-    DWORD _curBrightness;
+    struct CapableMonitor {
+        HANDLE hPhysicalMonitor;
+        DWORD dwMinBrightness;
+        DWORD dwMaxBrightness;
+        DWORD dwCurBrightness;
+    };
+    std::vector<CapableMonitor> _capableMonitors;
     bool _useBrightnessAPI;
+    float _brightness;
 
-    void InitializeBrightnessValues();
+    void ReadMinimumBrightnessFromCapableMonitors();
+    void DetectCapableMonitors();
+    void InitializeBrightnessValues(CapableMonitor &monitor);
     bool SupportsBrightnessAPI(PHYSICAL_MONITOR &pm);
 };
